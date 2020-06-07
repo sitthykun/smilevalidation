@@ -1,4 +1,4 @@
-from Rule import Rule as ValidationRule
+from Rule import Rule
 from Validator import Validator
 
 rule			= ValidationRule()
