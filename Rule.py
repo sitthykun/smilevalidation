@@ -18,6 +18,7 @@ class Rule:
 		# instance
 		self.__type			= TypeSchema()
 
+		# sample
 		# field
 		self.__emailOne		= self.__type.getString(
 			require= True
@@ -27,38 +28,10 @@ class Rule:
 			, regex= None
 		)
 
-		self.__emailTwo		= self.__type.getString(
-			require= False
-			, maxLength= 125
-			, minLength= 8
-			, unicode= False
-			, regex= '/mail/'
-		)
-
-		self.__currencyOne	= self.__type.getFloat(
-			require= True
-			, min= 21
-			, max= 42
-			, precision= 2
-		)
-
-	def getCurrencyOne(self) -> dict:
-		"""
-
-		:return:
-		"""
-		return self.__currencyOne
-
+	# sample
 	def getEmailOne(self) -> dict:
 		"""
 
 		:return:
 		"""
 		return self.__emailOne
-
-	def getEmailTwo(self) -> dict:
-		"""
-
-		:return:
-		"""
-		return self.__emailTwo
