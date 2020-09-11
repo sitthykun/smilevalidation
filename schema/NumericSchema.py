@@ -14,4 +14,3 @@ class NumericSchema(BaseSchema):
 	keyMaxValue		= 'max_value'
 	keyMinValue		= 'min_value'
 	keyNegative		= 'negative'
-

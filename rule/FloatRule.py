@@ -54,7 +54,7 @@ class FloatRule(NumericRule):
 			foundError	= True
 
 		# precision or tail
-		if foundError or self.__precisionValue is None:
+		if foundError or not self.__precisionValue:
 			pass
 		elif self.validatePrecision() is False:
 			self._addError(

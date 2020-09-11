@@ -28,6 +28,18 @@ class Rule:
 			, regex= None
 		)
 
+		self.__dateOne		= self.__type.getDate(
+			require= True
+			, format= '%Y%m%d'
+		)
+
+	def getDateOne(self) -> dict:
+		"""
+
+		:return:
+		"""
+		return self.__dateOne
+
 	# sample
 	def getEmailOne(self) -> dict:
 		"""

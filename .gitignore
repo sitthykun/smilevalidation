@@ -23,6 +23,11 @@ venv/*
 .idea/
 .idea/*
 
+# vscode
+.vscode
+.vscode/
+.vscode/*
+
 # test
 test
 test/

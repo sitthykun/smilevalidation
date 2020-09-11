@@ -43,7 +43,7 @@ class NumericRule(BaseRule):
 		foundError	= False
 
 		# max
-		if self.__maxValueValue is None:
+		if not self.__maxValueValue:
 			pass
 		elif self.validateMaxValue() is False:
 			self._addError(
@@ -55,7 +55,7 @@ class NumericRule(BaseRule):
 
 		# min
 		if foundError is False:
-			if self.__minValueValue is None:
+			if not self.__minValueValue:
 				pass
 			elif self.validateMinValue() is False:
 				self._addError(
@@ -67,7 +67,7 @@ class NumericRule(BaseRule):
 
 		# negative
 		if foundError is False:
-			if self.__negative is None:
+			if not self.__negative:
 				return True
 			elif self.validateNegative() is False:
 				self._addError(

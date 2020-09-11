@@ -59,7 +59,7 @@ class StringRule(BaseRule):
 
 		# max
 		if foundError is False:
-			if self.__maxLengthValue is None:
+			if not self.__maxLengthValue:
 				pass
 			if self.validateMaxLength() is False:
 				self._addError(
@@ -71,7 +71,7 @@ class StringRule(BaseRule):
 
 		# min
 		if foundError is False:
-			if self.__minLengthValue is None:
+			if not self.__minLengthValue:
 				pass
 			elif self.validateMinLength() is False:
 				self._addError(
@@ -83,7 +83,7 @@ class StringRule(BaseRule):
 
 		# compare min and max for a valid value
 		if foundError is False:
-			if self.__minLengthValue is None or self.__maxLengthValue is None:
+			if not self.__minLengthValue or not self.__maxLengthValue:
 				pass
 			elif self.validateWrongRange() is False:
 				self._addError(
