@@ -42,6 +42,19 @@ class Rule:
 			, regex= None
 		)
 
+	def getEmailTwo(self) -> dict:
+		"""
+
+		:return:
+		"""
+		return self.__type.getString(
+			require= True
+			, maxLength= 55
+			, minLength= 8
+			, unicode= False
+			, regex='^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$'
+		)
+
 	def getCostOne(self) -> dict:
 		"""
 

@@ -5,6 +5,7 @@ Note:
 """
 from typing import Any
 from rule.ComparisonRule import ComparisonRule
+from schema.ComparisonSchema import ComparisonSchema
 
 
 class MatchRule(ComparisonRule):
@@ -12,25 +13,40 @@ class MatchRule(ComparisonRule):
 
 	"""
 
-	def __init__(self, element: dict, value1: Any, value2: Any):
+	def __init__(self, name1: str, value1: Any, name2: str, value2: Any):
 		"""
-		# match and not match cannot be together
-		:param element:
+
+		:param name1:
 		:param value1:
+		:param name2:
 		:param value2:
 		"""
-		super().__init__(element)
+		super().__init__()
 
 		# compare True
 		self.__isMatched	= True
 
-		# value comparison
-		self.__value1		= value1
-		self.__value2		= value2
+		# compare now
+		self.__compare(name1, value1, name2, value2)
 
-	def compare(self) -> bool:
+	def __compare(self, name1: str, value1: Any, name2: str, value2: Any) -> None:
 		"""
-		compare to find true
+
+		:param name1:
+		:param value1:
+		:param name2:
+		:param value2:
 		:return:
 		"""
-		return (self.__value1 is self.__value2) is self.__compareFalse
+		if not((value1 is value2) is self.__isMatched):
+			# add error
+			self._addError(
+				ComparisonSchema.keyMatch
+			)
+
+			# add in detail
+			self._addErrorDetail(
+				ComparisonSchema.keyErrorDetail[
+					ComparisonSchema.keyMatch
+				] + self._suffixErrorMessage(name1, value1, name2, value2, 'Not matched')
+			)

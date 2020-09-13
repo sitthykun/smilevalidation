@@ -26,4 +26,3 @@ class DateTimeSchema(BaseSchema):
 		, keyTime: 'Contained is not a time'
 		, keyDateType: 'Not a datetime type'
 	}
-

@@ -17,6 +17,6 @@ class ComparisonSchema(BaseSchema):
 
 	# translate error
 	keyErrorDetail	= {
-		keyMatch: 'Is matched'
-		, keyNotMatch: 'Not matched'
+		keyMatch: 'Need matched form'
+		, keyNotMatch: 'Need not matched form'
 	}
