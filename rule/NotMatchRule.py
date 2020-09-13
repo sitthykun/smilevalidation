@@ -24,7 +24,7 @@ class NotMatchRule(ComparisonRule):
 		# compare False
 		self.__isMatched	= False
 
-		# value comparision
+		# value comparison
 		self.__value1		= value1
 		self.__value2		= value2
 

@@ -43,9 +43,18 @@ class DateTimeRule(BaseRule):
 		# date
 		if not self.__formatDate:
 			pass
+
 		elif self.validateDate() is False:
+			# add more error
 			self._addError(
 				DateTimeSchema.keyDate
+			)
+
+			# add in detail
+			self._addErrorDetail(
+				DateTimeSchema.keyErrorDetail[
+					DateTimeSchema.keyDate
+				]
 			)
 
 			# found
@@ -55,14 +64,23 @@ class DateTimeRule(BaseRule):
 		if foundError is False:
 			if self.__formatTime is None:
 				pass
+
 			elif self.validateTime() is False:
+				# add more error
 				self._addError(
 					DateTimeSchema.keyTime
 				)
 
+				# add in detail
+				self._addErrorDetail(
+					DateTimeSchema.keyErrorDetail[
+						DateTimeSchema.keyTime
+					]
+				)
+
 	def validateDate(self) -> bool:
 		"""
-		self.element.get(self.__maxValueKey) can default
+
 		isinstance(value, datetime.datetime):
 		:return:
 		"""
@@ -70,29 +88,37 @@ class DateTimeRule(BaseRule):
 			if self.element[DateTimeSchema.keyRule][DateTimeSchema.keyDate] and self.getValue():
 				if self.getValue() <= self.__maxValueValue:
 					return True
+
 				else:
 					return False
+
 			else:
 				return False
+
 		except KeyError as e:
 			return False
+
 		except Exception as e:
 			return False
 
 	def validateTime(self) -> bool:
 		"""
-		self.element.get(self.__minValueKey) can default
+
 		:return:
 		"""
 		try:
 			if self.element[DateTimeSchema.keyRule][DateTimeSchema.keyTime] and self.getValue():
 				if self.getValue() >= self.__minValueValue:
 					return True
+
 				else:
 					return False
+
 			else:
 				return False
+
 		except KeyError as e:
 			return False
+
 		except Exception as e:
 			return False

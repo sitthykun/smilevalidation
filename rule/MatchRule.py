@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 Note:
 """
 from typing import Any
@@ -24,7 +24,7 @@ class MatchRule(ComparisonRule):
 		# compare True
 		self.__isMatched	= True
 
-		# value comparision
+		# value comparison
 		self.__value1		= value1
 		self.__value2		= value2
 

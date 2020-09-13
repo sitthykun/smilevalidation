@@ -25,14 +25,18 @@ class Validator:
 		"""
 
 		"""
+		# element of validation
 		self.__element		= {}
+		# contain each elements' error.
+		# keep only an error of all element's errors
 		self.__error		= {}
-		self.__found		= {}
+		# self.__found		= {}
 
 		# key
-		self.__keyError		= 'error'
-		self.__keyErrorType	= 'error_type'
-		self.__keyName		= 'name'
+		# self.__keyError		= 'error'
+		# self.__keyErrorType	= 'error_type'
+		# self.__keyName		= 'name'
+		self.__keyErrorDetail	= 'detail'
 
 		# form
 		self.__load()
@@ -47,6 +51,7 @@ class Validator:
 		"""
 		self.__error.update({
 			elementName: errorType
+			, self.__keyErrorDetail: f'{errorMessage}'
 		})
 
 	def __addMatchedError(self, elementName: str) -> None:
@@ -106,8 +111,10 @@ class Validator:
 		# by default it returns str
 		try:
 			return element[BaseSchema.keyRule]
+
 		except KeyError as e:
 			return {}
+
 		except Exception as e:
 			return {}
 
@@ -121,8 +128,11 @@ class Validator:
 		# by default it returns str
 		try:
 			return element[BaseSchema.keyRule][StringSchema.keyType]
+
 		except KeyError as e:
 			return StringSchema.keyDataType
+
+
 		except Exception as e:
 			return StringSchema.keyDataType
 
@@ -295,7 +305,7 @@ class Validator:
 						elementName= elementName
 						, elementValue= temp.keyValue
 						, errorType= temp.getError()
-						, errorMessage= ''
+						, errorMessage= temp.getErrorDetail()
 					)
 
 			elif elementType	== FloatSchema.keyDataType:
@@ -316,7 +326,7 @@ class Validator:
 						elementName= elementName
 						, elementValue= temp.keyValue
 						, errorType= temp.getError()
-						, errorMessage= ''
+						, errorMessage= temp.getErrorDetail()
 					)
 
 			elif elementType	== IntegerSchema.keyDataType:
@@ -336,7 +346,7 @@ class Validator:
 						elementName= elementName
 						, elementValue= temp.keyValue
 						, errorType= temp.getError()
-						, errorMessage= ''
+						, errorMessage= temp.getErrorDetail()
 					)
 
 		# if has error, it will return true

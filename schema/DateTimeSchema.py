@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.1.0
 Note:
 """
 from typing import Any
@@ -11,10 +11,19 @@ class DateTimeSchema(BaseSchema):
 	"""
 
 	"""
-	keyDate		= 'date'
-	keyDateTime = 'datetime'
-	keyTime		= 'time'
+	keyDate			= 'date'
+	keyDateTime 	= 'datetime'
+	keyTime			= 'time'
 
 	# data type
 	# d datetime.now(), and type(d)
-	keyDataType	= 'datetime.datetime'
+	keyDateType		= 'datetime.datetime'
+
+	# translate error
+	keyErrorDetail	= {
+		keyDate: 'Contained is not a date'
+		, keyDateTime: 'Contained is not a datetime'
+		, keyTime: 'Contained is not a time'
+		, keyDateType: 'Not a datetime type'
+	}
+

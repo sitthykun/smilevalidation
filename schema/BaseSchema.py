@@ -12,6 +12,7 @@ class BaseSchema:
 	"""
 	# base key
 	# keyEmpty		= 'empty'
+	# keyName			= 'name'
 	keyRequire		= 'require'
 	# rule
 	keyRule			= 'rule'

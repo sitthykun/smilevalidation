@@ -22,18 +22,21 @@ class TypeSchema:
 		# self.__unicode	= UnicodeRule.UnicodeRule()
 		pass
 
-	def __findDateFormat(self) -> bool:
+	def __findDateFormat(self, format: str) -> bool:
 		"""
 
+		:param format:
 		:return:
 		"""
 		found	= False
+		# fmts = ('%Y', '%b %d, %Y', '%b %d, %Y', '%B %d, %Y', '%B %d %Y', '%m/%d/%Y', '%m/%d/%y', '%b %Y', '%B%Y', '%b %d,%Y')
 
 		return found
 
-	def __findTimeFormat(self) -> bool:
+	def __findTimeFormat(self, format: str) -> bool:
 		"""
 
+		:param format:
 		:return:
 		"""
 		found = False
@@ -51,7 +54,7 @@ class TypeSchema:
 
 		# type
 		temp.update({
-			BaseSchema.BaseSchema.keyType: FloatSchema.FloatSchema.keyDataType
+			BaseSchema.BaseSchema.keyType: DateTimeSchema.DateTimeSchema.keyDate
 		})
 
 		# require

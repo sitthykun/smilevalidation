@@ -38,11 +38,25 @@ class IntegerRule(NumericRule):
 
 		:return:
 		"""
+		# if found an error, it will stop checking other error
+		# foundError	= False
+
 		# type
 		if self.validateType() is False:
+			# add more error
 			self._addError(
 				IntegerSchema.keyType
 			)
+
+			# add in detail
+			self._addErrorDetail(
+				IntegerSchema.keyErrorDetail[
+					IntegerSchema.keyType
+				]
+			)
+
+			# found
+			foundError = True
 
 	def validateType(self) -> bool:
 		"""
@@ -52,6 +66,7 @@ class IntegerRule(NumericRule):
 		if self.getValue():
 			if isinstance(self.getValue(), int):
 				return True
+
 			else:
 				return False
 		else:

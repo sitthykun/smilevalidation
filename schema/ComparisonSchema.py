@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.1.0
 Note:
 """
 from typing import Any
@@ -14,3 +14,9 @@ class ComparisonSchema(BaseSchema):
 	# match
 	keyMatch		= 'match'
 	keyNotMatch		= 'not_match'
+
+	# translate error
+	keyErrorDetail	= {
+		keyMatch: 'Is matched'
+		, keyNotMatch: 'Not matched'
+	}

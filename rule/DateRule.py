@@ -37,15 +37,46 @@ class DateRule(BaseRule):
 		:return:
 		"""
 		# if found an error, it will stop checking other error
-		foundError	= False
+		# foundError	= False
 
 		# date
 		if not self.__formatDate:
 			pass
+
 		elif self.validateDate() is False:
+			# add more error
 			self._addError(
 				DateTimeSchema.keyDate
 			)
+
+			# add in detail
+			self._addErrorDetail(
+				DateTimeSchema.keyErrorDetail[
+					DateTimeSchema.keyDate
+				]
+			)
+
+			# # found
+			# foundError = True
+
+	def validateDate(self) -> bool:
+		"""
+
+		isinstance(value, datetime.datetime):
+		:return:
+		"""
+		try:
+			if self.element[DateTimeSchema.keyRule][DateTimeSchema.keyDate] and self.getValue():
+				return True
+
+			else:
+				return False
+
+		except KeyError as e:
+			return False
+
+		except Exception as e:
+			return False
 
 	def validateType(self) -> bool:
 		"""
@@ -55,7 +86,9 @@ class DateRule(BaseRule):
 		if self.getValue():
 			if isinstance(self.getValue(), datetime.date):
 				return True
+
 			else:
 				return False
+
 		else:
 			return False

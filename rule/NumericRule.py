@@ -45,9 +45,18 @@ class NumericRule(BaseRule):
 		# max
 		if not self.__maxValueValue:
 			pass
+
 		elif self.validateMaxValue() is False:
+			# add more error
 			self._addError(
 				NumericSchema.keyMaxValue
+			)
+
+			# add in detail
+			self._addErrorDetail(
+				NumericSchema.keyErrorDetail[
+					NumericSchema.keyMaxValue
+				]
 			)
 
 			# found
@@ -57,9 +66,18 @@ class NumericRule(BaseRule):
 		if foundError is False:
 			if not self.__minValueValue:
 				pass
+
 			elif self.validateMinValue() is False:
+				# add more error
 				self._addError(
 					NumericSchema.keyMinValue
+				)
+
+				# add in detail
+				self._addErrorDetail(
+					NumericSchema.keyErrorDetail[
+						NumericSchema.keyMinValue
+					]
 				)
 
 				# found
@@ -69,9 +87,18 @@ class NumericRule(BaseRule):
 		if foundError is False:
 			if not self.__negative:
 				return True
+
 			elif self.validateNegative() is False:
+				# add more error
 				self._addError(
 					NumericSchema.keyNegative
+				)
+
+				# add in detail
+				self._addErrorDetail(
+					NumericSchema.keyErrorDetail[
+						NumericSchema.keyNegative
+					]
 				)
 
 	def validateMaxValue(self) -> bool:
@@ -83,12 +110,16 @@ class NumericRule(BaseRule):
 			if self.element[NumericSchema.keyRule][NumericSchema.keyMaxValue] and self.getValue():
 				if self.getValue() <= self.__maxValueValue:
 					return True
+
 				else:
 					return False
+
 			else:
 				return False
+
 		except KeyError as e:
 			return False
+
 		except Exception as e:
 			return False
 
@@ -101,12 +132,15 @@ class NumericRule(BaseRule):
 			if self.element[NumericSchema.keyRule][NumericSchema.keyMinValue] and self.getValue():
 				if self.getValue() >= self.__minValueValue:
 					return True
+
 				else:
 					return False
 			else:
 				return False
+
 		except KeyError as e:
 			return False
+
 		except Exception as e:
 			return False
 
@@ -118,9 +152,12 @@ class NumericRule(BaseRule):
 		try:
 			if self.getValue() and self.element[NumericSchema.keyValue] >= 0:
 				return True
+
 			else:
 				return False
+
 		except KeyError as e:
 			return False
+
 		except Exception as e:
 			return False
