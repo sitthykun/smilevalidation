@@ -28,5 +28,6 @@ class StringSchema(BaseSchema):
 		, keyDataType: 'Not a string type'
 		, keyWrongRange: 'Not in provided range'
 		, keyRegEx: 'Not matched the regular expression'
+		, BaseSchema.keyType: 'Type is not matched'
 	}
 

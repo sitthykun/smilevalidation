@@ -101,12 +101,13 @@ class TypeSchema:
 		# return the element value
 		return temp
 
-	def getFloat(self, require: bool= None, max: int= None, min: int= None, precision: int= None) -> dict:
+	def getFloat(self, require: bool= None, max: int= None, min: int= None, negative: bool= None, precision: int= None) -> dict:
 		"""
 
 		:param require:
 		:param max:
 		:param min:
+		:param negative:
 		:param precision:
 		:return:
 		"""
@@ -135,6 +136,12 @@ class TypeSchema:
 				FloatSchema.FloatSchema.keyMinValue: min
 			})
 
+		# negative
+		if negative:
+			temp.update({
+				FloatSchema.FloatSchema.keyNegative: negative
+			})
+
 		# precision
 		if precision:
 			temp.update({
@@ -144,12 +151,13 @@ class TypeSchema:
 		# return the element value
 		return temp
 
-	def getInteger(self, require: bool= None, max: int= None, min: int= None) -> dict:
+	def getInteger(self, require: bool= None, max: int= None, min: int= None, negative: bool= None) -> dict:
 		"""
 
 		:param require:
 		:param max:
 		:param min:
+		:param negative:
 		:return:
 		"""
 		# temp of dict
@@ -176,6 +184,12 @@ class TypeSchema:
 		if min:
 			temp.update({
 				IntegerSchema.IntegerSchema.keyMinValue: min
+			})
+
+		# negative
+		if negative:
+			temp.update({
+				IntegerSchema.IntegerSchema.keyNegative: negative
 			})
 
 		# return the element value

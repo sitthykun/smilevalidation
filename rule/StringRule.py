@@ -40,16 +40,6 @@ class StringRule(BaseRule):
 		# run validation
 		self.__run()
 
-	def __prefixMaxMinLengthErrorMessage(self, givenLength: str,  ruleLenght: str, flag: str) -> str:
-		"""
-
-		:param givenLength:
-		:param ruleLenght:
-		:param flag:
-		:return:
-		"""
-		return f'( given: {givenLength}, {flag}: {ruleLenght})'
-
 	def __run(self) -> None:
 		"""
 
@@ -68,7 +58,7 @@ class StringRule(BaseRule):
 			self._addErrorDetail(
 				StringSchema.keyErrorDetail[
 					StringSchema.keyType
-				]
+				] + self.__suffixErrorMessage(type(self.getValue()), 'string', 'type')
 			)
 
 			# found
@@ -88,7 +78,7 @@ class StringRule(BaseRule):
 				self._addErrorDetail(
 					StringSchema.keyErrorDetail[
 						StringSchema.keyMaxLength
-					] + self.__prefixMaxMinLengthErrorMessage(len(self.getValue()), self.__maxLengthValue, 'max')
+					] + self.__suffixErrorMessage(len(self.getValue()), self.__maxLengthValue, 'max')
 				)
 
 				# found
@@ -109,7 +99,7 @@ class StringRule(BaseRule):
 				self._addErrorDetail(
 					StringSchema.keyErrorDetail[
 						StringSchema.keyMinLength
-					] + self.__prefixMaxMinLengthErrorMessage(len(self.getValue()), self.__minLengthValue, 'min')
+					] + self.__suffixErrorMessage(len(self.getValue()), self.__minLengthValue, 'min')
 				)
 
 				# found
@@ -174,6 +164,16 @@ class StringRule(BaseRule):
 						StringSchema.keyUnicode
 					]
 				)
+
+	def __suffixErrorMessage(self, givenValue: str,  ruleValue: str, flag: str) -> str:
+		"""
+
+		:param givenValue:
+		:param ruleValue:
+		:param flag:
+		:return:
+		"""
+		return f'( given: {givenValue}, rule {flag}: {ruleValue})'
 
 	def validateMaxLength(self) -> bool:
 		"""

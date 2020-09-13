@@ -52,11 +52,11 @@ class IntegerRule(NumericRule):
 			self._addErrorDetail(
 				IntegerSchema.keyErrorDetail[
 					IntegerSchema.keyType
-				]
+				] + + self._suffixErrorMessage(type(self.getValue()), 'integer', 'type')
 			)
 
-			# found
-			foundError = True
+			# # found
+			# foundError = True
 
 	def validateType(self) -> bool:
 		"""

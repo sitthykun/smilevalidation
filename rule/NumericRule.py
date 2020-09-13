@@ -56,7 +56,7 @@ class NumericRule(BaseRule):
 			self._addErrorDetail(
 				NumericSchema.keyErrorDetail[
 					NumericSchema.keyMaxValue
-				]
+				] + self._suffixErrorMessage(self.getValue(), self.__maxValueValue, 'max')
 			)
 
 			# found
@@ -77,7 +77,7 @@ class NumericRule(BaseRule):
 				self._addErrorDetail(
 					NumericSchema.keyErrorDetail[
 						NumericSchema.keyMinValue
-					]
+					] + self._suffixErrorMessage(self.getValue(), self.__minValueValue, 'min')
 				)
 
 				# found
@@ -98,8 +98,18 @@ class NumericRule(BaseRule):
 				self._addErrorDetail(
 					NumericSchema.keyErrorDetail[
 						NumericSchema.keyNegative
-					]
+					] + self._suffixErrorMessage(self.getValue(), 'true', 'negative')
 				)
+
+	def _suffixErrorMessage(self, givenValue: str,  ruleValue: str, flag: str) -> str:
+		"""
+
+		:param givenValue:
+		:param ruleValue:
+		:param flag:
+		:return:
+		"""
+		return f'( given: {givenValue}, rule {flag}: {ruleValue})'
 
 	def validateMaxValue(self) -> bool:
 		"""

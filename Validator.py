@@ -33,7 +33,7 @@ class Validator:
 		# self.__found		= {}
 
 		# key
-		# self.__keyError		= 'error'
+		self.__keyError		= 'error'
 		# self.__keyErrorType	= 'error_type'
 		# self.__keyName		= 'name'
 		self.__keyErrorDetail	= 'detail'
@@ -50,8 +50,7 @@ class Validator:
 		:return:
 		"""
 		self.__error.update({
-			elementName: errorType
-			, self.__keyErrorDetail: f'{errorMessage}'
+			elementName: f'<{self.__keyError}>: {errorType}, <{self.__keyErrorDetail}>: {errorMessage}'
 		})
 
 	def __addMatchedError(self, elementName: str) -> None:

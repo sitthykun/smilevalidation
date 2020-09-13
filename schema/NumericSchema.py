@@ -20,4 +20,5 @@ class NumericSchema(BaseSchema):
 		keyMaxValue: 'Greater than maximum value'
 		, keyMinValue: 'Less than minimum value'
 		, keyNegative: 'Negative not allow'
+		, BaseSchema.keyType: 'Type is not matched'
 	}

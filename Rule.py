@@ -41,3 +41,15 @@ class Rule:
 			, unicode= False
 			, regex= None
 		)
+
+	def getCostOne(self) -> dict:
+		"""
+
+		:return:
+		"""
+		return self.__type.getFloat(
+			require= True
+			, max= 5
+			, min= 1
+			, negative= False
+		)
