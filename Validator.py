@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.1.0
 """
 from typing import Any
 from rule.BoolRule import BoolRule
@@ -11,7 +11,7 @@ from rule.MatchRule import MatchRule
 from rule.NotMatchRule import NotMatchRule
 from rule.StringRule import StringRule
 from schema.BaseSchema import BaseSchema
-from schema.ComparisonSchema import ComparisonSchema
+# from schema.ComparisonSchema import ComparisonSchema
 from schema.FloatSchema import FloatSchema
 from schema.IntegerSchema import IntegerSchema
 from schema.StringSchema import StringSchema
@@ -25,17 +25,19 @@ class Validator:
 		"""
 
 		"""
-		self.__element		= {}
-		self.__error		= {}
-		self.__found		= {}
+		# element of validation
+		self.__element			= {}
+		self.__elementMatched	= {}
+		# contain each elements' error.
+		# keep only an error of all element's errors
+		self.__errorElement		= {}
+		self.__errorMatched		= {}
 
 		# key
-		self.__keyError		= 'error'
-		self.__keyErrorType	= 'error_type'
-		self.__keyName		= 'name'
-
-		# form
-		self.__load()
+		self.__keyError			= 'error'
+		# self.__keyErrorType	= 'error_type'
+		# self.__keyName		= 'name'
+		self.__keyErrorDetail	= 'detail'
 
 	def __addError(self, elementName: str, elementValue: str, errorType: str, errorMessage: str) -> None:
 		"""
@@ -45,17 +47,23 @@ class Validator:
 		:param errorMessage:
 		:return:
 		"""
-		self.__error.update({
-			elementName: errorType
+		self.__errorElement.update({
+			elementName: f'<{self.__keyError}>: {errorType}, <{self.__keyErrorDetail}>: {errorMessage}'
 		})
 
-	def __addMatchedError(self, elementName: str) -> None:
+	def __addComparisonError(self, elementName1: str, elementValue1: Any, elementName2: str, elementValue2: Any, errorMessage: str) -> None:
 		"""
 
-		:param elementName:
+		:param elementName1:
+		:param elementName2:
+		:param elementValue1:
+		:param elementValue2:
+		:param errorMessage:
 		:return:
 		"""
-		pass
+		self.__errorMatched.update({
+			f'{elementName1}_{elementName2}': f'<{self.__keyErrorDetail}>: {errorMessage}'
+		})
 
 	def __addNatureElement(self, elementName: str, elementValue: str, rule: dict) -> None:
 		"""
@@ -83,16 +91,16 @@ class Validator:
 		temp		= {}
 
 		# check exist to add new avoid override
-		if key in self.__error:
+		if key in self.__errorElement:
 			temp.update({
-				key: self.__error.get(key)
+				key: self.__errorElement.get(key)
 			})
 
 		# merge with new
 		temp.update(newDict)
 
 		# add to error
-		self.__error.update(
+		self.__errorElement.update(
 			temp
 		)
 
@@ -106,8 +114,10 @@ class Validator:
 		# by default it returns str
 		try:
 			return element[BaseSchema.keyRule]
+
 		except KeyError as e:
 			return {}
+
 		except Exception as e:
 			return {}
 
@@ -121,24 +131,12 @@ class Validator:
 		# by default it returns str
 		try:
 			return element[BaseSchema.keyRule][StringSchema.keyType]
+
 		except KeyError as e:
 			return StringSchema.keyDataType
+
 		except Exception as e:
 			return StringSchema.keyDataType
-
-	def __load(self) -> None:
-		"""
-
-		:return:
-		"""
-		pass
-
-	def __validate(self) -> bool:
-		"""
-
-		:return:
-		"""
-		return False
 
 	def addElement(self, elementName: str, elementValue: str, rule: dict) -> None:
 		"""
@@ -154,14 +152,14 @@ class Validator:
 			, rule
 		)
 
-	def addElementList(self, elementName: str, rule: dict) -> None:
-		"""
-
-		:param elementName:
-		:param rule:
-		:return:
-		"""
-		pass
+	# def addElementList(self, elementName: str, rule: dict) -> None:
+	# 	"""
+	#
+	# 	:param elementName:
+	# 	:param rule:
+	# 	:return:
+	# 	"""
+	# 	pass
 
 	def addMatchedElement(self, elementName1: str, elementValue1: Any, elementName2: str, elementValue2: Any, errorOrder: int= 2) -> None:
 		"""
@@ -173,38 +171,18 @@ class Validator:
 		:param errorOrder:
 		:return:
 		"""
-		if elementValue1 is not elementValue2:
+		mr		= MatchRule(elementName1, elementValue1, elementName2, elementValue2)
 
-			# add error to the element
-			if errorOrder and errorOrder == 1:
-				# update
-				self.__appendWithExistedError(
-					elementName1
-					, {ComparisonSchema.keyMatch: True}
-				)
-
-				# add error once it found
-				self.__addError(
-					elementName= elementName1
-					, elementValue= elementValue1
-					, errorType= ComparisonSchema.keyMatch
-					, errorMessage= ''
-				)
-
-			else:
-				# update
-				self.__appendWithExistedError(
-					elementName2
-					, {ComparisonSchema.keyMatch: True}
-				)
-
-				# add error once it found
-				self.__addError(
-					elementName= elementName2
-					, elementValue= elementValue2
-					, errorType= ComparisonSchema.keyMatch
-					, errorMessage= ''
-				)
+		# verify error
+		if mr.getError():
+			# add error once it found
+			self.__addComparisonError(
+				elementName1
+				, elementValue1
+				, elementName2
+				, elementValue2
+				, mr.getErrorDetail()
+			)
 
 	def addNotMatchedElement(self, elementName1: str, elementValue1: Any, elementName2: str, elementValue2: Any, errorOrder: int= 2) -> None:
 		"""
@@ -216,38 +194,18 @@ class Validator:
 		:param errorOrder:
 		:return:
 		"""
-		if elementValue1 is elementValue2:
+		mr		= NotMatchRule(elementName1, elementValue1, elementName2, elementValue2)
 
-			# add error to the element
-			if errorOrder and errorOrder == 1:
-				# update
-				self.__appendWithExistedError(
-					elementName1
-					, {ComparisonSchema.keyNotMatch: True}
-				)
-
-				# add error once it found
-				self.__addError(
-					elementName= elementName1
-					, elementValue= elementValue1
-					, errorType= ComparisonSchema.keyNotMatch
-					, errorMessage= ''
-				)
-
-			else:
-				# update
-				self.__appendWithExistedError(
-					elementName2
-					, {ComparisonSchema.keyNotMatch: True}
-				)
-
-				# add error once it found
-				self.__addError(
-					elementName= elementName2
-					, elementValue= elementValue2
-					, errorType= ComparisonSchema.keyNotMatch
-					, errorMessage= ''
-				)
+		# verify error
+		if mr.getError():
+			# add error once it found
+			self.__addComparisonError(
+				elementName1
+				, elementValue1
+				, elementName2
+				, elementValue2
+				, mr.getErrorDetail()
+			)
 
 	def getElement(self) -> dict:
 		"""
@@ -261,13 +219,21 @@ class Validator:
 
 		:return:
 		"""
-		return self.__error
+		# add more
+		if self.__errorMatched:
+			self.__errorElement.update(self.__errorMatched)
+
+		# return the final items
+		return self.__errorElement
 
 	def isValid(self) -> bool:
 		"""
 
 		:return:
 		"""
+		###########################
+		# element block
+		###########################
 		# elementName is string
 		# elementValue is dict
 		for elementName, elementValue in self.__element.items():
@@ -295,7 +261,7 @@ class Validator:
 						elementName= elementName
 						, elementValue= temp.keyValue
 						, errorType= temp.getError()
-						, errorMessage= ''
+						, errorMessage= temp.getErrorDetail()
 					)
 
 			elif elementType	== FloatSchema.keyDataType:
@@ -316,7 +282,7 @@ class Validator:
 						elementName= elementName
 						, elementValue= temp.keyValue
 						, errorType= temp.getError()
-						, errorMessage= ''
+						, errorMessage= temp.getErrorDetail()
 					)
 
 			elif elementType	== IntegerSchema.keyDataType:
@@ -336,7 +302,7 @@ class Validator:
 						elementName= elementName
 						, elementValue= temp.keyValue
 						, errorType= temp.getError()
-						, errorMessage= ''
+						, errorMessage= temp.getErrorDetail()
 					)
 
 		# if has error, it will return true

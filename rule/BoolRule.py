@@ -36,12 +36,25 @@ class BoolRule(BaseRule):
 
 		:return:
 		"""
+		# if found an error, it will stop checking other error
+		# foundError	= False
 
 		# type
 		if self.validateType() is False:
+			# add more error
 			self._addError(
 				BaseSchema.keyValue
 			)
+
+			# add in detail
+			self._addErrorDetail(
+				BaseSchema.keyErrorDetail[
+					BaseSchema.keyValue
+				]
+			)
+
+			# found
+			# foundError = True
 
 	def validateType(self) -> bool:
 		"""
@@ -51,7 +64,9 @@ class BoolRule(BaseRule):
 		if self.getValue():
 			if isinstance(self.getValue(), bool):
 				return True
+
 			else:
 				return False
+
 		else:
 			return False

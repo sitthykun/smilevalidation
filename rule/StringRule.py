@@ -50,8 +50,15 @@ class StringRule(BaseRule):
 
 		# wrong type
 		if self.validateType() is False:
+			# add more error
 			self._addError(
 				StringSchema.keyType
+			)
+			# add in detail
+			self._addErrorDetail(
+				StringSchema.keyErrorDetail[
+					StringSchema.keyType
+				] + self.__suffixErrorMessage(type(self.getValue()), 'string', 'type')
 			)
 
 			# found
@@ -59,11 +66,19 @@ class StringRule(BaseRule):
 
 		# max
 		if foundError is False:
-			if self.__maxLengthValue is None:
+			if not self.__maxLengthValue:
 				pass
+
 			if self.validateMaxLength() is False:
+				# add more error
 				self._addError(
 					StringSchema.keyMaxLength
+				)
+				# add in detail
+				self._addErrorDetail(
+					StringSchema.keyErrorDetail[
+						StringSchema.keyMaxLength
+					] + self.__suffixErrorMessage(len(self.getValue()), self.__maxLengthValue, 'max')
 				)
 
 				# found
@@ -71,11 +86,20 @@ class StringRule(BaseRule):
 
 		# min
 		if foundError is False:
-			if self.__minLengthValue is None:
+			if not self.__minLengthValue:
 				pass
+
 			elif self.validateMinLength() is False:
+				# add more error
 				self._addError(
 					StringSchema.keyMinLength
+				)
+
+				# add in detail
+				self._addErrorDetail(
+					StringSchema.keyErrorDetail[
+						StringSchema.keyMinLength
+					] + self.__suffixErrorMessage(len(self.getValue()), self.__minLengthValue, 'min')
 				)
 
 				# found
@@ -83,11 +107,20 @@ class StringRule(BaseRule):
 
 		# compare min and max for a valid value
 		if foundError is False:
-			if self.__minLengthValue is None or self.__maxLengthValue is None:
+			if not self.__minLengthValue or not self.__maxLengthValue:
 				pass
+
 			elif self.validateWrongRange() is False:
+				# add more error
 				self._addError(
 					StringSchema.keyWrongRange
+				)
+
+				# add in detail
+				self._addErrorDetail(
+					StringSchema.keyErrorDetail[
+						StringSchema.keyWrongRange
+					]
 				)
 
 				# found
@@ -97,9 +130,18 @@ class StringRule(BaseRule):
 		if foundError is False:
 			if self.__regExValue is None:
 				pass
+
 			elif self.validateRegEx() is False:
+				# add more error
 				self._addError(
 					StringSchema.keyRegEx
+				)
+
+				# add in detail
+				self._addErrorDetail(
+					StringSchema.keyErrorDetail[
+						StringSchema.keyRegEx
+					]
 				)
 
 				# found
@@ -109,22 +151,52 @@ class StringRule(BaseRule):
 		if foundError is False:
 			if self.__unicodeValue is None:
 				pass
+
 			elif self.validateUnicode() is False:
+				# add more error
 				self._addError(
 					StringSchema.keyUnicode
 				)
+
+				# add in detail
+				self._addErrorDetail(
+					StringSchema.keyErrorDetail[
+						StringSchema.keyUnicode
+					]
+				)
+
+	def __suffixErrorMessage(self, givenValue: str,  ruleValue: str, flag: str) -> str:
+		"""
+
+		:param givenValue:
+		:param ruleValue:
+		:param flag:
+		:return:
+		"""
+		return f'( given: {givenValue}, rule {flag}: {ruleValue})'
 
 	def validateMaxLength(self) -> bool:
 		"""
 		self.element.get(self.__maxLengthKey) can default
 		:return:
 		"""
-		if self.element.get(StringSchema.keyMaxLength) and self.getValue():
-			if len(self.getValue()) <= self.__maxLengthValue:
-				return True
+		try:
+			if self.element[StringRule.keyRule][StringSchema.keyMaxLength] and self.getValue():
+				if len(self.getValue()) <= self.__maxLengthValue:
+					return True
+
+				else:
+					return False
+
 			else:
 				return False
-		else:
+
+		except KeyError as e:
+			print(f'StringRule.validateMaxLength KeyError: {str(e)}')
+			return False
+
+		except Exception as e:
+			print(f'StringRule.validateMaxLength KeyError: {str(e)}')
 			return False
 
 	def validateMinLength(self) -> bool:
@@ -132,12 +204,23 @@ class StringRule(BaseRule):
 		self.element.get(self.__minLengthKey) can default
 		:return:
 		"""
-		if self.element.get(StringSchema.keyMinLength):
-			if len(self.getValue()) >= self.__minLengthValue:
-				return True
+		try:
+			if self.element[StringRule.keyRule][StringSchema.keyMinLength]:
+				if len(self.getValue()) >= self.__minLengthValue:
+					return True
+
+				else:
+					return False
+
 			else:
 				return False
-		else:
+
+		except KeyError as e:
+			print(f'StringRule.validateMaxLength KeyError: {str(e)}')
+			return False
+
+		except Exception as e:
+			print(f'StringRule.validateMaxLength KeyError: {str(e)}')
 			return False
 
 	def validateRegEx(self) -> bool:
@@ -160,6 +243,7 @@ class StringRule(BaseRule):
 		if self.getValue():
 			if isinstance(self.getValue(), str):
 				return True
+
 			else:
 				return False
 		else:
@@ -175,8 +259,10 @@ class StringRule(BaseRule):
 				self.getValue().encode('ascii')
 				# self.getValue().decode('ascii')
 			)
+
 		except UnicodeEncodeError as e:
 			return False
+
 		except Exception as e:
 			return False
 

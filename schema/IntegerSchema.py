@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.1.0
 Note:
 """
 from typing import Any
@@ -14,3 +14,7 @@ class IntegerSchema(NumericSchema):
 	# data type
 	keyDataType			= 'int'
 
+	# translate error
+	NumericSchema.keyErrorDetail.update({
+		keyDataType: 'Not an integer type'
+	})

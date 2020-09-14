@@ -37,9 +37,11 @@ class BaseRule(BaseSchema):
 
 		# element
 		self.element		= element
-		# error
+		# error as dict type
 		# self.__error		= {}
 		self.__error		= ''
+		# keep error in detail
+		self.__errorDetail	= ''
 
 		# run validation
 		self.__run()
@@ -78,7 +80,15 @@ class BaseRule(BaseSchema):
 		:param errorName:
 		:return:
 		"""
-		self.__error	= errorName
+		self.__error		= errorName
+
+	def _addErrorDetail(self, errorName: str) -> None:
+		"""
+
+		:param errorName:
+		:return:
+		"""
+		self.__errorDetail	= errorName
 
 	def _getElementName(self) -> str:
 		"""
@@ -93,12 +103,20 @@ class BaseRule(BaseSchema):
 	# 	:return:
 	# 	"""
 	# 	return self.__error
+
 	def getError(self) -> str:
 		"""
 
 		:return:
 		"""
 		return self.__error
+
+	def getErrorDetail(self) -> str:
+		"""
+
+		:return:
+		"""
+		return self.__errorDetail
 
 	def getValue(self) -> Any:
 		"""
@@ -107,8 +125,10 @@ class BaseRule(BaseSchema):
 		"""
 		try:
 			return self.element[self.keyValue]
+
 		except KeyError as e:
 			return None
+
 		except Exception as e:
 			return None
 
@@ -118,8 +138,14 @@ class BaseRule(BaseSchema):
 		:return:
 		"""
 		try:
-			self.element[self.keyRule][self.keyRequire]
+			if self.element[self.keyRule][self.keyRequire]:
+				return True
+
+			else:
+				return False
+
 		except KeyError as e:
 			return False
+
 		except Exception as e:
 			return False

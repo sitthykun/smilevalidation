@@ -46,19 +46,36 @@ class FloatRule(NumericRule):
 
 		# type
 		if self.validateType() is False:
+			# add more error
 			self._addError(
 				FloatSchema.keyType
+			)
+
+			# add in detail
+			self._addErrorDetail(
+				FloatSchema.keyErrorDetail[
+					FloatSchema.keyType
+				] + self._suffixErrorMessage(type(self.getValue()), 'float', 'type')
 			)
 
 			# found
 			foundError	= True
 
 		# precision or tail
-		if foundError or self.__precisionValue is None:
+		if foundError or not self.__precisionValue:
 			pass
+
 		elif self.validatePrecision() is False:
+			# add more error
 			self._addError(
 				FloatSchema.keyPrecision
+			)
+
+			# add in detail
+			self._addErrorDetail(
+				FloatSchema.keyErrorDetail[
+					FloatSchema.keyPrecision
+				] + self._suffixErrorMessage(self.getValue(), self.__precisionValue, 'negative')
 			)
 
 	def validatePrecision(self) -> bool:
@@ -68,6 +85,7 @@ class FloatRule(NumericRule):
 		"""
 		if self.getValue():
 			return self.__precisionValue
+
 		else:
 			return self.__precisionValue
 
@@ -79,7 +97,9 @@ class FloatRule(NumericRule):
 		if self.getValue():
 			if isinstance(self.getValue(), int) or isinstance(self.getValue(), float):
 				return True
+
 			else:
 				return False
+
 		else:
 			return False

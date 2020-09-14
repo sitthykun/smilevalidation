@@ -4,7 +4,7 @@ Version: 1.0.0
 """
 from typing import Any
 from rule import *
-from schema import BaseSchema, ComparisonSchema, FloatSchema, IntegerSchema, StringSchema
+from schema import BaseSchema, ComparisonSchema, DateTimeSchema, FloatSchema, IntegerSchema, StringSchema
 
 
 class TypeSchema:
@@ -22,12 +22,92 @@ class TypeSchema:
 		# self.__unicode	= UnicodeRule.UnicodeRule()
 		pass
 
-	def getFloat(self, require: bool= None, max: int= None, min: int= None, precision: int= None) -> dict:
+	def __findDateFormat(self, format: str) -> bool:
+		"""
+
+		:param format:
+		:return:
+		"""
+		found	= False
+		# fmts = ('%Y', '%b %d, %Y', '%b %d, %Y', '%B %d, %Y', '%B %d %Y', '%m/%d/%Y', '%m/%d/%y', '%b %Y', '%B%Y', '%b %d,%Y')
+
+		return found
+
+	def __findTimeFormat(self, format: str) -> bool:
+		"""
+
+		:param format:
+		:return:
+		"""
+		found = False
+
+		return found
+
+	def getDate(self, require: bool= None, format: str= None) -> dict:
+		"""
+
+		:param require:
+		:param format:
+		:return:
+		"""
+		temp		= {}
+
+		# type
+		temp.update({
+			BaseSchema.BaseSchema.keyType: DateTimeSchema.DateTimeSchema.keyDate
+		})
+
+		# require
+		if require and require is True:
+			temp.update({
+				BaseSchema.BaseSchema.keyRequire: True
+			})
+
+		# format date string
+		if format and self.__findDateFormat(format):
+			temp.update({
+				DateTimeSchema.DateTimeSchema.keyDate: True
+			})
+
+		# return the element value
+		return temp
+
+	def getDateTime(self, require: bool= None, format: str= None) -> dict:
+		"""
+
+		:param require:
+		:param format:
+		:return:
+		"""
+		temp		= {}
+
+		# type
+		temp.update({
+			BaseSchema.BaseSchema.keyType: FloatSchema.FloatSchema.keyDataType
+		})
+
+		# require
+		if require and require is True:
+			temp.update({
+				BaseSchema.BaseSchema.keyRequire: True
+			})
+
+		# format date string
+		if format and self.__findDateFormat(format) and self.__findTimeFormat(format):
+			temp.update({
+				DateTimeSchema.DateTimeSchema.keyDateTime: True
+			})
+
+		# return the element value
+		return temp
+
+	def getFloat(self, require: bool= None, max: int= None, min: int= None, negative: bool= None, precision: int= None) -> dict:
 		"""
 
 		:param require:
 		:param max:
 		:param min:
+		:param negative:
 		:param precision:
 		:return:
 		"""
@@ -56,6 +136,12 @@ class TypeSchema:
 				FloatSchema.FloatSchema.keyMinValue: min
 			})
 
+		# negative
+		if negative:
+			temp.update({
+				FloatSchema.FloatSchema.keyNegative: negative
+			})
+
 		# precision
 		if precision:
 			temp.update({
@@ -65,12 +151,13 @@ class TypeSchema:
 		# return the element value
 		return temp
 
-	def getInteger(self, require: bool= None, max: int= None, min: int= None) -> dict:
+	def getInteger(self, require: bool= None, max: int= None, min: int= None, negative: bool= None) -> dict:
 		"""
 
 		:param require:
 		:param max:
 		:param min:
+		:param negative:
 		:return:
 		"""
 		# temp of dict
@@ -97,6 +184,12 @@ class TypeSchema:
 		if min:
 			temp.update({
 				IntegerSchema.IntegerSchema.keyMinValue: min
+			})
+
+		# negative
+		if negative:
+			temp.update({
+				IntegerSchema.IntegerSchema.keyNegative: negative
 			})
 
 		# return the element value
@@ -156,6 +249,35 @@ class TypeSchema:
 		if unicode and unicode is True:
 			temp.update({
 				StringSchema.StringSchema.keyUnicode: True
+			})
+
+		# return the element value
+		return temp
+
+	def getTime(self, require: bool= None, format: str= None) -> dict:
+		"""
+
+		:param require:
+		:param format:
+		:return:
+		"""
+		temp		= {}
+
+		# type
+		temp.update({
+			BaseSchema.BaseSchema.keyType: FloatSchema.FloatSchema.keyDataType
+		})
+
+		# require
+		if require and require is True:
+			temp.update({
+				BaseSchema.BaseSchema.keyRequire: True
+			})
+
+		# format date string
+		if format and self.__findTimeFormat(format):
+			temp.update({
+				DateTimeSchema.DateTimeSchema.keyTime: True
 			})
 
 		# return the element value

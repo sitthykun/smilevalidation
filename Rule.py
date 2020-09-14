@@ -18,14 +18,14 @@ class Rule:
 		# instance
 		self.__type			= TypeSchema()
 
-		# sample
-		# field
-		self.__emailOne		= self.__type.getString(
+	def getDateOne(self) -> dict:
+		"""
+
+		:return:
+		"""
+		return self.__type.getDate(
 			require= True
-			, maxLength= 75
-			, minLength= 8
-			, unicode= False
-			, regex= None
+			, format= '%Y%m%d'
 		)
 
 	# sample
@@ -34,4 +34,35 @@ class Rule:
 
 		:return:
 		"""
-		return self.__emailOne
+		return self.__type.getString(
+			require= True
+			, maxLength= 55
+			, minLength= 8
+			, unicode= False
+			, regex= None
+		)
+
+	def getEmailTwo(self) -> dict:
+		"""
+
+		:return:
+		"""
+		return self.__type.getString(
+			require= True
+			, maxLength= 55
+			, minLength= 8
+			, unicode= False
+			, regex='^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$'
+		)
+
+	def getCostOne(self) -> dict:
+		"""
+
+		:return:
+		"""
+		return self.__type.getFloat(
+			require= True
+			, max= 5
+			, min= 1
+			, negative= False
+		)

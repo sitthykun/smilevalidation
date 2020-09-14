@@ -12,20 +12,52 @@ class ComparisonRule:
 
 	"""
 
-	def __init__(self, element: dict):
+	def __init__(self):
 		"""
 
 		:param element:
 		"""
 		# element
-		self.__element		= element
+		self.__error		= ''
+		# keep error in detail
+		self.__errorDetail	= ''
 
-	def foundKey(self) -> bool:
+	def _addError(self, errorName: str) -> None:
+		"""
+
+		:param errorName:
+		:return:
+		"""
+		self.__error		= errorName
+
+	def _addErrorDetail(self, errorName: str) -> None:
+		"""
+
+		:param errorName:
+		:return:
+		"""
+		self.__errorDetail	= errorName
+
+	def _suffixErrorMessage(self, element1: str, value1: Any, element2: str, value2: Any, flag: str) -> str:
+		"""
+
+		:param elementOne:
+		:param elementTwo:
+		:param flag:
+		:return:
+		"""
+		return f'( between <<{value1}>> and <<{value2}>>, is {flag})'
+
+	def getError(self) -> str:
 		"""
 
 		:return:
 		"""
-		if self.__element.get(ComparisonSchema.keyMatch):
-			return True
-		else:
-			return False
+		return self.__error
+
+	def getErrorDetail(self) -> str:
+		"""
+
+		:return:
+		"""
+		return self.__errorDetail
