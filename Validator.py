@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.1.0
 """
 from typing import Any
 from rule.BoolRule import BoolRule
@@ -11,7 +11,7 @@ from rule.MatchRule import MatchRule
 from rule.NotMatchRule import NotMatchRule
 from rule.StringRule import StringRule
 from schema.BaseSchema import BaseSchema
-from schema.ComparisonSchema import ComparisonSchema
+# from schema.ComparisonSchema import ComparisonSchema
 from schema.FloatSchema import FloatSchema
 from schema.IntegerSchema import IntegerSchema
 from schema.StringSchema import StringSchema
@@ -38,9 +38,6 @@ class Validator:
 		# self.__keyErrorType	= 'error_type'
 		# self.__keyName		= 'name'
 		self.__keyErrorDetail	= 'detail'
-
-		# # form
-		# self.__load()
 
 	def __addError(self, elementName: str, elementValue: str, errorType: str, errorMessage: str) -> None:
 		"""
