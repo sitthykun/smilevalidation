@@ -3,8 +3,8 @@ Author: masakokh
 Version: 1.0.0
 """
 from typing import Any
-from rule import *
-from schema import BaseSchema, ComparisonSchema, DateTimeSchema, FloatSchema, IntegerSchema, StringSchema
+from smilevalidation.rule import *
+from smilevalidation.schema import BaseSchema, ComparisonSchema, DateTimeSchema, FloatSchema, IntegerSchema, StringSchema
 
 
 class TypeSchema:

@@ -4,8 +4,8 @@ Version: 1.0.1
 Note:
 """
 from typing import Any
-from rule.ComparisonRule import ComparisonRule
-from schema.ComparisonSchema import ComparisonSchema
+from smilevalidation.rule.ComparisonRule import ComparisonRule
+from smilevalidation.schema.ComparisonSchema import ComparisonSchema
 
 
 class MatchRule(ComparisonRule):

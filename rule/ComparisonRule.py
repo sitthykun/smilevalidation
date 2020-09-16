@@ -4,7 +4,7 @@ Version: 1.0.0
 Note:
 """
 from typing import Any
-from schema.ComparisonSchema import ComparisonSchema
+from smilevalidation.schema.ComparisonSchema import ComparisonSchema
 
 
 class ComparisonRule:

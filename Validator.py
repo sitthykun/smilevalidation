@@ -5,16 +5,16 @@ Version: 1.1.0
 from typing import Any
 from rule.BoolRule import BoolRule
 from rule.ComparisonRule import ComparisonRule
-from rule.FloatRule import FloatRule
-from rule.IntegerRule import IntegerRule
-from rule.MatchRule import MatchRule
-from rule.NotMatchRule import NotMatchRule
-from rule.StringRule import StringRule
-from schema.BaseSchema import BaseSchema
-# from schema.ComparisonSchema import ComparisonSchema
-from schema.FloatSchema import FloatSchema
-from schema.IntegerSchema import IntegerSchema
-from schema.StringSchema import StringSchema
+from smilevalidation.rule.FloatRule import FloatRule
+from smilevalidation.rule.IntegerRule import IntegerRule
+from smilevalidation.rule.MatchRule import MatchRule
+from smilevalidation.rule.NotMatchRule import NotMatchRule
+from smilevalidation.rule.StringRule import StringRule
+from smilevalidation.schema.BaseSchema import BaseSchema
+# from smilevalidation.schema.ComparisonSchema import ComparisonSchema
+from smilevalidation.schema.FloatSchema import FloatSchema
+from smilevalidation.schema.IntegerSchema import IntegerSchema
+from smilevalidation.schema.StringSchema import StringSchema
 
 
 class Validator:

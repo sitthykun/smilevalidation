@@ -4,8 +4,8 @@ Version: 1.0.0
 Note:
 """
 from typing import Any
-from rule.NumericRule import NumericRule
-from schema.FloatSchema import FloatSchema
+from smilevalidation.rule.NumericRule import NumericRule
+from smilevalidation.schema.FloatSchema import FloatSchema
 
 
 class FloatRule(NumericRule):

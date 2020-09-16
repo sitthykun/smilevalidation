@@ -4,8 +4,8 @@ Version: 1.0.0
 Note:
 """
 from typing import Any
-from rule.BaseRule import BaseRule
-from schema.DateTimeSchema import DateTimeSchema
+from smilevalidation.rule.BaseRule import BaseRule
+from smilevalidation.schema.DateTimeSchema import DateTimeSchema
 
 
 class DateTimeRule(BaseRule):

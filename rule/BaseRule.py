@@ -4,8 +4,8 @@ Version: 1.0.0
 Note:
 """
 from typing import Any
-from schema.BaseSchema import BaseSchema
-from schema.NumericSchema import NumericSchema
+from smilevalidation.schema.BaseSchema import BaseSchema
+from smilevalidation.schema.NumericSchema import NumericSchema
 
 
 class BaseRule(BaseSchema):

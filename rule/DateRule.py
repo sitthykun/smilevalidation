@@ -6,8 +6,8 @@ Note:
 import re
 from typing import Any
 import datetime
-from rule.BaseRule import BaseRule
-from schema.DateTimeSchema import DateTimeSchema
+from smilevalidation.rule.BaseRule import BaseRule
+from smilevalidation.schema.DateTimeSchema import DateTimeSchema
 
 
 class DateRule(BaseRule):

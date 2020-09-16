@@ -4,7 +4,7 @@ Version: 1.0.0
 Note:
 """
 from typing import Any
-from rule.BaseRule import BaseRule
+from smilevalidation.rule.BaseRule import BaseRule
 
 
 class ListRule(BaseRule):

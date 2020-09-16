@@ -5,8 +5,8 @@ Note:
 """
 import re
 from typing import Any
-from rule.BaseRule import BaseRule
-from schema.StringSchema import StringSchema
+from smilevalidation.rule.BaseRule import BaseRule
+from smilevalidation.schema.StringSchema import StringSchema
 
 
 class StringRule(BaseRule):

@@ -4,8 +4,8 @@ Version: 1.0.0
 Note:
 """
 from typing import Any
-from rule.BaseRule import BaseRule
-from schema.BaseSchema import BaseSchema
+from smilevalidation.rule.BaseRule import BaseRule
+from smilevalidation.schema.BaseSchema import BaseSchema
 
 
 class BoolRule(BaseRule):

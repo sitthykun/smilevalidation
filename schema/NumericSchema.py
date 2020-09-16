@@ -4,7 +4,7 @@ Version: 1.1.0
 Note:
 """
 from typing import Any
-from schema.BaseSchema import BaseSchema
+from smilevalidation.schema.BaseSchema import BaseSchema
 
 
 class NumericSchema(BaseSchema):
