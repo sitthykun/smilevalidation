@@ -3,8 +3,8 @@ Author: masakokh
 Version: 1.1.0
 """
 from typing import Any
-from rule.BoolRule import BoolRule
-from rule.ComparisonRule import ComparisonRule
+from smilevalidation.rule.BoolRule import BoolRule
+from smilevalidation.rule.ComparisonRule import ComparisonRule
 from smilevalidation.rule.FloatRule import FloatRule
 from smilevalidation.rule.IntegerRule import IntegerRule
 from smilevalidation.rule.MatchRule import MatchRule
