@@ -95,7 +95,7 @@ else:
     print(f'Error: {v.getError()}')
 ```
 
-## Rule Reusable
+## Reusable Rule
 If you wanna use a rule to another addition, we can create a rule class as the collection of what we wanna validate to those element objects.
 
 Example:
@@ -204,6 +204,3 @@ else:
 
 It is available on **PyPi** store via https://pypi.org/project/SmileValidation/ \
 To Support my work, please donate me via <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/sitthykun"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a Pizza"><span style="margin-left:5px;font-size:28px !important;">Buy me a Coffee</span></a>
-
-##### My unique slogan is:
-a little developer in the big world \o/
