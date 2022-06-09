@@ -29,6 +29,7 @@ venv/*
 .vscode/*
 
 # test
+test_rule
 test
 test/
 test/*

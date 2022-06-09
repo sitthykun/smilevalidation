@@ -3,9 +3,11 @@ Author: masakokh
 Version: 1.0.0
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.rule.BaseRule import BaseRule
-from smilevalidation.schema.NumericSchema import NumericSchema
+# internal
+from rule.BaseRule import BaseRule
+from schema.NumericSchema import NumericSchema
 
 
 class NumericRule(BaseRule):
@@ -48,7 +50,7 @@ class NumericRule(BaseRule):
 
 		elif self.validateMaxValue() is False:
 			# add more error
-			self._addError(
+			self._addErrorNumber(
 				NumericSchema.keyMaxValue
 			)
 
@@ -56,7 +58,7 @@ class NumericRule(BaseRule):
 			self._addErrorDetail(
 				NumericSchema.keyErrorDetail[
 					NumericSchema.keyMaxValue
-				] + self._suffixErrorMessage(self.getValue(), self.__maxValueValue, 'max')
+				]
 			)
 
 			# found
@@ -69,7 +71,7 @@ class NumericRule(BaseRule):
 
 			elif self.validateMinValue() is False:
 				# add more error
-				self._addError(
+				self._addErrorNumber(
 					NumericSchema.keyMinValue
 				)
 
@@ -77,7 +79,7 @@ class NumericRule(BaseRule):
 				self._addErrorDetail(
 					NumericSchema.keyErrorDetail[
 						NumericSchema.keyMinValue
-					] + self._suffixErrorMessage(self.getValue(), self.__minValueValue, 'min')
+					]
 				)
 
 				# found
@@ -86,11 +88,11 @@ class NumericRule(BaseRule):
 		# negative
 		if foundError is False:
 			if not self.__negative:
-				return True
+				pass
 
 			elif self.validateNegative() is False:
 				# add more error
-				self._addError(
+				self._addErrorNumber(
 					NumericSchema.keyNegative
 				)
 
@@ -98,18 +100,8 @@ class NumericRule(BaseRule):
 				self._addErrorDetail(
 					NumericSchema.keyErrorDetail[
 						NumericSchema.keyNegative
-					] + self._suffixErrorMessage(self.getValue(), 'true', 'negative')
+					]
 				)
-
-	def _suffixErrorMessage(self, givenValue: str,  ruleValue: str, flag: str) -> str:
-		"""
-
-		:param givenValue:
-		:param ruleValue:
-		:param flag:
-		:return:
-		"""
-		return f'( given: {givenValue}, rule {flag}: {ruleValue})'
 
 	def validateMaxValue(self) -> bool:
 		"""

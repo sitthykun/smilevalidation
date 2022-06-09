@@ -3,8 +3,12 @@ Author: masakokh
 Version: 1.1.0
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.schema.BaseSchema import BaseSchema
+import re
+# internal
+from InvalidTypeList import InvalidTypeList as ErrorList
+from schema.BaseSchema import BaseSchema
 
 
 class ComparisonSchema(BaseSchema):
@@ -17,6 +21,6 @@ class ComparisonSchema(BaseSchema):
 
 	# translate error
 	keyErrorDetail	= {
-		keyMatch: 'Need matched form'
-		, keyNotMatch: 'Need not matched form'
+		keyMatch		: ErrorList.C_400
+		, keyNotMatch	: ErrorList.C_401
 	}

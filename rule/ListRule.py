@@ -3,8 +3,10 @@ Author: masakokh
 Version: 1.0.0
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.rule.BaseRule import BaseRule
+# internal
+from rule.BaseRule import BaseRule
 
 
 class ListRule(BaseRule):
@@ -19,4 +21,13 @@ class ListRule(BaseRule):
 		:param empty:
 		:param require:
 		"""
-		pass
+		super().__init__(
+			element
+			, require
+			, maxValue
+			, minValue
+			, negative
+		)
+
+		# run validation
+		self.__run()

@@ -3,9 +3,11 @@ Author: masakokh
 Version: 1.0.0
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.rule.ComparisonRule import ComparisonRule
-from smilevalidation.schema.ComparisonSchema import ComparisonSchema
+# internal
+from rule.ComparisonRule import ComparisonRule
+from schema.ComparisonSchema import ComparisonSchema
 
 
 class NotMatchRule(ComparisonRule):
@@ -40,7 +42,7 @@ class NotMatchRule(ComparisonRule):
 		"""
 		if not((value1 is not value2) is self.__isMatched):
 			# add error
-			self._addError(
+			self._addErrorNumber(
 				ComparisonSchema.keyMatch
 			)
 
@@ -48,6 +50,6 @@ class NotMatchRule(ComparisonRule):
 			self._addErrorDetail(
 				ComparisonSchema.keyErrorDetail[
 					ComparisonSchema.keyMatch
-				] + self._suffixErrorMessage(name1, value1, name2, value2, 'Matched')
+				]
 			)
 

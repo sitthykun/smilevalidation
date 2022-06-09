@@ -1,11 +1,14 @@
-# SmileValidation
+# SmileValidation v1.1.0
 ![smilevalidator](https://user-images.githubusercontent.com/227092/83977155-7da56a00-a928-11ea-9f9b-66df0791a9c6.png)
 
 Python3 Validation in another way
 
 I hurt enough for validating those form's elements. Time to bring a new technique type.
-It's gonna solve like this way:
+It's going to solve like this way:
 
+What's new v1.1.0:
+- h
+- c
 ## Validator class
 That's core class of the tool.
 It contains the validation element after added element into collect and it will valid the element by called isValid()
@@ -36,7 +39,7 @@ if v.isValid():
     print(f'Everything is fine')
 
 else:
-    print(f'Error: {v.getError()}')
+    print(f'Error: {v.getErrorNumber()}')
 
 ```
 
@@ -92,7 +95,7 @@ if v.isValid():
     print(f'Everything is fine')
 
 else:
-    print(f'Error: {v.getError()}')
+    print(f'Error: {v.getErrorNumber()}')
 ```
 
 ## Rule Reusable
@@ -145,7 +148,7 @@ if v.isValid():
     print(f'Everything is fine')
 
 else:
-    print(f'Error: {v.getError()}')
+    print(f'Error: {v.getErrorNumber()}')
 ```
 
 Full example
@@ -198,7 +201,7 @@ if v.isValid():
     print(f'Everything is fine')
 
 else:
-    print(f'Error: {v.getError()}')
+    print(f'Error: {v.getErrorNumber()}')
 
 ```
 

@@ -3,8 +3,11 @@ Author: masakokh
 Version: 1.1.0
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.schema.BaseSchema import BaseSchema
+# internal
+from InvalidTypeList import InvalidTypeList as ErrorList
+from schema.BaseSchema import BaseSchema
 
 
 class DateTimeSchema(BaseSchema):
@@ -21,8 +24,8 @@ class DateTimeSchema(BaseSchema):
 
 	# translate error
 	keyErrorDetail	= {
-		keyDate: 'Contained is not a date'
-		, keyDateTime: 'Contained is not a datetime'
-		, keyTime: 'Contained is not a time'
-		, keyDateType: 'Not a datetime type'
+		keyDate			: ErrorList.D_100	#'Contained is not a date'
+		, keyDateTime	: ErrorList.D_101	#'Contained is not a datetime'
+		, keyTime		: ErrorList.D_102	#'Contained is not a time'
+		, keyDateType	: ErrorList.D_103	#'Not a datetime type'
 	}

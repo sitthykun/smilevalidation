@@ -3,10 +3,12 @@ Author: masakokh
 Version: 1.0.0
 Note:
 """
-import re
+# built-in
 from typing import Any
-from smilevalidation.rule.BaseRule import BaseRule
-from smilevalidation.schema.StringSchema import StringSchema
+import re
+# internal
+from rule.BaseRule import BaseRule
+from schema.StringSchema import StringSchema
 
 
 class StringRule(BaseRule):
@@ -32,7 +34,7 @@ class StringRule(BaseRule):
 		self.__maxLengthValue	= maxLength
 		self.__minLengthValue	= minLength
 
-		self.__unicodeValue		= unicode
+		self.__isUnicode		= unicode
 
 		# regular expression
 		self.__regExValue		= regex
@@ -51,14 +53,14 @@ class StringRule(BaseRule):
 		# wrong type
 		if self.validateType() is False:
 			# add more error
-			self._addError(
+			self._addErrorNumber(
 				StringSchema.keyType
 			)
 			# add in detail
 			self._addErrorDetail(
 				StringSchema.keyErrorDetail[
 					StringSchema.keyType
-				] + self.__suffixErrorMessage(type(self.getValue()), 'string', 'type')
+				]
 			)
 
 			# found
@@ -71,14 +73,14 @@ class StringRule(BaseRule):
 
 			if self.validateMaxLength() is False:
 				# add more error
-				self._addError(
+				self._addErrorNumber(
 					StringSchema.keyMaxLength
 				)
 				# add in detail
 				self._addErrorDetail(
 					StringSchema.keyErrorDetail[
 						StringSchema.keyMaxLength
-					] + self.__suffixErrorMessage(len(self.getValue()), self.__maxLengthValue, 'max')
+					]
 				)
 
 				# found
@@ -91,7 +93,7 @@ class StringRule(BaseRule):
 
 			elif self.validateMinLength() is False:
 				# add more error
-				self._addError(
+				self._addErrorNumber(
 					StringSchema.keyMinLength
 				)
 
@@ -99,7 +101,7 @@ class StringRule(BaseRule):
 				self._addErrorDetail(
 					StringSchema.keyErrorDetail[
 						StringSchema.keyMinLength
-					] + self.__suffixErrorMessage(len(self.getValue()), self.__minLengthValue, 'min')
+					]
 				)
 
 				# found
@@ -112,7 +114,7 @@ class StringRule(BaseRule):
 
 			elif self.validateWrongRange() is False:
 				# add more error
-				self._addError(
+				self._addErrorNumber(
 					StringSchema.keyWrongRange
 				)
 
@@ -133,7 +135,7 @@ class StringRule(BaseRule):
 
 			elif self.validateRegEx() is False:
 				# add more error
-				self._addError(
+				self._addErrorNumber(
 					StringSchema.keyRegEx
 				)
 
@@ -149,12 +151,12 @@ class StringRule(BaseRule):
 
 		# unicode
 		if foundError is False:
-			if self.__unicodeValue is None:
+			if self.__isUnicode is None:
 				pass
 
 			elif self.validateUnicode() is False:
 				# add more error
-				self._addError(
+				self._addErrorNumber(
 					StringSchema.keyUnicode
 				)
 
@@ -164,16 +166,6 @@ class StringRule(BaseRule):
 						StringSchema.keyUnicode
 					]
 				)
-
-	def __suffixErrorMessage(self, givenValue: str,  ruleValue: str, flag: str) -> str:
-		"""
-
-		:param givenValue:
-		:param ruleValue:
-		:param flag:
-		:return:
-		"""
-		return f'( given: {givenValue}, rule {flag}: {ruleValue})'
 
 	def validateMaxLength(self) -> bool:
 		"""

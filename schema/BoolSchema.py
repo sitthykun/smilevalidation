@@ -10,16 +10,15 @@ from InvalidTypeList import InvalidTypeList as ErrorList
 from schema.NumericSchema import NumericSchema
 
 
-class FloatSchema(NumericSchema):
+class BoolSchema(NumericSchema):
 	"""
 
 	"""
-	keyPrecision		= 'precision'
 	# data type
-	keyDataType			= 'float'
+	# d datetime.now(), and type(d)
+	keyDateType		= 'bool'
 
 	# translate error
-	NumericSchema.keyErrorDetail.update({
-		keyPrecision	: ErrorList.F_300	# 'No precision'
-		, keyDataType	: ErrorList.F_301	# 'Not a float type'
-	})
+	keyErrorDetail	= {
+		keyDateType	: ErrorList.B_600	# Not a boolean type
+	}

@@ -2,9 +2,11 @@
 Author: masakokh
 Version: 1.0.0
 """
+# built-in
 from typing import Any
-from smilevalidation.rule import *
-from smilevalidation.schema import BaseSchema, ComparisonSchema, DateTimeSchema, FloatSchema, IntegerSchema, StringSchema
+# internal
+from rule import *
+from schema import BaseSchema, ComparisonSchema, DateTimeSchema, FloatSchema, IntegerSchema, StringSchema
 
 
 class TypeSchema:
@@ -31,6 +33,7 @@ class TypeSchema:
 		found	= False
 		# fmts = ('%Y', '%b %d, %Y', '%b %d, %Y', '%B %d, %Y', '%B %d %Y', '%m/%d/%Y', '%m/%d/%y', '%b %Y', '%B%Y', '%b %d,%Y')
 
+		#
 		return found
 
 	def __findTimeFormat(self, format: str) -> bool:
@@ -41,6 +44,7 @@ class TypeSchema:
 		"""
 		found = False
 
+		#
 		return found
 
 	def getDate(self, require: bool= None, format: str= None) -> dict:
@@ -59,12 +63,14 @@ class TypeSchema:
 
 		# require
 		if require and require is True:
+			#
 			temp.update({
 				BaseSchema.BaseSchema.keyRequire: True
 			})
 
 		# format date string
 		if format and self.__findDateFormat(format):
+			#
 			temp.update({
 				DateTimeSchema.DateTimeSchema.keyDate: True
 			})
@@ -196,12 +202,24 @@ class TypeSchema:
 		return temp
 
 	def getListInteger(self) -> dict:
+		"""
+		
+		:return:
+		"""
 		return {}
 
 	def getListFloat(self) -> dict:
+		"""
+
+		:return:
+		"""
 		return {}
 
 	def getListString(self) -> dict:
+		"""
+
+		:return:
+		"""
 		return {}
 
 	def getString(self, require: bool= None, maxLength: int= None, minLength: int= None, regex: str= None,  unicode: bool= None) -> dict:

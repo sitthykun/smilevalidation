@@ -3,11 +3,13 @@ Author: masakokh
 Version: 1.0.1
 Note:
 """
+# built-in
+import datetime
 import re
 from typing import Any
-import datetime
-from smilevalidation.rule.BaseRule import BaseRule
-from smilevalidation.schema.DateTimeSchema import DateTimeSchema
+# internal
+from rule.BaseRule import BaseRule
+from schema.DateTimeSchema import DateTimeSchema
 
 
 class TimeRule(BaseRule):
@@ -42,7 +44,7 @@ class TimeRule(BaseRule):
 		# wrong type
 		if self.validateType() is False:
 			# add more error
-			self._addError(
+			self._addErrorNumber(
 				DateTimeSchema.keyTime
 			)
 

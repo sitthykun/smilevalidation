@@ -3,9 +3,11 @@ Author: masakokh
 Version: 1.0.0
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.schema.BaseSchema import BaseSchema
-from smilevalidation.schema.NumericSchema import NumericSchema
+# internal
+from schema.BaseSchema import BaseSchema
+# from schema.NumericSchema import NumericSchema
 
 
 class BaseRule(BaseSchema):
@@ -24,14 +26,14 @@ class BaseRule(BaseSchema):
 	def __init__(self, element: dict, require: bool= None):
 		"""
 
+		:param element:
+		:param require:
 		"""
-
-		self.__requireValue = require
-		# self.__requireValue	= True
-
 		# match or not match value
 		self.__matchValue	= None
-
+		#
+		self.__requireValue = require
+		# self.__requireValue	= True
 		# fix key for each element
 		self.__valueValue	= None
 
@@ -51,8 +53,9 @@ class BaseRule(BaseSchema):
 
 		:return:
 		"""
-		if self.validateRequire() is False:
-			self._addError(
+		# False
+		if not self.validateRequire():
+			self._addErrorNumber(
 				next(
 					iter(
 						self.element.keys()
@@ -61,7 +64,7 @@ class BaseRule(BaseSchema):
 				#, super().keyRequire
 			)
 
-	# def _addError(self, elementName: str, errorType: str) -> None:
+	# def _addErrorNumber(self, elementName: str, errorType: str) -> None:
 	# 	"""
 	#
 	# 	:param elementName:
@@ -74,13 +77,21 @@ class BaseRule(BaseSchema):
 	# 		self.__error.update({
 	# 			elementName: errorType
 	# 		})
-	def _addError(self, errorName: str) -> None:
+	# def _addError(self, errorName: str) -> None:
+	# 	"""
+	#
+	# 	:param errorName:
+	# 	:return:
+	# 	"""
+	# 	self.__error		= errorName
+
+	def _addErrorNumber(self, errorNumber: int) -> None:
 		"""
 
-		:param errorName:
+		:param errorNumber:
 		:return:
 		"""
-		self.__error		= errorName
+		self.__errorNumber	= errorNumber
 
 	def _addErrorDetail(self, errorName: str) -> None:
 		"""
@@ -104,12 +115,18 @@ class BaseRule(BaseSchema):
 	# 	"""
 	# 	return self.__error
 
-	def getError(self) -> str:
+	# def getError(self) -> str:
+	# 	"""
+	#
+	# 	:return:
+	# 	"""
+	# 	return self.__error
+	def getErrorNumber(self) -> int:
 		"""
 
 		:return:
 		"""
-		return self.__error
+		return self.__errorNumber
 
 	def getErrorDetail(self) -> str:
 		"""
@@ -134,6 +151,7 @@ class BaseRule(BaseSchema):
 
 	def validateRequire(self) -> bool:
 		"""
+
 		{'require':True}
 		:return:
 		"""

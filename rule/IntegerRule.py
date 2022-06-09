@@ -3,9 +3,11 @@ Author: masakokh
 Version: 1.0.0
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.rule.NumericRule import NumericRule
-from smilevalidation.schema.IntegerSchema import IntegerSchema
+# internal
+from rule.NumericRule import NumericRule
+from schema.IntegerSchema import IntegerSchema
 
 
 class IntegerRule(NumericRule):
@@ -44,7 +46,7 @@ class IntegerRule(NumericRule):
 		# type
 		if self.validateType() is False:
 			# add more error
-			self._addError(
+			self._addErrorNumber(
 				IntegerSchema.keyType
 			)
 
@@ -52,7 +54,7 @@ class IntegerRule(NumericRule):
 			self._addErrorDetail(
 				IntegerSchema.keyErrorDetail[
 					IntegerSchema.keyType
-				] + + self._suffixErrorMessage(type(self.getValue()), 'integer', 'type')
+				]
 			)
 
 			# # found

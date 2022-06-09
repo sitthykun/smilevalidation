@@ -3,9 +3,11 @@ Author: masakokh
 Version: 1.0.0
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.rule.BaseRule import BaseRule
-from smilevalidation.schema.BaseSchema import BaseSchema
+# internal
+from rule.BaseRule import BaseRule
+from schema.BaseSchema import BaseSchema
 
 
 class BoolRule(BaseRule):
@@ -42,7 +44,7 @@ class BoolRule(BaseRule):
 		# type
 		if self.validateType() is False:
 			# add more error
-			self._addError(
+			self._addErrorNumber(
 				BaseSchema.keyValue
 			)
 

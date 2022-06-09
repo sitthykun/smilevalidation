@@ -3,9 +3,11 @@ Author: masakokh
 Version: 1.0.0
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.rule.BaseRule import BaseRule
-from smilevalidation.schema.DateTimeSchema import DateTimeSchema
+# internal
+from rule.BaseRule import BaseRule
+from schema.DateTimeSchema import DateTimeSchema
 
 
 class DateTimeRule(BaseRule):
@@ -46,7 +48,7 @@ class DateTimeRule(BaseRule):
 
 		elif self.validateDate() is False:
 			# add more error
-			self._addError(
+			self._addErrorNumber(
 				DateTimeSchema.keyDate
 			)
 
@@ -67,7 +69,7 @@ class DateTimeRule(BaseRule):
 
 			elif self.validateTime() is False:
 				# add more error
-				self._addError(
+				self._addErrorNumber(
 					DateTimeSchema.keyTime
 				)
 

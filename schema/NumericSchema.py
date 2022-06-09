@@ -3,8 +3,11 @@ Author: masakokh
 Version: 1.1.0
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.schema.BaseSchema import BaseSchema
+# internal
+from InvalidTypeList import InvalidTypeList as ErrorList
+from schema.BaseSchema import BaseSchema
 
 
 class NumericSchema(BaseSchema):
@@ -17,8 +20,8 @@ class NumericSchema(BaseSchema):
 
 	# translate error
 	keyErrorDetail	= {
-		keyMaxValue: 'Greater than maximum value'
-		, keyMinValue: 'Less than minimum value'
-		, keyNegative: 'Negative not allow'
-		, BaseSchema.keyType: 'Type is not matched'
+		keyMaxValue: ErrorList.I_302			# Greater than maximum value
+		, keyMinValue: ErrorList.N_303			# Less than minimum value
+		, keyNegative: ErrorList.N_304			# Negative not allow
+		, BaseSchema.keyType: ErrorList.N_305	# Type is not matched
 	}

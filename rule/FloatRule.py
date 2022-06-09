@@ -3,9 +3,11 @@ Author: masakokh
 Version: 1.0.0
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.rule.NumericRule import NumericRule
-from smilevalidation.schema.FloatSchema import FloatSchema
+# internal
+from rule.NumericRule import NumericRule
+from schema.FloatSchema import FloatSchema
 
 
 class FloatRule(NumericRule):
@@ -47,7 +49,7 @@ class FloatRule(NumericRule):
 		# type
 		if self.validateType() is False:
 			# add more error
-			self._addError(
+			self._addErrorNumber(
 				FloatSchema.keyType
 			)
 
@@ -55,7 +57,7 @@ class FloatRule(NumericRule):
 			self._addErrorDetail(
 				FloatSchema.keyErrorDetail[
 					FloatSchema.keyType
-				] + self._suffixErrorMessage(type(self.getValue()), 'float', 'type')
+				]
 			)
 
 			# found
@@ -67,7 +69,7 @@ class FloatRule(NumericRule):
 
 		elif self.validatePrecision() is False:
 			# add more error
-			self._addError(
+			self._addErrorNumber(
 				FloatSchema.keyPrecision
 			)
 
@@ -75,7 +77,7 @@ class FloatRule(NumericRule):
 			self._addErrorDetail(
 				FloatSchema.keyErrorDetail[
 					FloatSchema.keyPrecision
-				] + self._suffixErrorMessage(self.getValue(), self.__precisionValue, 'negative')
+				]
 			)
 
 	def validatePrecision(self) -> bool:
@@ -84,10 +86,10 @@ class FloatRule(NumericRule):
 		:return:
 		"""
 		if self.getValue():
-			return self.__precisionValue
+			return True
 
 		else:
-			return self.__precisionValue
+			return False
 
 	def validateType(self) -> bool:
 		"""
