@@ -1,6 +1,7 @@
 """
 Author: masakokh
 Version: 1.0.0
+Note:
 """
 # built-in
 from typing import Any

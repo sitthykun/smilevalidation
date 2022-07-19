@@ -8,6 +8,7 @@ from typing import Any
 import re
 # internal
 from InvalidTypeList import InvalidTypeList as ErrorList
+# schema
 from schema.BaseSchema import BaseSchema
 
 

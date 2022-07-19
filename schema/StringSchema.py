@@ -14,6 +14,8 @@ class StringSchema(BaseSchema):
 	"""
 
 	"""
+	# blank string equal to empty
+	keyEmpty		= 'empty'
 	keyMaxLength	= 'max_length'
 	keyMinLength	= 'min_length'
 	# min > max or another reason

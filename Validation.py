@@ -255,17 +255,17 @@ class Validation:
 		:param errorOrder:
 		:return:
 		"""
-		mr		= NotMatchRule(elementName1, elementValue1, elementName2, elementValue2)
+		nmr		= NotMatchRule(elementName1, elementValue1, elementName2, elementValue2)
 
 		# verify error
-		if mr.getErrorNumber():
+		if nmr.getErrorNumber():
 			# add error once it found
 			self.__addComparisonError(
 				elementName1	= elementName1
 				, elementValue1	= elementValue1
 				, elementName2	= elementName2
 				, elementValue2	= elementValue2
-				, errorMessage	= mr.getErrorDetail()
+				, errorMessage	= nmr.getErrorDetail()
 			)
 
 	def getElement(self) -> dict:

@@ -7,10 +7,11 @@ Note:
 from typing import Any
 # internal
 from InvalidTypeList import InvalidTypeList as ErrorList
-from schema.NumericSchema import NumericSchema
+# schema super
+from schema.BaseSchema import BaseSchema
 
 
-class BoolSchema(NumericSchema):
+class BoolSchema(BaseSchema):
 	"""
 
 	"""
