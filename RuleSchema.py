@@ -112,7 +112,7 @@ class RuleSchema:
 		"""
 		return {}
 
-	def getFloat(self, require: bool= False, maxValue: float= None, minValue: float= None, negative: bool= None, precision: bool= None) -> dict:
+	def getFloat(self, require: bool= False, maxValue: float= None, minValue: float= None, negative: bool= None, precision: int= None) -> dict:
 		"""
 
 		:param require:

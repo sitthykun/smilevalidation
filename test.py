@@ -24,7 +24,7 @@ val.addElement(
 		, maxValue= 2.1
 		, minValue= 2
 		, negative= False
-		,
+		, precision= 1
 	)
 )
 
