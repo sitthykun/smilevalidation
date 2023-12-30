@@ -3,6 +3,7 @@ Author: masakokh
 Version: 1.0.0
 """
 # built-in
+import re
 from typing import Any
 #
 from rule.BoolRule import BoolRule
@@ -21,9 +22,11 @@ from rule.TimeRule import TimeRule
 from schema.BoolSchema import BoolSchema
 from schema.ComparisonSchema import ComparisonSchema
 from schema.DateTimeSchema import DateTimeSchema
+from schema.DateSchema import DateSchema
 from schema.FloatSchema import FloatSchema
 from schema.IntegerSchema import IntegerSchema
 from schema.StringSchema import StringSchema
+from schema.TimeSchema import TimeSchema
 
 
 class RuleSchema:
@@ -45,14 +48,60 @@ class RuleSchema:
 		"""
 		return True if value else False
 
-	def getDate(self, require: bool= None, regexFormat: str= None) -> dict:
+	def getDate(self, require: bool= False, year4: bool= True, year2: bool= False, month: bool= True, day: bool= True) -> dict:
 		"""
 
 		:param require:
-		:param regexFormat:
+		:param year4:
+		:param year2:
+		:param month:
+		:param day:
 		:return:
 		"""
-		return {}
+		# MINYEAR <= year <= MAXYEAR,
+		# 1 <= month <= 12,
+		# 1 <= day <= number of days in the given month and year,
+		# 0 <= hour < 24,
+		# 0 <= minute < 60,
+		# 0 <= second < 60,
+		# 0 <= microsecond < 1000000,
+		# fold in [0, 1].
+
+		#
+		temp = dict()
+
+		#
+		if require:
+			temp.update({
+				DateSchema.keyRequire: require
+			})
+
+		#
+		if year4:
+			temp.update({
+				DateSchema.keyYear4: year4
+			})
+
+		#
+		if year2:
+			temp.update({
+				DateSchema.keyYear2: year2
+			})
+
+		#
+		if month:
+			temp.update({
+				DateSchema.keyMonth: month
+			})
+
+		#
+		if day:
+			temp.update({
+				DateSchema.keyDay: day
+			})
+
+		#
+		return temp
 
 	def getDateTime(self, require: bool= None, regexFormat: str= None) -> dict:
 		"""
@@ -63,7 +112,7 @@ class RuleSchema:
 		"""
 		return {}
 
-	def getFloat(self, require: bool= None, maxValue: int= None, minValue: int= None, negative: bool= None, precision: bool= None) -> dict:
+	def getFloat(self, require: bool= False, maxValue: float= None, minValue: float= None, negative: bool= None, precision: bool= None) -> dict:
 		"""
 
 		:param require:
@@ -73,11 +122,43 @@ class RuleSchema:
 		:param precision:
 		:return:
 		"""
+		#
+		temp = dict()
 
+		#
+		if require:
+			temp.update({
+				FloatSchema.keyRequire: require
+			})
 
-		return {}
+		#
+		if maxValue:
+			temp.update({
+				FloatSchema.keyMaxValue: maxValue
+			})
 
-	def getInteger(self, require: bool= None, maxValue: int= None, minValue: int= None, negative: bool= None) -> dict:
+		#
+		if minValue:
+			temp.update({
+				FloatSchema.keyMinValue: minValue
+			})
+
+		#
+		if negative:
+			temp.update({
+				FloatSchema.keyNegative: negative
+			})
+
+		#
+		if precision:
+			temp.update({
+				FloatSchema.keyPrecision: precision
+			})
+
+		#
+		return temp
+
+	def getInteger(self, require: bool= False, maxValue: int= None, minValue: int= None, negative: bool= None) -> dict:
 		"""
 
 		:param require:
@@ -92,7 +173,7 @@ class RuleSchema:
 		#
 		if require:
 			temp.update({
-				IntegerSchema.keyRequire: True
+				IntegerSchema.keyRequire: require
 			})
 
 		#
@@ -116,7 +197,7 @@ class RuleSchema:
 		#
 		return temp
 
-	def getString(self, require: bool= None, maxLength: int= None, minLength: int= None, isUnicode: bool= None, regexValue: str= None) -> dict:
+	def getString(self, require: bool= False, maxLength: int= None, minLength: int= None, isUnicode: bool= None, regexValue: str= None) -> dict:
 		"""
 
 		:param require:
@@ -126,13 +207,94 @@ class RuleSchema:
 		:param regexValue:
 		:return:
 		"""
-		return {}
+		#
+		temp = dict()
 
-	def getTime(self, require: bool= None, regexFormat: str= None) -> dict:
+		#
+		if require:
+			temp.update({
+				StringSchema.keyRequire: require
+			})
+
+		#
+		if maxLength:
+			temp.update({
+				StringSchema.keyMaxLength: maxLength
+			})
+
+		#
+		if minLength:
+			temp.update({
+				StringSchema.keyMinLength: minLength
+			})
+
+		#
+		if isUnicode and isUnicode == True:
+			temp.update({
+				StringSchema.keyUnicode: isUnicode
+			})
+
+		#
+		if regexValue and regexValue == True:
+			temp.update({
+				StringSchema.keyRegEx: regexValue
+			})
+
+		#
+		return temp
+
+	def getTime(self, require: bool= False, hour24: bool= True, hour12: bool= False, minute: bool= True, second: bool= True, millisecond: bool= False) -> dict:
 		"""
 
 		:param require:
-		:param regexFormat:
+		:param hour24:
+		:param hour12:
+		:param minute:
+		:param second:
+		:param millisecond:
+		%S 00-59 second
+		%M 00-59 min
+		%H 00-23 hour
+		%I 00-12 hour
 		:return:
 		"""
-		return {}
+		#
+		temp = dict()
+
+		#
+		if require:
+			temp.update({
+				TimeRule.keyRequire: require
+			})
+
+		#
+		if hour24:
+			temp.update({
+				TimeSchema.keyHour24: hour24
+			})
+
+		#
+		if hour12:
+			temp.update({
+				TimeSchema.keyHour12: hour12
+			})
+
+		#
+		if minute:
+			temp.update({
+				TimeSchema.keyMinute: minute
+			})
+
+		#
+		if second:
+			temp.update({
+				TimeSchema.keySecond: second
+			})
+
+		#
+		if millisecond:
+			temp.update({
+				TimeSchema.keyMillisecond: millisecond
+			})
+		#
+		return temp

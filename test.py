@@ -6,13 +6,25 @@ pattern	= RuleSchema()
 
 val	= Validation()
 val.addElement(
-	elementName= 'fda'
+	elementName= 'a'
 	, elementValue= 93
 	, rule= pattern.getInteger(
 		require= True
 		, maxValue= 23
 		, minValue= 2
 		, negative= True
+	)
+)
+
+val.addElement(
+	elementName= 'b'
+	, elementValue= 2.3
+	, rule= pattern.getFloat(
+		require= True
+		, maxValue= 2.1
+		, minValue= 2
+		, negative= False
+		,
 	)
 )
 

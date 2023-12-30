@@ -15,10 +15,20 @@ class InvalidTypeList:
 	C_400	= 400	# Need matched form
 	C_401	= 401	# Need not matched form
 	# date
-	D_100	= 100	# Contained is not a date
-	D_101	= 101	# Contained is not a datetime
-	D_102	= 102	# Contained is not a time
-	D_103	= 103	# Not a datetime type
+	DT_100	= 100	# Not a datetime type
+	DT_110  = 110  # Contained is not a date
+	DT_111  = 111  # Contained is not a year two
+	DT_112  = 112  # Contained is not a year four
+	DT_113  = 113  # Contained is not a month
+	DT_114  = 114  # Contained is not a day
+
+	DT_120  = 120   #  Contained is not a time
+	DT_121	= 121	# Contained is not a hour 24
+	DT_122	= 122	# Contained is not a hour 12
+	DT_123	= 123	# Contained is not a minute
+	DT_124  = 124   # Contained is not a second
+	DT_125  = 125   # Contained is not a milli
+
 	# float
 	F_300	= 300	# No precision
 	F_301	= 301	# Not a float type
