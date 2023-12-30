@@ -23,8 +23,8 @@ class InvalidTypeList:
 	DT_114  = 114  # Contained is not a day
 
 	DT_120  = 120   #  Contained is not a time
-	DT_121	= 121	# Contained is not a hour 24
-	DT_122	= 122	# Contained is not a hour 12
+	DT_121	= 121	# Contained is not an hour 24
+	DT_122	= 122	# Contained is not an hour 12
 	DT_123	= 123	# Contained is not a minute
 	DT_124  = 124   # Contained is not a second
 	DT_125  = 125   # Contained is not a milli
