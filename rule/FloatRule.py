@@ -36,25 +36,27 @@ class FloatRule(NumericRule):
 		self.__precisionValue	= precision
 
 		# run validation
-		self.__run()
+		self.run()
 
-	def __run(self) -> None:
+	def run(self) -> None:
 		"""
 
 		:return:
 		"""
+		#
+		super().run()
 		# if found an error, it will stop checking other error
 		foundError	= False
 
 		# type
 		if self.validateType() is False:
 			# add more error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				FloatSchema.keyType
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				FloatSchema.keyErrorDetail[
 					FloatSchema.keyType
 				]
@@ -69,12 +71,12 @@ class FloatRule(NumericRule):
 
 		elif self.validatePrecision() is False:
 			# add more error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				FloatSchema.keyPrecision
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				FloatSchema.keyErrorDetail[
 					FloatSchema.keyPrecision
 				]
@@ -100,11 +102,6 @@ class FloatRule(NumericRule):
 		:return:
 		"""
 		if self.getValue():
-			if isinstance(self.getValue(), int) or isinstance(self.getValue(), float):
-				return True
-
-			else:
-				return False
-
-		else:
-			return False
+			return isinstance(self.getValue(), float) or isinstance(self.getValue(), int)
+		#
+		return False

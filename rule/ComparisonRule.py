@@ -20,11 +20,11 @@ class ComparisonRule:
 		"""
 		# element
 		self.__error		= ''
-		self.__errorNumber	= 0
 		# keep error in detail
 		self.__errorDetail	= ''
+		self.__errorNumber	= 0
 
-	def _addErrorNumber(self, errorNumber: int) -> None:
+	def addErrorNumber(self, errorNumber: int) -> None:
 		"""
 
 		:param errorNumber:
@@ -32,28 +32,13 @@ class ComparisonRule:
 		"""
 		self.__errorNumber	= errorNumber
 
-	# def _addErrorNumber(self, errorName: str) -> None:
-	# 	"""
-	#
-	# 	:param errorName:
-	# 	:return:
-	# 	"""
-	# 	self.__error		= errorName
-
-	def _addErrorDetail(self, errorName: str) -> None:
+	def addErrorDetail(self, errorName: str) -> None:
 		"""
 
 		:param errorName:
 		:return:
 		"""
 		self.__errorDetail	= errorName
-
-	# def getError(self) -> str:
-	# 	"""
-	#
-	# 	:return:
-	# 	"""
-	# 	return self.__error
 
 	def getErrorDetail(self) -> str:
 		"""

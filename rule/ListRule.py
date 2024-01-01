@@ -24,10 +24,7 @@ class ListRule(BaseRule):
 		super().__init__(
 			element
 			, require
-			, maxValue
-			, minValue
-			, negative
 		)
 
 		# run validation
-		self.__run()
+		# self.__run()

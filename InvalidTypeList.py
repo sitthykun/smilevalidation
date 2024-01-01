@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 """
 from typing import Any
 
@@ -15,7 +15,8 @@ class InvalidTypeList:
 	C_400	= 400	# Need matched form
 	C_401	= 401	# Need not matched form
 	# datetime
-	DT_100	= 100	# Not a datetime type
+	DT_100	= 100	# Not a datetime
+	DT_101  = 101   # Not a datetime type
 	# date
 	DT_110  = 110  # Contained is not a date
 	DT_111  = 111  # Contained is not a year two
@@ -23,16 +24,17 @@ class InvalidTypeList:
 	DT_113  = 113  # Contained is not a month
 	DT_114  = 114  # Contained is not a day
 	# time
-	DT_120  = 120   #  Contained is not a time
+	DT_120  = 120   # Contained is not a time
 	DT_121	= 121	# Contained is not an hour 24
 	DT_122	= 122	# Contained is not an hour 12
 	DT_123	= 123	# Contained is not a minute
 	DT_124  = 124   # Contained is not a second
 	DT_125  = 125   # Contained is not a milli
-
 	# float
 	F_300	= 300	# No precision
 	F_301	= 301	# Not a float type
+	# general
+	G_900   = 900
 	# integer
 	I_302	= 302	# Not an integer type
 	# list

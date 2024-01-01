@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.1.0
+Version: 1.1.1
 Note:
 """
 # built-in
@@ -20,12 +20,12 @@ class DateTimeSchema(BaseSchema):
 
 	# data type
 	# d datetime.now(), and type(d)
-	keyDateType		= 'datetime.datetime'
+	keyDataType		= 'datetime.datetime'
 
 	# translate error
 	keyErrorDetail	= {
-		keyDate			: ErrorList.D_100	#'Contained is not a date'
-		, keyDateTime	: ErrorList.D_101	#'Contained is not a datetime'
-		, keyTime		: ErrorList.D_102	#'Contained is not a time'
-		, keyDateType	: ErrorList.D_103	#'Not a datetime type'
+		keyDate			: ErrorList.DT_110	#'Contained is not a date'
+		, keyDateTime	: ErrorList.DT_100	#'Contained is not a datetime'
+		, keyTime		: ErrorList.DT_120	#'Contained is not a time'
+		, keyDataType	: ErrorList.DT_101	#'Not a datetime type'
 	}

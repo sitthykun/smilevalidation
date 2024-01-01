@@ -42,14 +42,13 @@ class NotMatchRule(ComparisonRule):
 		"""
 		if not((value1 is not value2) is self.__isMatched):
 			# add error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				ComparisonSchema.keyMatch
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				ComparisonSchema.keyErrorDetail[
 					ComparisonSchema.keyMatch
 				]
 			)
-

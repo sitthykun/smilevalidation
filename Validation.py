@@ -2,7 +2,10 @@
 Author: masakokh
 Version: 1.1.0
 """
+# built-in
 from typing import Any
+# internal
+from Console import Console
 from rule.BoolRule import BoolRule
 from rule.ComparisonRule import ComparisonRule
 from rule.DateRule import DateRule
@@ -38,6 +41,7 @@ class Validation:
 		# keep only an error of all element's errors
 		self.__errorElement		= {}
 		self.__errorMatched		= {}
+		self.__foundValid       = True
 
 		# key
 		self.__keyError			= 'error'
@@ -57,19 +61,6 @@ class Validation:
 	# 	self.__errorElement.update({
 	# 		elementName: f'<{self.__keyError}>: {errorType}, <{self.__keyErrorDetail}>: {errorMessage}'
 	# 	})
-	def __addErrorNumber(self, elementName: str, elementValue: str, errorNumber: int, errorMessage: str) -> None:
-		"""
-
-		:param elementName:
-		:param elementValue:
-		:param errorNumber:
-		:param errorMessage:
-		:return:
-		"""
-		self.__errorElement.update({
-			elementName: f'<{self.__keyError}>: {errorNumber}, <{self.__keyErrorDetail}>: {errorMessage}'
-		})
-
 	def __addComparisonError(self, elementName1: str, elementValue1: Any, elementName2: str, elementValue2: Any, errorMessage: str) -> None:
 		"""
 
@@ -82,6 +73,22 @@ class Validation:
 		"""
 		self.__errorMatched.update({
 			f'{elementName1}_{elementName2}': f'<{self.__keyErrorDetail}>: {errorMessage}'
+		})
+
+	def __addErrorNumber(self, elementName: str, elementValue: Any, errorNumber: int, errorMessage: str) -> None:
+		"""
+
+		:param elementName:
+		:param elementValue:
+		:param errorNumber:
+		:param errorMessage:
+		:return:
+		"""
+		self.__foundValid   = False
+
+		#
+		self.__errorElement.update({
+			elementName: f'<{self.__keyError}>: {errorNumber}, <{self.__keyErrorDetail}>: {errorMessage}'
 		})
 
 	def __addNaturalElement(self, elementName: str, elementValue: Any, rule: dict) -> None:
@@ -98,6 +105,8 @@ class Validation:
 				, BaseSchema.keyRule: rule
 			}
 		})
+
+		Console.output(f'Validation.__addNaturalElement: {self.__element=}')
 
 	def __addSplitElement(self, elementName: str, elementValue: str, rule: dict, delimiter: str) -> None:
 		"""
@@ -116,7 +125,7 @@ class Validation:
 			})
 
 		except Exception as e:
-			print(f'Validation.__addSplitElement:{str(e)}')
+			Console.output(f'Validation.__addSplitElement:{str(e)}')
 
 	def __appendWithExistedError(self, key: str, newDict: dict) -> None:
 		"""
@@ -154,11 +163,11 @@ class Validation:
 			return element[BaseSchema.keyRule]
 
 		except KeyError as e:
-			print(f'Validation.__getElementRule KeyError: {str(e)}')
+			Console.output(f'Validation.__getElementRule KeyError: {str(e)}')
 			return {}
 
 		except Exception as e:
-			print(f'Validation.__getElementRule Exception: {str(e)}')
+			Console.output(f'Validation.__getElementRule Exception: {str(e)}')
 			return {}
 
 	def __getElementType(self, element: dict) -> str:
@@ -170,14 +179,14 @@ class Validation:
 		# StringSchema is type
 		# by default it returns str
 		try:
-			return element[BaseSchema.keyRule][StringSchema.keyType]
+			return element[BaseSchema.keyRule][BaseSchema.keyType]
 
 		except KeyError as e:
-			print(f'Validation.__getElementType KeyError: {str(e)}')
+			Console.output(f'Validation.__getElementType KeyError: {element=}, {str(e)}')
 			return StringSchema.keyDataType
 
 		except Exception as e:
-			print(f'Validation.__getElementType Exception: {str(e)}')
+			Console.output(f'Validation.__getElementType Exception: {str(e)}')
 			return StringSchema.keyDataType
 
 	def addElement(self, elementName: str, elementValue: Any, rule: dict, delimiter: str= None) -> None:
@@ -191,6 +200,7 @@ class Validation:
 		"""
 		# the value must be string
 		if delimiter and isinstance(delimiter, str):
+			Console.output(f'Validation.addElement delimiter')
 			self.__addSplitElement(
 				elementName     = elementName
 				, elementValue	= str(elementValue)
@@ -200,6 +210,7 @@ class Validation:
 
 		#
 		else:
+			Console.output(f'Validation.addElement no delimiter')
 			self.__addNaturalElement(
 				elementName		= elementName
 				, elementValue	= elementValue
@@ -303,6 +314,7 @@ class Validation:
 
 			# date validation
 			if elementType    == DateSchema.keyDataType:
+				Console.output(f'Validation.isValid {elementType}')
 				# require: bool= None, maxValue: int= None, minValue: int= None, negative: bool= None, precision: int= None
 				temp	= DateRule(
 					element     = elementValue
@@ -314,7 +326,7 @@ class Validation:
 				)
 
 				# add error
-				if temp.getErrorNumber():
+				if not temp.isValid():
 					# add error once it found
 					self.__addErrorNumber(
 						elementName		= elementName
@@ -325,6 +337,7 @@ class Validation:
 
 			# float
 			elif elementType	== FloatSchema.keyDataType:
+				Console.output(f'Validation.isValid {elementType}')
 				# require: bool= None, maxValue: int= None, minValue: int= None, negative: bool= None, precision: int= None
 				temp	= FloatRule(
 					element		= elementValue
@@ -336,7 +349,7 @@ class Validation:
 				)
 
 				# add error
-				if temp.getErrorNumber():
+				if not temp.isValid():
 					# add error once it found
 					self.__addErrorNumber(
 						elementName		= elementName
@@ -347,6 +360,7 @@ class Validation:
 
 			# integer
 			elif elementType	== IntegerSchema.keyDataType:
+				Console.output(f'Validation.isValid {elementType}')
 				# require: bool= None, maxValue: int= None, minValue: int= None, negative: bool= None, precision: int= None
 				temp	= IntegerRule(
 					element		= elementValue
@@ -356,18 +370,20 @@ class Validation:
 					, negative	= elementRule.get(IntegerSchema.keyNegative) if elementRule.get(IntegerSchema.keyNegative) else None
 				)
 
+				Console.output(f'Validation.isValid {temp.keyValue=}, {temp.getErrorNumber()=}, {elementValue=}, {elementValue[temp.keyValue]=}, {elementName=}, {elementRule.get(IntegerSchema.keyMaxValue)=}, {temp.isValid()=}')
 				# add error
-				if temp.getErrorNumber():
+				if not temp.isValid():
 					# add error once it found
 					self.__addErrorNumber(
 						elementName		= elementName
-						, elementValue	= temp.keyValue
+						, elementValue	= elementValue[temp.keyValue]
 						, errorNumber	= temp.getErrorNumber()
 						, errorMessage	= temp.getErrorDetail()
 					)
 
 			# string validation
 			elif elementType == StringSchema.keyDataType:
+				Console.output(f'Validation.isValid {elementType}')
 				# check unicode or literal string
 				# require: bool= None, maxLength: int= None, minLength: int= None, regex: str= None,  unicode: bool= None
 				temp	= StringRule(
@@ -380,7 +396,7 @@ class Validation:
 				)
 
 				# add error
-				if temp.getErrorNumber():
+				if not temp.isValid():
 					# add error once it found
 					self.__addErrorNumber(
 						elementName		= elementName
@@ -391,6 +407,7 @@ class Validation:
 
 			# time
 			elif elementType    == TimeSchema.keyDataType:
+				Console.output(f'Validation.isValid {elementType}')
 				# require: bool= None, maxValue: int= None, minValue: int= None, negative: bool= None, precision: int= None
 				temp	= TimeRule(
 					element		    = elementValue
@@ -403,7 +420,7 @@ class Validation:
 				)
 
 				# add error
-				if temp.getErrorNumber():
+				if not temp.isValid():
 					# add error once it found
 					self.__addErrorNumber(
 						elementName		= elementName
@@ -411,8 +428,5 @@ class Validation:
 						, errorNumber	= temp.getErrorNumber()
 						, errorMessage	= temp.getErrorDetail()
 					)
-
 		# if it has error, it will return true
-		return not bool(
-			self.getError()
-		)
+		return self.__foundValid

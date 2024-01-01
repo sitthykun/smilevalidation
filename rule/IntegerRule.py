@@ -6,8 +6,10 @@ Note:
 # built-in
 from typing import Any
 # internal
+from InvalidTypeList import InvalidTypeList
 from rule.NumericRule import NumericRule
 from schema.IntegerSchema import IntegerSchema
+from Console import Console
 
 
 class IntegerRule(NumericRule):
@@ -32,44 +34,38 @@ class IntegerRule(NumericRule):
 			, negative
 		)
 
-		# run validation
-		self.__run()
+		# private
+		self.__isValid  = True
 
-	def __run(self) -> None:
+		# run validation
+		self.run()
+
+	def run(self) -> None:
 		"""
 
 		:return:
 		"""
-		# if found an error, it will stop checking other error
-		# foundError	= False
+		if self.validateType():
+			super().run()
 
-		# type
-		if self.validateType() is False:
-			# add more error
-			self._addErrorNumber(
-				IntegerSchema.keyType
-			)
+		else:
+			# if found an error, it will stop checking other error
+			self.__isValid	= False
 
-			# add in detail
-			self._addErrorDetail(
-				IntegerSchema.keyErrorDetail[
-					IntegerSchema.keyType
-				]
-			)
+	def isValid(self) -> bool:
+		"""
 
-			# # found
-			# foundError = True
+		:return:
+		"""
+		return super().isValid() and self.__isValid
 
 	def validateType(self) -> bool:
 		"""
 
 		:return:
 		"""
+		Console.output(f'rule.IntegerRule.validateType  {self.getValue()=}')
 		if self.getValue():
-			if isinstance(self.getValue(), int):
-				return True
-
-			else:
-				return False
-		else:
-			return False
+			return isinstance(self.getValue(), int)
+		#
+		return False

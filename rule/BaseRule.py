@@ -6,8 +6,9 @@ Note:
 # built-in
 from typing import Any
 # internal
+from Console import Console
+from InvalidTypeList import InvalidTypeList
 from schema.BaseSchema import BaseSchema
-# from schema.NumericSchema import NumericSchema
 
 
 class BaseRule(BaseSchema):
@@ -29,11 +30,9 @@ class BaseRule(BaseSchema):
 		:param element:
 		:param require:
 		"""
-		# error as dict type
-		# self.__error		= {}
-		self.__error		= ''
 		# keep error in detail
 		self.__errorDetail	= ''
+		self.__errorNumber  = 0
 
 		# match or not match value
 		self.__matchValue	= None
@@ -46,47 +45,18 @@ class BaseRule(BaseSchema):
 		# element
 		self.element		= element
 
-		# run validation
-		self.__run()
-
-	def __run(self) -> None:
+	def run(self) -> None:
 		"""
 
 		:return:
 		"""
 		# False
-		if not self.validateRequire():
-			self._addErrorNumber(
-				next(
-					iter(
-						self.element.keys()
-					)
-				)
-				#, super().keyRequire
+		if self.__requireValue is True and not self.validateRequire():
+			self.addErrorNumber(
+				InvalidTypeList.G_900
 			)
 
-	# def _addErrorNumber(self, elementName: str, errorType: str) -> None:
-	# 	"""
-	#
-	# 	:param elementName:
-	# 	:param errorType:
-	# 	:return:
-	# 	"""
-	# 	# accept only the first error for an element
-	# 	if self.__error.get(elementName):
-	# 		# add error to collect
-	# 		self.__error.update({
-	# 			elementName: errorType
-	# 		})
-	# def _addError(self, errorName: str) -> None:
-	# 	"""
-	#
-	# 	:param errorName:
-	# 	:return:
-	# 	"""
-	# 	self.__error		= errorName
-
-	def _addErrorNumber(self, errorNumber: int) -> None:
+	def addErrorNumber(self, errorNumber: int) -> None:
 		"""
 
 		:param errorNumber:
@@ -94,7 +64,7 @@ class BaseRule(BaseSchema):
 		"""
 		self.__errorNumber	= errorNumber
 
-	def _addErrorDetail(self, errorName: str) -> None:
+	def addErrorDetail(self, errorName: str) -> None:
 		"""
 
 		:param errorName:
@@ -102,7 +72,7 @@ class BaseRule(BaseSchema):
 		"""
 		self.__errorDetail	= errorName
 
-	def _getElementName(self) -> str:
+	def getElementName(self) -> str:
 		"""
 
 		:return:
@@ -132,11 +102,11 @@ class BaseRule(BaseSchema):
 			return self.element[self.keyValue]
 
 		except KeyError as e:
-			print(f'rule.BaseRule.getValue KeyError: {str(e)}')
+			Console.output(f'rule.BaseRule.getValue KeyError: {str(e)}')
 			return None
 
 		except Exception as e:
-			print(f'rule.BaseRule.getValue Exception: {str(e)}')
+			Console.output(f'rule.BaseRule.getValue Exception: {str(e)}')
 			return None
 
 	def getSplitValue(self) -> list | None:
@@ -148,12 +118,19 @@ class BaseRule(BaseSchema):
 			return self.element[self.keyValue]
 
 		except KeyError as e:
-			print(f'rule.BaseRule.getSplitValue KeyError: {str(e)}')
+			Console.output(f'rule.BaseRule.getSplitValue KeyError: {str(e)}')
 			return None
 
 		except Exception as e:
-			print(f'rule.BaseRule.getSplitValue Exception: {str(e)}')
+			Console.output(f'rule.BaseRule.getSplitValue Exception: {str(e)}')
 			return None
+
+	def isValid(self) -> bool:
+		"""
+
+		:return:
+		"""
+		return not bool(self.__errorNumber)
 
 	def validateRequire(self) -> bool:
 		"""
@@ -162,16 +139,14 @@ class BaseRule(BaseSchema):
 		:return:
 		"""
 		try:
-			if self.element[self.keyRule][self.keyRequire]:
-				return True
-
-			else:
-				return False
+			# true and value is not null
+			# return self.element[self.keyRule][self.keyRequire] is True and self.element[self.keyRule][self.keyValue]
+			return self.element[self.keyRule][self.keyRequire] is True and bool(self.getValue())
 
 		except KeyError as e:
-			print(f'rule.BaseRule.validateRequire KeyError: {str(e)}')
+			Console.output(f'rule.BaseRule.validateRequire KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
-			print(f'rule.BaseRule.validateRequire Exception: {str(e)}')
+			Console.output(f'rule.BaseRule.validateRequire Exception: {str(e)}')
 			return False

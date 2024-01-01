@@ -7,6 +7,8 @@ Note:
 from typing import Any
 import re
 # internal
+from Console import Console
+from InvalidTypeList import InvalidTypeList
 from rule.BaseRule import BaseRule
 from schema.StringSchema import StringSchema
 
@@ -40,24 +42,26 @@ class StringRule(BaseRule):
 		self.__regExValue		= regex
 
 		# run validation
-		self.__run()
+		self.run()
 
-	def __run(self) -> None:
+	def run(self) -> None:
 		"""
 
 		:return:
 		"""
+		#
+		super().run()
 		# if found an error, it will stop checking other error
 		foundError	= False
 
 		# wrong type
 		if self.validateType() is False:
 			# add more error
-			self._addErrorNumber(
-				StringSchema.keyType
+			self.addErrorNumber(
+				InvalidTypeList.S_200
 			)
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				StringSchema.keyErrorDetail[
 					StringSchema.keyType
 				]
@@ -73,11 +77,11 @@ class StringRule(BaseRule):
 
 			if self.validateMaxLength() is False:
 				# add more error
-				self._addErrorNumber(
+				self.addErrorNumber(
 					StringSchema.keyMaxLength
 				)
 				# add in detail
-				self._addErrorDetail(
+				self.addErrorDetail(
 					StringSchema.keyErrorDetail[
 						StringSchema.keyMaxLength
 					]
@@ -93,12 +97,12 @@ class StringRule(BaseRule):
 
 			elif self.validateMinLength() is False:
 				# add more error
-				self._addErrorNumber(
+				self.addErrorNumber(
 					StringSchema.keyMinLength
 				)
 
 				# add in detail
-				self._addErrorDetail(
+				self.addErrorDetail(
 					StringSchema.keyErrorDetail[
 						StringSchema.keyMinLength
 					]
@@ -114,12 +118,12 @@ class StringRule(BaseRule):
 
 			elif self.validateWrongRange() is False:
 				# add more error
-				self._addErrorNumber(
+				self.addErrorNumber(
 					StringSchema.keyWrongRange
 				)
 
 				# add in detail
-				self._addErrorDetail(
+				self.addErrorDetail(
 					StringSchema.keyErrorDetail[
 						StringSchema.keyWrongRange
 					]
@@ -135,12 +139,12 @@ class StringRule(BaseRule):
 
 			elif self.validateRegEx() is False:
 				# add more error
-				self._addErrorNumber(
+				self.addErrorNumber(
 					StringSchema.keyRegEx
 				)
 
 				# add in detail
-				self._addErrorDetail(
+				self.addErrorDetail(
 					StringSchema.keyErrorDetail[
 						StringSchema.keyRegEx
 					]
@@ -156,12 +160,12 @@ class StringRule(BaseRule):
 
 			elif self.validateUnicode() is False:
 				# add more error
-				self._addErrorNumber(
+				self.addErrorNumber(
 					StringSchema.keyUnicode
 				)
 
 				# add in detail
-				self._addErrorDetail(
+				self.addErrorDetail(
 					StringSchema.keyErrorDetail[
 						StringSchema.keyUnicode
 					]
@@ -174,21 +178,16 @@ class StringRule(BaseRule):
 		"""
 		try:
 			if self.element[StringRule.keyRule][StringSchema.keyMaxLength] and self.getValue():
-				if len(self.getValue()) <= self.__maxLengthValue:
-					return True
-
-				else:
-					return False
-
-			else:
-				return False
+				return len(self.getValue()) <= self.__maxLengthValue
+			#
+			return False
 
 		except KeyError as e:
-			print(f'StringRule.validateMaxLength KeyError: {str(e)}')
+			Console.output(f'StringRule.validateMaxLength KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
-			print(f'StringRule.validateMaxLength KeyError: {str(e)}')
+			Console.output(f'StringRule.validateMaxLength KeyError: {str(e)}')
 			return False
 
 	def validateMinLength(self) -> bool:
@@ -197,22 +196,18 @@ class StringRule(BaseRule):
 		:return:
 		"""
 		try:
+			#
 			if self.element[StringRule.keyRule][StringSchema.keyMinLength]:
-				if len(self.getValue()) >= self.__minLengthValue:
-					return True
-
-				else:
-					return False
-
-			else:
-				return False
+				return len(self.getValue()) >= self.__minLengthValue
+			#
+			return False
 
 		except KeyError as e:
-			print(f'StringRule.validateMaxLength KeyError: {str(e)}')
+			Console.output(f'StringRule.validateMaxLength KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
-			print(f'StringRule.validateMaxLength KeyError: {str(e)}')
+			Console.output(f'StringRule.validateMaxLength KeyError: {str(e)}')
 			return False
 
 	def validateRegEx(self) -> bool:
@@ -233,13 +228,9 @@ class StringRule(BaseRule):
 		:return:
 		"""
 		if self.getValue():
-			if isinstance(self.getValue(), str):
-				return True
-
-			else:
-				return False
-		else:
-			return False
+			return isinstance(self.getValue(), str)
+		#
+		return False
 
 	def validateUnicode(self) -> bool:
 		"""

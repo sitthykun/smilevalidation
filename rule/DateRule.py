@@ -39,14 +39,16 @@ class DateRule(BaseRule):
 		self.__day      = day
 
 		# run validation
-		self.__run()
+		self.run()
 
-	def __run(self) -> None:
+	def run(self) -> None:
 		"""
 		:return:
 		"""
+		#
+		super().run()
 		# if found an error, it will stop checking other error
-		# foundError	= False
+		foundError	= False
 
 		# date
 		if self.validateType() is False:
@@ -54,12 +56,12 @@ class DateRule(BaseRule):
 
 		elif self.validateYear4() is False:
 			# add more error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				DateSchema.keyYear4
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				DateSchema.keyErrorDetail[
 					DateSchema.keyYear4
 				]
@@ -67,12 +69,12 @@ class DateRule(BaseRule):
 
 		elif self.validateYear2() is False:
 			# add more error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				DateSchema.keyYear2
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				DateSchema.keyErrorDetail[
 					DateSchema.keyYear2
 				]
@@ -81,12 +83,12 @@ class DateRule(BaseRule):
 		# month
 		if self.validateMonth() is False:
 			# add more error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				DateSchema.keyMonth
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				DateSchema.keyErrorDetail[
 					DateSchema.keyMonth
 				]
@@ -95,12 +97,12 @@ class DateRule(BaseRule):
 		# day
 		if self.validateDay() is False:
 			# add more error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				DateSchema.keyDay
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				DateSchema.keyErrorDetail[
 					DateSchema.keyDay
 				]
@@ -117,8 +119,8 @@ class DateRule(BaseRule):
 		try:
 			# 0 is year
 			if self.element[DateSchema.keyRule][DateSchema.keyYear4] and self.getValue()[0]:
+				#
 				return bool(0 < int(self.getValue()[0]) < 9999)
-
 			#
 			return False
 
@@ -137,10 +139,10 @@ class DateRule(BaseRule):
 		try:
 			# 0 is year
 			if self.element[DateSchema.keyRule][DateSchema.keyYear4] and self.getValue()[0]:
+				#
 				return bool(0 < int(self.getValue()[0]) < 99)
-
-			else:
-				return False
+			#
+			return False
 
 		except KeyError as e:
 			return False
@@ -157,10 +159,10 @@ class DateRule(BaseRule):
 		try:
 			# 1 is month
 			if self.element[DateSchema.keyRule][DateSchema.keyMonth] and self.getValue()[1]:
+				#
 				return bool(0 < int(self.getValue()[1]) <= 12)
-
-			else:
-				return False
+			#
+			return False
 
 		except KeyError as e:
 			return False
@@ -177,10 +179,10 @@ class DateRule(BaseRule):
 		try:
 			# 2 is day
 			if self.element[DateSchema.keyRule][DateSchema.keyDay] and self.getValue()[2]:
+				#
 				return bool(0 < int(self.getValue()[2]) <= 31)
-
-			else:
-				return False
+			#
+			return False
 
 		except KeyError as e:
 			return False
@@ -194,11 +196,6 @@ class DateRule(BaseRule):
 		:return:
 		"""
 		if self.getValue():
-			if isinstance(self.getValue(), datetime.date):
-				return True
-
-			else:
-				return False
-
-		else:
-			return False
+			return isinstance(self.getValue(), datetime.date)
+		#
+		return False

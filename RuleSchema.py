@@ -69,6 +69,11 @@ class RuleSchema:
 		#
 		temp = dict()
 
+		# add key type
+		temp.update({
+			DateSchema.keyType: DateSchema.keyDataType
+		})
+
 		#
 		if require and require is True:
 			temp.update({
@@ -124,6 +129,11 @@ class RuleSchema:
 		#
 		temp = dict()
 
+		# add key type
+		temp.update({
+			FloatSchema.keyType: FloatSchema.keyDataType
+		})
+
 		#
 		if require:
 			temp.update({
@@ -169,6 +179,11 @@ class RuleSchema:
 		#
 		temp = dict()
 
+		# add key type
+		temp.update({
+			IntegerSchema.keyType: IntegerSchema.keyDataType
+		})
+
 		#
 		if require:
 			temp.update({
@@ -208,6 +223,11 @@ class RuleSchema:
 		"""
 		#
 		temp = dict()
+
+		# add key type
+		temp.update({
+			StringSchema.keyType: StringSchema.keyDataType
+		})
 
 		#
 		if require:
@@ -259,6 +279,11 @@ class RuleSchema:
 		"""
 		#
 		temp = dict()
+
+		# add key type
+		temp.update({
+			TimeSchema.keyType: TimeSchema.keyDataType
+		})
 
 		#
 		if require and require is True:

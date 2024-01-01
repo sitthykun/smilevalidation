@@ -1,10 +1,13 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 Note:
 """
 # built-in
 from typing import Any
+
+from Console import Console
+from InvalidTypeList import InvalidTypeList
 # internal
 from rule.BaseRule import BaseRule
 from schema.NumericSchema import NumericSchema
@@ -28,19 +31,18 @@ class NumericRule(BaseRule):
 			element
 			, require
 		)
-
+		# private
 		self.__maxValueValue	= maxValue
 		self.__minValueValue	= minValue
 		self.__negative			= negative
 
-		# run validation
-		self.__run()
-
-	def __run(self) -> None:
+	def run(self) -> None:
 		"""
 
 		:return:
 		"""
+		#
+		super().run()
 		# if found an error, it will stop checking other error
 		foundError	= False
 
@@ -50,12 +52,12 @@ class NumericRule(BaseRule):
 
 		elif self.validateMaxValue() is False:
 			# add more error
-			self._addErrorNumber(
-				NumericSchema.keyMaxValue
+			self.addErrorNumber(
+				InvalidTypeList.N_303
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				NumericSchema.keyErrorDetail[
 					NumericSchema.keyMaxValue
 				]
@@ -71,12 +73,12 @@ class NumericRule(BaseRule):
 
 			elif self.validateMinValue() is False:
 				# add more error
-				self._addErrorNumber(
-					NumericSchema.keyMinValue
+				self.addErrorNumber(
+					InvalidTypeList.N_304
 				)
 
 				# add in detail
-				self._addErrorDetail(
+				self.addErrorDetail(
 					NumericSchema.keyErrorDetail[
 						NumericSchema.keyMinValue
 					]
@@ -92,12 +94,12 @@ class NumericRule(BaseRule):
 
 			elif self.validateNegative() is False:
 				# add more error
-				self._addErrorNumber(
-					NumericSchema.keyNegative
+				self.addErrorNumber(
+					InvalidTypeList.N_305
 				)
 
 				# add in detail
-				self._addErrorDetail(
+				self.addErrorDetail(
 					NumericSchema.keyErrorDetail[
 						NumericSchema.keyNegative
 					]
@@ -109,20 +111,18 @@ class NumericRule(BaseRule):
 		:return:
 		"""
 		try:
+			Console.output(f'rule.NumericRule.validateMaxValue: {self.element[NumericSchema.keyRule][NumericSchema.keyMaxValue]=}, {self.getValue()=}, {self.getValue() <= self.__maxValueValue}')
 			if self.element[NumericSchema.keyRule][NumericSchema.keyMaxValue] and self.getValue():
-				if self.getValue() <= self.__maxValueValue:
-					return True
-
-				else:
-					return False
-
-			else:
-				return False
+				return self.getValue() <= self.__maxValueValue
+			#
+			return False
 
 		except KeyError as e:
+			Console.output(f'rule.NumericRule.validateMaxValue KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'rule.NumericRule.validateMaxValue Exception: {str(e)}')
 			return False
 
 	def validateMinValue(self) -> bool:
@@ -131,19 +131,18 @@ class NumericRule(BaseRule):
 		:return:
 		"""
 		try:
+			Console.output(f'rule.NumericRule.validateMinValue: {self.element[NumericSchema.keyRule][NumericSchema.keyMinValue]=}, {self.getValue()}')
 			if self.element[NumericSchema.keyRule][NumericSchema.keyMinValue] and self.getValue():
-				if self.getValue() >= self.__minValueValue:
-					return True
-
-				else:
-					return False
-			else:
-				return False
+				return self.getValue() >= self.__minValueValue
+			#
+			return False
 
 		except KeyError as e:
+			Console.output(f'rule.NumericRule.validateMinValue KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'rule.NumericRule.validateMinValue Exception: {str(e)}')
 			return False
 
 	def validateNegative(self) -> bool:
@@ -152,14 +151,13 @@ class NumericRule(BaseRule):
 		:return:
 		"""
 		try:
-			if self.getValue() and self.element[NumericSchema.keyValue] >= 0:
-				return True
-
-			else:
-				return False
+			Console.output(f'rule.NumericRule.validateNegative: {self.element[NumericSchema.keyValue]=}, {self.getValue()}')
+			return self.getValue() and self.element[NumericSchema.keyValue] >= 0
 
 		except KeyError as e:
+			Console.output(f'rule.NumericRule.validateNegative KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'rule.NumericRule.validateNegative Exception: {str(e)}')
 			return False

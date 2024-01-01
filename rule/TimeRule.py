@@ -8,6 +8,7 @@ import datetime
 import re
 from typing import Any
 # internal
+from Console import Console
 from rule.BaseRule import BaseRule
 from schema.TimeSchema import TimeSchema
 
@@ -40,25 +41,27 @@ class TimeRule(BaseRule):
 		self.__millisecond  = millisecond
 
 		# run validation
-		self.__run()
+		self.run()
 
-	def __run(self) -> None:
+	def run(self) -> None:
 		"""
 
 		:return:
 		"""
+		#
+		super().run()
 		# if found an error, it will stop checking other error
-		# foundError	= False
+		foundError	= False
 
 		# wrong type
 		if self.validateType() is False:
 			# add more error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				TimeSchema.keyDataType
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				TimeSchema.keyErrorDetail[
 					TimeSchema.keyDataType
 				]
@@ -68,12 +71,12 @@ class TimeRule(BaseRule):
 			# foundError	= True
 		elif self.validateHour24() is False:
 			# add more error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				TimeSchema.keyHour24
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				TimeSchema.keyErrorDetail[
 					TimeSchema.keyHour24
 				]
@@ -81,12 +84,12 @@ class TimeRule(BaseRule):
 
 		elif self.validateHour12() is False:
 			# add more error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				TimeSchema.keyHour12
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				TimeSchema.keyErrorDetail[
 					TimeSchema.keyHour12
 				]
@@ -94,12 +97,12 @@ class TimeRule(BaseRule):
 
 		elif self.validateMinute() is False:
 			# add more error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				TimeSchema.keyMinute
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				TimeSchema.keyErrorDetail[
 					TimeSchema.keyMinute
 				]
@@ -107,12 +110,12 @@ class TimeRule(BaseRule):
 
 		elif self.validateSecond() is False:
 			# add more error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				TimeSchema.keySecond
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				TimeSchema.keyErrorDetail[
 					TimeSchema.keySecond
 				]
@@ -120,12 +123,12 @@ class TimeRule(BaseRule):
 
 		elif self.validateMillisecond() is False:
 			# add more error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				TimeSchema.keyMillisecond
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				TimeSchema.keyErrorDetail[
 					TimeSchema.keyMillisecond
 				]
@@ -143,9 +146,11 @@ class TimeRule(BaseRule):
 			return False
 
 		except KeyError as e:
+			Console.output(f'TimeRule.validateHour24 KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'TimeRule.validateHour24 Exception: {str(e)}')
 			return False
 
 	def validateHour12(self) -> bool:
@@ -160,9 +165,11 @@ class TimeRule(BaseRule):
 			return False
 
 		except KeyError as e:
+			Console.output(f'TimeRule.validateHour12 KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'TimeRule.validateHour12 Exception: {str(e)}')
 			return False
 
 	def validateMinute(self) -> bool:
@@ -177,9 +184,11 @@ class TimeRule(BaseRule):
 			return False
 
 		except KeyError as e:
+			Console.output(f'TimeRule.validateMinute KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'TimeRule.validateMinute Exception: {str(e)}')
 			return False
 
 	def validateSecond(self) -> bool:
@@ -194,9 +203,11 @@ class TimeRule(BaseRule):
 			return False
 
 		except KeyError as e:
+			Console.output(f'TimeRule.validateSecond KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'TimeRule.validateSecond Exception: {str(e)}')
 			return False
 
 	def validateMillisecond(self) -> bool:
@@ -211,9 +222,11 @@ class TimeRule(BaseRule):
 			return False
 
 		except KeyError as e:
+			Console.output(f'TimeRule.validateMillisecond KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'TimeRule.validateMillisecond Exception: {str(e)}')
 			return False
 
 	def validateType(self) -> bool:

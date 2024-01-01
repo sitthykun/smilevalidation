@@ -32,13 +32,15 @@ class DateTimeRule(BaseRule):
 		self.__formatTime		= formatTime
 
 		# run validation
-		self.__run()
+		self.run()
 
-	def __run(self) -> None:
+	def run(self) -> None:
 		"""
 
 		:return:
 		"""
+		#
+		super().run()
 		# if found an error, it will stop checking other error
 		foundError	= False
 
@@ -48,12 +50,12 @@ class DateTimeRule(BaseRule):
 
 		elif self.validateDate() is False:
 			# add more error
-			self._addErrorNumber(
+			self.addErrorNumber(
 				DateTimeSchema.keyDate
 			)
 
 			# add in detail
-			self._addErrorDetail(
+			self.addErrorDetail(
 				DateTimeSchema.keyErrorDetail[
 					DateTimeSchema.keyDate
 				]
@@ -69,12 +71,12 @@ class DateTimeRule(BaseRule):
 
 			elif self.validateTime() is False:
 				# add more error
-				self._addErrorNumber(
+				self.addErrorNumber(
 					DateTimeSchema.keyTime
 				)
 
 				# add in detail
-				self._addErrorDetail(
+				self.addErrorDetail(
 					DateTimeSchema.keyErrorDetail[
 						DateTimeSchema.keyTime
 					]
@@ -87,7 +89,7 @@ class DateTimeRule(BaseRule):
 		:return:
 		"""
 		try:
-			if self.element[DateTimeSchema.keyRule][DateTimeSchema.keyDate] and self.getValue():
+			if self.element[DateTimeSchema.keyRule][DateTimeSchema.keyValue] and self.getValue():
 				if self.getValue() <= self.__maxValueValue:
 					return True
 

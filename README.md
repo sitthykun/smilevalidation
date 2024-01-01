@@ -36,10 +36,10 @@ v.addElement(
 ## start validating
 # true if every element is correct
 if v.isValid():
-    print(f'Everything is fine')
+    Console.output(f'Everything is fine')
 
 else:
-    print(f'Error: {v.getErrorNumber()}')
+    Console.output(f'Error: {v.getErrorNumber()}')
 
 ```
 
@@ -92,10 +92,10 @@ v.addNotMatchedElement(
 ## start validating
 # true if every element is correct
 if v.isValid():
-    print(f'Everything is fine')
+    Console.output(f'Everything is fine')
 
 else:
-    print(f'Error: {v.getErrorNumber()}')
+    Console.output(f'Error: {v.getErrorNumber()}')
 ```
 
 ## Rule Reusable
@@ -145,10 +145,10 @@ v.addElement(
 ## start validating
 # true if every element is correct
 if v.isValid():
-    print(f'Everything is fine')
+    Console.output(f'Everything is fine')
 
 else:
-    print(f'Error: {v.getErrorNumber()}')
+    Console.output(f'Error: {v.getErrorNumber()}')
 ```
 
 Full example
@@ -198,10 +198,10 @@ v.addNotMatchedElement(
 ## start validating
 # true if every element is correct
 if v.isValid():
-    print(f'Everything is fine')
+    Console.output(f'Everything is fine')
 
 else:
-    print(f'Error: {v.getErrorNumber()}')
+    Console.output(f'Error: {v.getErrorNumber()}')
 
 ```
 

@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.1.0
+Version: 1.1.1
 Note:
 """
 # built-in
@@ -17,9 +17,9 @@ class BoolSchema(BaseSchema):
 	"""
 	# data type
 	# d datetime.now(), and type(d)
-	keyDateType		= 'bool'
+	keyDataType		= 'bool'
 
 	# translate error
 	keyErrorDetail	= {
-		keyDateType	: ErrorList.B_600	# Not a boolean type
+		keyDataType	: ErrorList.B_600	# Not a boolean type
 	}
