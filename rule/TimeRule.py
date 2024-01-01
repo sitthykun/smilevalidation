@@ -51,9 +51,6 @@ class TimeRule(BaseRule):
 		"""
 		#
 		super().run()
-		# if found an error, it will stop checking other error
-		foundError	= False
-
 		# wrong type
 		# if self.validateType() is False:
 		# 	# add more error
@@ -66,7 +63,7 @@ class TimeRule(BaseRule):
 		# 		TimeSchema.keyDataType
 		# 	)
 		#
-		# 	found
+		# found
 		found24	= False
 
 		#24
@@ -97,29 +94,27 @@ class TimeRule(BaseRule):
 		# 12
 		if self.__hour12 and self.__hour12 is True:
 			#
-			if found24 is True or self.validateHour12() is False:
-				#
-				if found24:
-					# add more error
-					self.addErrorNumber(
-						InvalidTypeList.DT_127
-					)
+			if found24:
+				# add more error
+				self.addErrorNumber(
+					InvalidTypeList.DT_127
+				)
 
-					# add in detail
-					self.addErrorDetail(
-						TimeSchema.keyHour24
-					)
-				#
-				elif self.validateHour12() is False:
-					# add more error
-					self.addErrorNumber(
-						InvalidTypeList.DT_122
-					)
+				# add in detail
+				self.addErrorDetail(
+					TimeSchema.keyHour24
+				)
+			#
+			elif self.validateHour12() is False:
+				# add more error
+				self.addErrorNumber(
+					InvalidTypeList.DT_122
+				)
 
-					# add in detail
-					self.addErrorDetail(
-						TimeSchema.keyHour12
-					)
+				# add in detail
+				self.addErrorDetail(
+					TimeSchema.keyHour12
+				)
 
 		if self.validateMinute() is False:
 			# add more error
