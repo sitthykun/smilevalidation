@@ -19,7 +19,7 @@ class FloatSchema(NumericSchema):
 	keyDataType			= 'float'
 
 	# translate error
-	NumericSchema.keyErrorDetail.update({
-		keyPrecision	: ErrorList.F_300	# 'No precision'
-		, keyDataType	: ErrorList.F_301	# 'Not a float type'
-	})
+	# NumericSchema.keyErrorDetail.update({
+	# 	keyPrecision	: ErrorList.F_300	# 'No precision'
+	# 	, keyDataType	: ErrorList.F_301	# 'Not a float type'
+	# })

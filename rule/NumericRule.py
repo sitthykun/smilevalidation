@@ -58,9 +58,7 @@ class NumericRule(BaseRule):
 
 			# add in detail
 			self.addErrorDetail(
-				NumericSchema.keyErrorDetail[
-					NumericSchema.keyMaxValue
-				]
+				NumericSchema.keyMaxValue
 			)
 
 			# found
@@ -79,9 +77,7 @@ class NumericRule(BaseRule):
 
 				# add in detail
 				self.addErrorDetail(
-					NumericSchema.keyErrorDetail[
-						NumericSchema.keyMinValue
-					]
+					NumericSchema.keyMinValue
 				)
 
 				# found
@@ -100,9 +96,7 @@ class NumericRule(BaseRule):
 
 				# add in detail
 				self.addErrorDetail(
-					NumericSchema.keyErrorDetail[
-						NumericSchema.keyNegative
-					]
+					NumericSchema.keyNegative
 				)
 		# must be checked if possible
 		self.validateMaxMinValue()

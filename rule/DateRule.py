@@ -8,6 +8,7 @@ import datetime
 import re
 from typing import Any
 # internal
+from InvalidTypeList import InvalidTypeList
 from rule.BaseRule import BaseRule
 from schema.DateSchema import DateSchema
 
@@ -57,55 +58,47 @@ class DateRule(BaseRule):
 		elif self.validateYear4() is False:
 			# add more error
 			self.addErrorNumber(
-				DateSchema.keyYear4
+				InvalidTypeList.DT_112
 			)
 
 			# add in detail
 			self.addErrorDetail(
-				DateSchema.keyErrorDetail[
-					DateSchema.keyYear4
-				]
+				DateSchema.keyYear4
 			)
 
 		elif self.validateYear2() is False:
 			# add more error
 			self.addErrorNumber(
-				DateSchema.keyYear2
+				InvalidTypeList.DT_111
 			)
 
 			# add in detail
 			self.addErrorDetail(
-				DateSchema.keyErrorDetail[
-					DateSchema.keyYear2
-				]
+				DateSchema.keyYear2
 			)
 
 		# month
 		if self.validateMonth() is False:
 			# add more error
 			self.addErrorNumber(
-				DateSchema.keyMonth
+				InvalidTypeList.DT_113
 			)
 
 			# add in detail
 			self.addErrorDetail(
-				DateSchema.keyErrorDetail[
-					DateSchema.keyMonth
-				]
+				DateSchema.keyMonth
 			)
 
 		# day
 		if self.validateDay() is False:
 			# add more error
 			self.addErrorNumber(
-				DateSchema.keyDay
+				InvalidTypeList.DT_114
 			)
 
 			# add in detail
 			self.addErrorDetail(
-				DateSchema.keyErrorDetail[
-					DateSchema.keyDay
-				]
+				DateSchema.keyDay
 			)
 			# # found
 			# foundError = True

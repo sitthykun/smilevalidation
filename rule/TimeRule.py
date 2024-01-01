@@ -9,6 +9,7 @@ import re
 from typing import Any
 # internal
 from Console import Console
+from InvalidTypeList import InvalidTypeList
 from rule.BaseRule import BaseRule
 from schema.TimeSchema import TimeSchema
 
@@ -54,85 +55,105 @@ class TimeRule(BaseRule):
 		foundError	= False
 
 		# wrong type
-		if self.validateType() is False:
-			# add more error
-			self.addErrorNumber(
-				TimeSchema.keyDataType
-			)
+		# if self.validateType() is False:
+		# 	# add more error
+		# 	self.addErrorNumber(
+		# 		InvalidTypeList.DT_121
+		# 	)
+		#
+		# 	# add in detail
+		# 	self.addErrorDetail(
+		# 		TimeSchema.keyDataType
+		# 	)
+		#
+		# 	found
+		found24	= False
 
-			# add in detail
-			self.addErrorDetail(
-				TimeSchema.keyErrorDetail[
-					TimeSchema.keyDataType
-				]
-			)
+		#24
+		if self.__hour24 and self.__hour24 is True:
+			found24 = True
+			#
+			if self.__hour12:
+				# add more error
+				self.addErrorNumber(
+					InvalidTypeList.DT_126
+				)
 
-			# # found
-			# foundError	= True
-		elif self.validateHour24() is False:
-			# add more error
-			self.addErrorNumber(
-				TimeSchema.keyHour24
-			)
-
-			# add in detail
-			self.addErrorDetail(
-				TimeSchema.keyErrorDetail[
+				# add in detail
+				self.addErrorDetail(
 					TimeSchema.keyHour24
-				]
-			)
+				)
+			#
+			elif self.validateHour24() is False:
+				# add more error
+				self.addErrorNumber(
+					InvalidTypeList.DT_121
+				)
 
-		elif self.validateHour12() is False:
+				# add in detail
+				self.addErrorDetail(
+					TimeSchema.keyHour24
+				)
+		# 12
+		if self.__hour12 and self.__hour12 is True:
+			#
+			if found24 is True or self.validateHour12() is False:
+				#
+				if found24:
+					# add more error
+					self.addErrorNumber(
+						InvalidTypeList.DT_127
+					)
+
+					# add in detail
+					self.addErrorDetail(
+						TimeSchema.keyHour24
+					)
+				#
+				elif self.validateHour12() is False:
+					# add more error
+					self.addErrorNumber(
+						InvalidTypeList.DT_122
+					)
+
+					# add in detail
+					self.addErrorDetail(
+						TimeSchema.keyHour12
+					)
+
+		if self.validateMinute() is False:
 			# add more error
 			self.addErrorNumber(
-				TimeSchema.keyHour12
+				InvalidTypeList.DT_123
 			)
 
 			# add in detail
 			self.addErrorDetail(
-				TimeSchema.keyErrorDetail[
-					TimeSchema.keyHour12
-				]
-			)
-
-		elif self.validateMinute() is False:
-			# add more error
-			self.addErrorNumber(
 				TimeSchema.keyMinute
 			)
 
-			# add in detail
-			self.addErrorDetail(
-				TimeSchema.keyErrorDetail[
-					TimeSchema.keyMinute
-				]
-			)
-
-		elif self.validateSecond() is False:
+		if self.validateSecond() is False:
 			# add more error
 			self.addErrorNumber(
+				InvalidTypeList.DT_124
+			)
+
+			# add in detail
+			self.addErrorDetail(
 				TimeSchema.keySecond
 			)
 
-			# add in detail
-			self.addErrorDetail(
-				TimeSchema.keyErrorDetail[
-					TimeSchema.keySecond
-				]
-			)
+		if self.__millisecond and self.__millisecond is True:
+			if self.validateMillisecond() is False:
+				# add more error
+				self.addErrorNumber(
+					InvalidTypeList.DT_125
+				)
 
-		elif self.validateMillisecond() is False:
-			# add more error
-			self.addErrorNumber(
-				TimeSchema.keyMillisecond
-			)
-
-			# add in detail
-			self.addErrorDetail(
-				TimeSchema.keyErrorDetail[
+				# add in detail
+				self.addErrorDetail(
 					TimeSchema.keyMillisecond
-				]
-			)
+				)
 
 	def validateHour24(self) -> bool:
 		"""
@@ -216,6 +237,7 @@ class TimeRule(BaseRule):
 		:return:
 		"""
 		try:
+			Console.output(f'222TimeRule.validateMillisecond 222: {self.element[TimeSchema.keyRule][TimeSchema.keyMillisecond]}')
 			if self.element[TimeSchema.keyRule][TimeSchema.keyMillisecond] and self.getValue()[3]:
 				return bool(0 <= int(self.getValue()[3]) < 1000)
 			#

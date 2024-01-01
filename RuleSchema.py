@@ -262,7 +262,7 @@ class RuleSchema:
 		#
 		return temp
 
-	def getTime(self, require: bool= False, hour24: bool= True, hour12: bool= False, minute: bool= True, second: bool= True, millisecond: bool= False) -> dict:
+	def getTime(self, require: bool= False, hour24: bool= None, hour12: bool= None, minute: bool= None, second: bool= None, millisecond: bool= None) -> dict:
 		"""
 
 		:param require:
@@ -298,7 +298,7 @@ class RuleSchema:
 			})
 
 		# include hour24 only one that allowed
-		if hour12 and hour12 is True and hour24 is False:
+		if hour12 and hour12 is True:
 			temp.update({
 				TimeSchema.keyHour12: hour12
 			})

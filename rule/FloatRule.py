@@ -6,6 +6,7 @@ Note:
 # built-in
 from typing import Any
 # internal
+from InvalidTypeList import InvalidTypeList
 from rule.NumericRule import NumericRule
 from schema.FloatSchema import FloatSchema
 
@@ -52,14 +53,12 @@ class FloatRule(NumericRule):
 		if self.validateType() is False:
 			# add more error
 			self.addErrorNumber(
-				FloatSchema.keyType
+				InvalidTypeList.F_301
 			)
 
 			# add in detail
 			self.addErrorDetail(
-				FloatSchema.keyErrorDetail[
-					FloatSchema.keyType
-				]
+				FloatSchema.keyType
 			)
 
 			# found

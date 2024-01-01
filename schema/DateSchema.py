@@ -23,11 +23,11 @@ class DateSchema(BaseSchema):
 	# d datetime.now(), and type(d)
 	keyDataType		= 'date'
 
-	# translate error
-	keyErrorDetail	= {
-		keyYear4        : ErrorList.DT_111  # Contained is not a year two
-		, keyYear2      : ErrorList.DT_112  # Contained is not a year four
-		, keyMonth      : ErrorList.DT_113  # Contained is not a month
-		, keyDay        : ErrorList.DT_114  # Contained is not a day
-		, keyDataType   : ErrorList.DT_110  # Contained is not a date
-	}
+	# # translate error
+	# keyErrorDetail	= {
+	# 	keyYear4        : ErrorList.DT_111  # Contained is not a year two
+	# 	, keyYear2      : ErrorList.DT_112  # Contained is not a year four
+	# 	, keyMonth      : ErrorList.DT_113  # Contained is not a month
+	# 	, keyDay        : ErrorList.DT_114  # Contained is not a day
+	# 	, keyDataType   : ErrorList.DT_110  # Contained is not a date
+	# }

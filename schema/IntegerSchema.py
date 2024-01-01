@@ -17,7 +17,7 @@ class IntegerSchema(NumericSchema):
 	# data type
 	keyDataType			= 'int'
 
-	# translate error
-	NumericSchema.keyErrorDetail.update({
-		keyDataType		: ErrorList.I_302	# 'Not an integer type'
-	})
+	# # translate error
+	# NumericSchema.keyErrorDetail.update({
+	# 	keyDataType		: ErrorList.I_302	# 'Not an integer type'
+	# })

@@ -30,6 +30,8 @@ class InvalidTypeList:
 	DT_123	= 123	# Contained is not a minute
 	DT_124  = 124   # Contained is not a second
 	DT_125  = 125   # Contained is not a milli
+	DT_126  = 126  # Contained 24 and 12 in the rule
+	DT_127  = 127  # Contained 12 and 24 in the rule
 	# float
 	F_300	= 300	# No precision
 	F_301	= 301	# Not a float type
