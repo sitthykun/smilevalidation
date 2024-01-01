@@ -5,17 +5,22 @@ Version: 1.1.0
 from typing import Any
 from rule.BoolRule import BoolRule
 from rule.ComparisonRule import ComparisonRule
+from rule.DateRule import DateRule
+from rule.DateTimeRule import DateTimeRule
 from rule.FloatRule import FloatRule
 from rule.IntegerRule import IntegerRule
 from rule.MatchRule import MatchRule
 from rule.NotMatchRule import NotMatchRule
 from rule.StringRule import StringRule
+from rule.TimeRule import TimeRule
 from schema.BaseSchema import BaseSchema
 from schema.ComparisonSchema import ComparisonSchema
+from schema.DateSchema import DateSchema
 from schema.DateTimeSchema import DateTimeSchema
 from schema.FloatSchema import FloatSchema
 from schema.IntegerSchema import IntegerSchema
 from schema.StringSchema import StringSchema
+from schema.TimeSchema import TimeSchema
 
 
 class Validation:
@@ -94,6 +99,25 @@ class Validation:
 			}
 		})
 
+	def __addSplitElement(self, elementName: str, elementValue: str, rule: dict, delimiter: str) -> None:
+		"""
+
+		:param elementName:
+		:param elementValue:
+		:param rule:
+		:return:
+		"""
+		try:
+			self.__element.update({
+				elementName : {
+					BaseSchema.keyValue	: elementValue.split(delimiter)
+					, BaseSchema.keyRule: rule
+				}
+			})
+
+		except Exception as e:
+			print(f'Validation.__addSplitElement:{str(e)}')
+
 	def __appendWithExistedError(self, key: str, newDict: dict) -> None:
 		"""
 
@@ -130,9 +154,11 @@ class Validation:
 			return element[BaseSchema.keyRule]
 
 		except KeyError as e:
+			print(f'Validation.__getElementRule KeyError: {str(e)}')
 			return {}
 
 		except Exception as e:
+			print(f'Validation.__getElementRule Exception: {str(e)}')
 			return {}
 
 	def __getElementType(self, element: dict) -> str:
@@ -147,66 +173,38 @@ class Validation:
 			return element[BaseSchema.keyRule][StringSchema.keyType]
 
 		except KeyError as e:
+			print(f'Validation.__getElementType KeyError: {str(e)}')
 			return StringSchema.keyDataType
 
 		except Exception as e:
+			print(f'Validation.__getElementType Exception: {str(e)}')
 			return StringSchema.keyDataType
 
-	def __isValidBool(self) -> bool:
-		"""
-
-		:return:
-		"""
-		return True
-
-	def __isValidFloat(self) -> bool:
-		"""
-
-		:return:
-		"""
-		return True
-
-	def __isValidInteger(self) -> bool:
-		"""
-
-		:return:
-		"""
-		return True
-
-	def __isValidMatched(self) -> bool:
-		"""
-
-		:return:
-		"""
-		return True
-
-	def __isValidNotMatched(self) -> bool:
-		"""
-
-		:return:
-		"""
-		return True
-
-	def __isValidString(self) -> bool:
-		"""
-
-		:return:
-		"""
-		return True
-
-	def addElement(self, elementName: str, elementValue: Any, rule: dict) -> None:
+	def addElement(self, elementName: str, elementValue: Any, rule: dict, delimiter: str= None) -> None:
 		"""
 
 		:param elementName:
 		:param elementValue:
 		:param rule:
+		:param delimiter:
 		:return:
 		"""
-		self.__addNaturalElement(
-			elementName		= elementName
-			, elementValue	= elementValue
-			, rule			= rule
-		)
+		# the value must be string
+		if delimiter and isinstance(delimiter, str):
+			self.__addSplitElement(
+				elementName     = elementName
+				, elementValue	= str(elementValue)
+				, rule			= rule
+				, delimiter     = delimiter
+			)
+
+		#
+		else:
+			self.__addNaturalElement(
+				elementName		= elementName
+				, elementValue	= elementValue
+				, rule			= rule
+			)
 
 	# def addElementList(self, elementName: str, rule: dict) -> None:
 	# 	"""
@@ -227,7 +225,7 @@ class Validation:
 		:param errorOrder:
 		:return:
 		"""
-		mr		= MatchRule(
+		matchRule   = MatchRule(
 			name1		= elementName1
 			, value1	= elementValue1
 			, name2		= elementName2
@@ -235,14 +233,14 @@ class Validation:
 		)
 
 		# verify error
-		if mr.getErrorNumber():
+		if matchRule.getErrorNumber():
 			# add error once it found
 			self.__addComparisonError(
 				elementName1	= elementName1
 				, elementValue1	= elementValue1
 				, elementName2	= elementName2
 				, elementValue2	= elementValue2
-				, errorMessage	= mr.getErrorDetail()
+				, errorMessage	= matchRule.getErrorDetail()
 			)
 
 	def addNotMatchedElement(self, elementName1: str, elementValue1: Any, elementName2: str, elementValue2: Any, errorOrder: int= 2) -> None:
@@ -255,17 +253,18 @@ class Validation:
 		:param errorOrder:
 		:return:
 		"""
-		nmr		= NotMatchRule(elementName1, elementValue1, elementName2, elementValue2)
+		#
+		noteMatchRule   = NotMatchRule(elementName1, elementValue1, elementName2, elementValue2)
 
 		# verify error
-		if nmr.getErrorNumber():
+		if noteMatchRule.getErrorNumber():
 			# add error once it found
 			self.__addComparisonError(
 				elementName1	= elementName1
 				, elementValue1	= elementValue1
 				, elementName2	= elementName2
 				, elementValue2	= elementValue2
-				, errorMessage	= nmr.getErrorDetail()
+				, errorMessage	= noteMatchRule.getErrorDetail()
 			)
 
 	def getElement(self) -> dict:
@@ -302,17 +301,16 @@ class Validation:
 			elementType		= self.__getElementType(elementValue)
 			elementRule		= self.__getElementRule(elementValue)
 
-			# string validation
-			if elementType == StringSchema.keyDataType:
-				# check unicode or literal string
-				# require: bool= None, maxLength: int= None, minLength: int= None, regex: str= None,  unicode: bool= None
-				temp	= StringRule(
-					element		= elementValue
-					, require	= True if elementRule.get(StringSchema.keyRequire) else None
-					, maxLength	= elementRule.get(StringSchema.keyMaxLength) if elementRule.get(StringSchema.keyMaxLength) else None
-					, minLength	= elementRule.get(StringSchema.keyMinLength) if elementRule.get(StringSchema.keyMinLength) else None
-					, regex		= elementRule.get(StringSchema.keyRegEx) if elementRule.get(StringSchema.keyRegEx) else None
-					, unicode	= elementRule.get(StringSchema.keyUnicode) if elementRule.get(StringSchema.keyUnicode) else None
+			# date validation
+			if elementType    == DateSchema.keyDataType:
+				# require: bool= None, maxValue: int= None, minValue: int= None, negative: bool= None, precision: int= None
+				temp	= DateRule(
+					element     = elementValue
+					, require   = True if elementRule.get(DateSchema.keyRequire) else None
+					, year4     = True if elementRule.get(DateSchema.keyYear4) else None
+					, year2     = True if elementRule.get(DateSchema.keyYear2) else None
+					, month     = True if elementRule.get(DateSchema.keyMonth) else None
+					, day       = True if elementRule.get(DateSchema.keyDay) else None
 				)
 
 				# add error
@@ -325,6 +323,7 @@ class Validation:
 						, errorMessage	= temp.getErrorDetail()
 					)
 
+			# float
 			elif elementType	== FloatSchema.keyDataType:
 				# require: bool= None, maxValue: int= None, minValue: int= None, negative: bool= None, precision: int= None
 				temp	= FloatRule(
@@ -346,6 +345,7 @@ class Validation:
 						, errorMessage	= temp.getErrorDetail()
 					)
 
+			# integer
 			elif elementType	== IntegerSchema.keyDataType:
 				# require: bool= None, maxValue: int= None, minValue: int= None, negative: bool= None, precision: int= None
 				temp	= IntegerRule(
@@ -354,6 +354,52 @@ class Validation:
 					, maxValue	= elementRule.get(IntegerSchema.keyMaxValue) if elementRule.get(IntegerSchema.keyMaxValue) else None
 					, minValue	= elementRule.get(IntegerSchema.keyMinValue) if elementRule.get(IntegerSchema.keyMinValue) else None
 					, negative	= elementRule.get(IntegerSchema.keyNegative) if elementRule.get(IntegerSchema.keyNegative) else None
+				)
+
+				# add error
+				if temp.getErrorNumber():
+					# add error once it found
+					self.__addErrorNumber(
+						elementName		= elementName
+						, elementValue	= temp.keyValue
+						, errorNumber	= temp.getErrorNumber()
+						, errorMessage	= temp.getErrorDetail()
+					)
+
+			# string validation
+			elif elementType == StringSchema.keyDataType:
+				# check unicode or literal string
+				# require: bool= None, maxLength: int= None, minLength: int= None, regex: str= None,  unicode: bool= None
+				temp	= StringRule(
+					element		= elementValue
+					, require	= True if elementRule.get(StringSchema.keyRequire) else None
+					, maxLength	= elementRule.get(StringSchema.keyMaxLength) if elementRule.get(StringSchema.keyMaxLength) else None
+					, minLength	= elementRule.get(StringSchema.keyMinLength) if elementRule.get(StringSchema.keyMinLength) else None
+					, regex		= elementRule.get(StringSchema.keyRegEx) if elementRule.get(StringSchema.keyRegEx) else None
+					, unicode	= elementRule.get(StringSchema.keyUnicode) if elementRule.get(StringSchema.keyUnicode) else None
+				)
+
+				# add error
+				if temp.getErrorNumber():
+					# add error once it found
+					self.__addErrorNumber(
+						elementName		= elementName
+						, elementValue	= temp.keyValue
+						, errorNumber	= temp.getErrorNumber()
+						, errorMessage	= temp.getErrorDetail()
+					)
+
+			# time
+			elif elementType    == TimeSchema.keyDataType:
+				# require: bool= None, maxValue: int= None, minValue: int= None, negative: bool= None, precision: int= None
+				temp	= TimeRule(
+					element		    = elementValue
+					, require	    = True if elementRule.get(TimeSchema.keyRequire) else None
+					, hour24        = True if elementRule.get(TimeSchema.keyHour24) else None
+					, hour12        = True if elementRule.get(TimeSchema.keyHour12) else None
+					, minute        = True if elementRule.get(TimeSchema.keyMinute) else None
+					, second        = True if elementRule.get(TimeSchema.keySecond) else None
+					, millisecond   = True if elementRule.get(TimeSchema.keyMillisecond) else None
 				)
 
 				# add error

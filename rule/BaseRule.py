@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 Note:
 """
 # built-in
@@ -29,21 +29,22 @@ class BaseRule(BaseSchema):
 		:param element:
 		:param require:
 		"""
-		# match or not match value
-		self.__matchValue	= None
-		#
-		self.__requireValue = require
-		# self.__requireValue	= True
-		# fix key for each element
-		self.__valueValue	= None
-
-		# element
-		self.element		= element
 		# error as dict type
 		# self.__error		= {}
 		self.__error		= ''
 		# keep error in detail
 		self.__errorDetail	= ''
+
+		# match or not match value
+		self.__matchValue	= None
+		#
+		self.__requireValue = require
+		# fix key for each element
+		self.__value        = None
+
+		# public
+		# element
+		self.element		= element
 
 		# run validation
 		self.__run()
@@ -106,21 +107,8 @@ class BaseRule(BaseSchema):
 
 		:return:
 		"""
-		return self.element.get('name')
+		return self.element.get(self.keyName)
 
-	# def getError(self) -> dict:
-	# 	"""
-	#
-	# 	:return:
-	# 	"""
-	# 	return self.__error
-
-	# def getError(self) -> str:
-	# 	"""
-	#
-	# 	:return:
-	# 	"""
-	# 	return self.__error
 	def getErrorNumber(self) -> int:
 		"""
 
@@ -144,9 +132,27 @@ class BaseRule(BaseSchema):
 			return self.element[self.keyValue]
 
 		except KeyError as e:
+			print(f'rule.BaseRule.getValue KeyError: {str(e)}')
 			return None
 
 		except Exception as e:
+			print(f'rule.BaseRule.getValue Exception: {str(e)}')
+			return None
+
+	def getSplitValue(self) -> list | None:
+		"""
+
+		:return:
+		"""
+		try:
+			return self.element[self.keyValue]
+
+		except KeyError as e:
+			print(f'rule.BaseRule.getSplitValue KeyError: {str(e)}')
+			return None
+
+		except Exception as e:
+			print(f'rule.BaseRule.getSplitValue Exception: {str(e)}')
 			return None
 
 	def validateRequire(self) -> bool:
@@ -163,7 +169,9 @@ class BaseRule(BaseSchema):
 				return False
 
 		except KeyError as e:
+			print(f'rule.BaseRule.validateRequire KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			print(f'rule.BaseRule.validateRequire Exception: {str(e)}')
 			return False

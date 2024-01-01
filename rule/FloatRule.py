@@ -80,6 +80,9 @@ class FloatRule(NumericRule):
 				]
 			)
 
+			# found
+			foundError = True
+
 	def validatePrecision(self) -> bool:
 		"""
 		pending algorithm

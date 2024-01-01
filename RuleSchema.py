@@ -48,7 +48,7 @@ class RuleSchema:
 		"""
 		return True if value else False
 
-	def getDate(self, require: bool= False, year4: bool= True, year2: bool= False, month: bool= True, day: bool= True) -> dict:
+	def getDate(self, require: bool= None, year4: bool= None, year2: bool= None, month: bool= None, day: bool= None) -> dict:
 		"""
 
 		:param require:
@@ -66,36 +66,35 @@ class RuleSchema:
 		# 0 <= second < 60,
 		# 0 <= microsecond < 1000000,
 		# fold in [0, 1].
-
 		#
 		temp = dict()
 
 		#
-		if require:
+		if require and require is True:
 			temp.update({
 				DateSchema.keyRequire: require
 			})
 
 		#
-		if year4:
+		if year4 and year4 is True:
 			temp.update({
 				DateSchema.keyYear4: year4
 			})
 
 		#
-		if year2:
+		if year2 and year2 is True and year4 is False:
 			temp.update({
 				DateSchema.keyYear2: year2
 			})
 
 		#
-		if month:
+		if month and month is True:
 			temp.update({
 				DateSchema.keyMonth: month
 			})
 
 		#
-		if day:
+		if day and day is True:
 			temp.update({
 				DateSchema.keyDay: day
 			})
@@ -229,13 +228,13 @@ class RuleSchema:
 			})
 
 		#
-		if isUnicode and isUnicode == True:
+		if isUnicode and isUnicode is True:
 			temp.update({
 				StringSchema.keyUnicode: isUnicode
 			})
 
 		#
-		if regexValue and regexValue == True:
+		if regexValue and regexValue is True:
 			temp.update({
 				StringSchema.keyRegEx: regexValue
 			})
@@ -262,37 +261,37 @@ class RuleSchema:
 		temp = dict()
 
 		#
-		if require:
+		if require and require is True:
 			temp.update({
 				TimeRule.keyRequire: require
 			})
 
 		#
-		if hour24:
+		if hour24 and hour24 is True:
 			temp.update({
 				TimeSchema.keyHour24: hour24
 			})
 
-		#
-		if hour12:
+		# include hour24 only one that allowed
+		if hour12 and hour12 is True and hour24 is False:
 			temp.update({
 				TimeSchema.keyHour12: hour12
 			})
 
 		#
-		if minute:
+		if minute and minute is True:
 			temp.update({
 				TimeSchema.keyMinute: minute
 			})
 
 		#
-		if second:
+		if second and second is True:
 			temp.update({
 				TimeSchema.keySecond: second
 			})
 
 		#
-		if millisecond:
+		if millisecond and millisecond is True:
 			temp.update({
 				TimeSchema.keyMillisecond: millisecond
 			})

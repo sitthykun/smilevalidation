@@ -28,6 +28,30 @@ val.addElement(
 	)
 )
 
+val.addElement(
+	elementName= 'datereq'
+	, elementValue= '2012-12-21'
+	, delimiter= '-'
+	, rule = pattern.getDate(
+		require= True
+		, year4= True
+		, month= True
+		, day= True
+	)
+)
+
+val.addElement(
+	elementName= 'timereq'
+	, elementValue= '13:24:58'
+	, delimiter= ':'
+	, rule= pattern.getTime(
+		require= True
+		, hour24= True
+		, minute= True
+		, second= True
+	)
+)
+
 #
 if val.isValid():
 	print('is valid')

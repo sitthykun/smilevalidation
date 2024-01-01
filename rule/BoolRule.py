@@ -1,13 +1,13 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 Note:
 """
 # built-in
 from typing import Any
 # internal
 from rule.BaseRule import BaseRule
-from schema.BaseSchema import BaseSchema
+from schema.BoolSchema import BoolSchema
 
 
 class BoolRule(BaseRule):
@@ -39,24 +39,24 @@ class BoolRule(BaseRule):
 		:return:
 		"""
 		# if found an error, it will stop checking other error
-		# foundError	= False
+		foundError	= False
 
 		# type
 		if self.validateType() is False:
 			# add more error
 			self._addErrorNumber(
-				BaseSchema.keyValue
+				BoolSchema.keyValue
 			)
 
 			# add in detail
 			self._addErrorDetail(
-				BaseSchema.keyErrorDetail[
-					BaseSchema.keyValue
+				BoolSchema.keyErrorDetail[
+					BoolSchema.keyValue
 				]
 			)
 
 			# found
-			# foundError = True
+			foundError = True
 
 	def validateType(self) -> bool:
 		"""

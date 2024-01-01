@@ -22,14 +22,14 @@ class TimeSchema(BaseSchema):
 
 	# data type
 	# d datetime.now(), and type(d)
-	keyDateType		= 'time'
+	keyDataType		= 'time'
 
 	# translate error
 	keyErrorDetail	= {
-		keyHour24		: ErrorList.DT_121	#'Contained is not a time'
-		, keyHour12     : ErrorList.DT_122	#'Contained is not a time'
-		, keyMinute     : ErrorList.DT_123
-		, keySecond     : ErrorList.DT_124
-		, keyMillisecond: ErrorList.DT_125
-		, keyDateType	: ErrorList.DT_120	#'Not a datetime type'
+		keyHour24		: ErrorList.DT_121	#'Contained is not a hour 24'
+		, keyHour12     : ErrorList.DT_122	#'Contained is not a hour 12'
+		, keyMinute     : ErrorList.DT_123  #'Contained is not a minute'
+		, keySecond     : ErrorList.DT_124  #'Contained is not a second'
+		, keyMillisecond: ErrorList.DT_125  #'Contained is not a millisecond'
+		, keyDataType	: ErrorList.DT_120	#'Not a time type'
 	}

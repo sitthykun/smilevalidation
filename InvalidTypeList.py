@@ -14,14 +14,15 @@ class InvalidTypeList:
 	# comparison
 	C_400	= 400	# Need matched form
 	C_401	= 401	# Need not matched form
-	# date
+	# datetime
 	DT_100	= 100	# Not a datetime type
+	# date
 	DT_110  = 110  # Contained is not a date
 	DT_111  = 111  # Contained is not a year two
 	DT_112  = 112  # Contained is not a year four
 	DT_113  = 113  # Contained is not a month
 	DT_114  = 114  # Contained is not a day
-
+	# time
 	DT_120  = 120   #  Contained is not a time
 	DT_121	= 121	# Contained is not an hour 24
 	DT_122	= 122	# Contained is not an hour 12
