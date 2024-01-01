@@ -28,17 +28,17 @@ val.addElement(
 	)
 )
 
-# val.addElement(
-# 	elementName= 'b'
-# 	, elementValue= 2.3
-# 	, rule= pattern.getFloat(
-# 		require= True
-# 		, maxValue= 2.1
-# 		, minValue= 2
-# 		, negative= False
-# 		, precision= 1
-# 	)
-# )
+val.addElement(
+	elementName= 'b'
+	, elementValue= 2.0
+	, rule= pattern.getFloat(
+		require= True
+		, maxValue= 2.1
+		, minValue= 1
+		, negative= False
+		, precision= 1
+	)
+)
 
 # val.addElement(
 # 	elementName= 'datereq'
@@ -68,6 +68,6 @@ val.addElement(
 if val.isValid():
 	Console.output('is valid')
 else:
-	Console.output('invalid elements')
+	Console.output(f'invalid elements: {val.getError()}')
 
 

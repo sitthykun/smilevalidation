@@ -46,7 +46,8 @@ class InvalidTypeList:
 	N_303	= 303	# Greater than maximum value
 	N_304	= 304	# Less than minimum value
 	N_305	= 305	# Negative not allow
-	N_306	= 306	# Type is not matched
+	# N_306	= 306	# Type is not matched
+	N_307   = 307   # Max less than min
 	# string
 	S_200	= 200	# Contained over maximum of string length
 	S_201	= 201	# Contained less than minimum of string length

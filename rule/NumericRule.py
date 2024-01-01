@@ -104,6 +104,26 @@ class NumericRule(BaseRule):
 						NumericSchema.keyNegative
 					]
 				)
+		# must be checked if possible
+		self.validateMaxMinValue()
+	def validateMaxMinValue(self) -> None:
+		"""
+
+		:return:
+		"""
+		# both are have value
+		if self.element.get(NumericSchema.keyRule).get(NumericSchema.keyMaxValue) and self.element.get(NumericSchema.keyRule).get(NumericSchema.keyMinValue):
+			# min > max
+			if self.element.get(NumericSchema.keyRule).get(NumericSchema.keyMaxValue) < self.element.get(NumericSchema.keyRule).get(NumericSchema.keyMinValue):
+				# add more error
+				self.addErrorNumber(
+					InvalidTypeList.N_307
+				)
+
+				# add in detail
+				self.addErrorDetail(
+					'min bigger than max'
+				)
 
 	def validateMaxValue(self) -> bool:
 		"""
