@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 Note:
 """
 # built-in
@@ -25,6 +25,3 @@ class ListRule(BaseRule):
 			element
 			, require
 		)
-
-		# run validation
-		# self.__run()

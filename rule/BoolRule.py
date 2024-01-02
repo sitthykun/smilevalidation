@@ -6,6 +6,7 @@ Note:
 # built-in
 from typing import Any
 # internal
+from InvalidTypeList import InvalidTypeList
 from rule.BaseRule import BaseRule
 from schema.BoolSchema import BoolSchema
 
@@ -41,24 +42,22 @@ class BoolRule(BaseRule):
 		#
 		super().run()
 		# if found an error, it will stop checking other error
-		foundError	= False
+		# foundError	= False
 
 		# type
 		if self.validateType() is False:
 			# add more error
 			self.addErrorNumber(
-				BoolSchema.keyValue
+				InvalidTypeList.B_600
 			)
 
 			# add in detail
 			self.addErrorDetail(
-				BoolSchema.keyErrorDetail[
-					BoolSchema.keyValue
-				]
+				BoolSchema.keyValue
 			)
 
-			# found
-			foundError = True
+			# # found
+			# foundError = True
 
 	def validateType(self) -> bool:
 		"""

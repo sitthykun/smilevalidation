@@ -6,6 +6,7 @@ Note:
 # built-in
 from typing import Any
 # internal
+from InvalidTypeList import InvalidTypeList
 from rule.ComparisonRule import ComparisonRule
 from schema.ComparisonSchema import ComparisonSchema
 
@@ -48,12 +49,10 @@ class MatchRule(ComparisonRule):
 		if not((value1 is value2) is self.__isMatched):
 			# add error
 			self.addErrorNumber(
-				ComparisonSchema.keyMatch
+				InvalidTypeList.M_700
 			)
 
 			# add in detail
 			self.addErrorDetail(
-				ComparisonSchema.keyErrorDetail[
-					ComparisonSchema.keyMatch
-				]
+				ComparisonSchema.keyMatch
 			)

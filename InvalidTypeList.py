@@ -58,3 +58,4 @@ class InvalidTypeList:
 	S_204	= 204	# Not in provided range
 	S_205	= 205	# Not matched the regular expression
 	S_206	= 206	# Type is not matched
+	S_207   = 207   # Min and Max

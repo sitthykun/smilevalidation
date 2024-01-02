@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 Note:
 """
 # built-in
@@ -71,28 +71,29 @@ class FloatRule(NumericRule):
 		elif self.validatePrecision() is False:
 			# add more error
 			self.addErrorNumber(
-				FloatSchema.keyPrecision
+				InvalidTypeList.F_300
 			)
 
 			# add in detail
 			self.addErrorDetail(
-				FloatSchema.keyErrorDetail[
-					FloatSchema.keyPrecision
-				]
+				FloatSchema.keyPrecision
 			)
 
-			# found
-			foundError = True
+			# # found
+			# foundError = True
 
 	def validatePrecision(self) -> bool:
 		"""
 		pending algorithm
 		:return:
 		"""
-		if self.getValue():
-			return True
+		try:
+			# case numeric to string
+			# split of string to 2 values
+			# check the tail if length equals the given precision
+			return len(str(self.getValue()).split('.')[1]) == self.__precisionValue
 
-		else:
+		except Exception as e:
 			return False
 
 	def validateType(self) -> bool:

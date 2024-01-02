@@ -19,7 +19,7 @@ class BoolSchema(BaseSchema):
 	# d datetime.now(), and type(d)
 	keyDataType		= 'bool'
 
-	# translate error
-	keyErrorDetail	= {
-		keyDataType	: ErrorList.B_600	# Not a boolean type
-	}
+	# # translate error
+	# keyErrorDetail	= {
+	# 	keyDataType	: ErrorList.B_600	# Not a boolean type
+	# }

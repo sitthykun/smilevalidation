@@ -20,12 +20,12 @@ class DateTimeSchema(BaseSchema):
 
 	# data type
 	# d datetime.now(), and type(d)
-	keyDataType		= 'datetime.datetime'
+	keyDataType		= 'datetime'
 
-	# translate error
-	keyErrorDetail	= {
-		keyDate			: ErrorList.DT_110	#'Contained is not a date'
-		, keyDateTime	: ErrorList.DT_100	#'Contained is not a datetime'
-		, keyTime		: ErrorList.DT_120	#'Contained is not a time'
-		, keyDataType	: ErrorList.DT_101	#'Not a datetime type'
-	}
+	# # translate error
+	# keyErrorDetail	= {
+	# 	keyDate			: ErrorList.DT_110	#'Contained is not a date'
+	# 	, keyDateTime	: ErrorList.DT_100	#'Contained is not a datetime'
+	# 	, keyTime		: ErrorList.DT_120	#'Contained is not a time'
+	# 	, keyDataType	: ErrorList.DT_101	#'Not a datetime type'
+	# }

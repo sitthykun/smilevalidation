@@ -100,6 +100,7 @@ class NumericRule(BaseRule):
 				)
 		# must be checked if possible
 		self.validateMaxMinValue()
+
 	def validateMaxMinValue(self) -> None:
 		"""
 
@@ -125,7 +126,7 @@ class NumericRule(BaseRule):
 		:return:
 		"""
 		try:
-			Console.output(f'rule.NumericRule.validateMaxValue: {self.element[NumericSchema.keyRule][NumericSchema.keyMaxValue]=}, {self.getValue()=}, {self.getValue() <= self.__maxValueValue}')
+			# Console.output(f'rule.NumericRule.validateMaxValue: {self.element[NumericSchema.keyRule][NumericSchema.keyMaxValue]=}, {self.getValue()=}, {self.getValue() <= self.__maxValueValue}')
 			if self.element[NumericSchema.keyRule][NumericSchema.keyMaxValue] and self.getValue():
 				return self.getValue() <= self.__maxValueValue
 			#
@@ -145,7 +146,7 @@ class NumericRule(BaseRule):
 		:return:
 		"""
 		try:
-			Console.output(f'rule.NumericRule.validateMinValue: {self.element[NumericSchema.keyRule][NumericSchema.keyMinValue]=}, {self.getValue()}')
+			# Console.output(f'rule.NumericRule.validateMinValue: {self.element[NumericSchema.keyRule][NumericSchema.keyMinValue]=}, {self.getValue()}')
 			if self.element[NumericSchema.keyRule][NumericSchema.keyMinValue] and self.getValue():
 				return self.getValue() >= self.__minValueValue
 			#
@@ -165,7 +166,7 @@ class NumericRule(BaseRule):
 		:return:
 		"""
 		try:
-			Console.output(f'rule.NumericRule.validateNegative: {self.element[NumericSchema.keyValue]=}, {self.getValue()}')
+			# Console.output(f'rule.NumericRule.validateNegative: {self.element[NumericSchema.keyValue]=}, {self.getValue()}')
 			return self.getValue() and self.element[NumericSchema.keyValue] >= 0
 
 		except KeyError as e:

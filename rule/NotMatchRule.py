@@ -6,6 +6,7 @@ Note:
 # built-in
 from typing import Any
 # internal
+from InvalidTypeList import InvalidTypeList
 from rule.ComparisonRule import ComparisonRule
 from schema.ComparisonSchema import ComparisonSchema
 
@@ -29,7 +30,12 @@ class NotMatchRule(ComparisonRule):
 		self.__isMatched	= False
 
 		# start compare
-		self.__compare(name1, value1, name2, value2)
+		self.__compare(
+			name1   = name1
+			, value1= value1
+			, name2 = name2
+			, value2= value2
+		)
 
 	def __compare(self, name1: str, value1: Any, name2: str, value2: Any) -> None:
 		"""
@@ -43,12 +49,10 @@ class NotMatchRule(ComparisonRule):
 		if not((value1 is not value2) is self.__isMatched):
 			# add error
 			self.addErrorNumber(
-				ComparisonSchema.keyMatch
+				InvalidTypeList.M_701
 			)
 
 			# add in detail
 			self.addErrorDetail(
-				ComparisonSchema.keyErrorDetail[
-					ComparisonSchema.keyMatch
-				]
+				ComparisonSchema.keyMatch
 			)

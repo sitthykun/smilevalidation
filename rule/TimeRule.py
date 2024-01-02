@@ -51,18 +51,7 @@ class TimeRule(BaseRule):
 		"""
 		#
 		super().run()
-		# wrong type
-		# if self.validateType() is False:
-		# 	# add more error
-		# 	self.addErrorNumber(
-		# 		InvalidTypeList.DT_121
-		# 	)
-		#
-		# 	# add in detail
-		# 	self.addErrorDetail(
-		# 		TimeSchema.keyDataType
-		# 	)
-		#
+
 		# found
 		found24	= False
 
@@ -219,11 +208,11 @@ class TimeRule(BaseRule):
 			return False
 
 		except KeyError as e:
-			Console.output(f'TimeRule.validateSecond KeyError: {str(e)}')
+			#Console.output(f'TimeRule.validateSecond KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
-			Console.output(f'TimeRule.validateSecond Exception: {str(e)}')
+			#Console.output(f'TimeRule.validateSecond Exception: {str(e)}')
 			return False
 
 	def validateMillisecond(self) -> bool:
@@ -232,7 +221,7 @@ class TimeRule(BaseRule):
 		:return:
 		"""
 		try:
-			Console.output(f'222TimeRule.validateMillisecond 222: {self.element[TimeSchema.keyRule][TimeSchema.keyMillisecond]}')
+			# Console.output(f'222TimeRule.validateMillisecond 222: {self.element[TimeSchema.keyRule][TimeSchema.keyMillisecond]}')
 			if self.element[TimeSchema.keyRule][TimeSchema.keyMillisecond] and self.getValue()[3]:
 				return bool(0 <= int(self.getValue()[3]) < 1000)
 			#
@@ -253,5 +242,5 @@ class TimeRule(BaseRule):
 		"""
 		if self.getValue():
 			return isinstance(self.getValue(), datetime.time)
-		else:
-			return False
+		#
+		return False

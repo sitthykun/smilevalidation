@@ -40,6 +40,8 @@ class StringRule(BaseRule):
 
 		# regular expression
 		self.__regExValue		= regex
+		# private
+		self.__isValid          = True
 
 		# run validation
 		self.run()
@@ -58,13 +60,11 @@ class StringRule(BaseRule):
 		if self.validateType() is False:
 			# add more error
 			self.addErrorNumber(
-				InvalidTypeList.S_200
+				InvalidTypeList.S_203
 			)
 			# add in detail
 			self.addErrorDetail(
-				StringSchema.keyErrorDetail[
-					StringSchema.keyType
-				]
+				StringSchema.keyDataType
 			)
 
 			# found
@@ -78,13 +78,11 @@ class StringRule(BaseRule):
 			if self.validateMaxLength() is False:
 				# add more error
 				self.addErrorNumber(
-					StringSchema.keyMaxLength
+					InvalidTypeList.S_200
 				)
 				# add in detail
 				self.addErrorDetail(
-					StringSchema.keyErrorDetail[
-						StringSchema.keyMaxLength
-					]
+					StringSchema.keyMaxLength
 				)
 
 				# found
@@ -98,14 +96,12 @@ class StringRule(BaseRule):
 			elif self.validateMinLength() is False:
 				# add more error
 				self.addErrorNumber(
-					StringSchema.keyMinLength
+					InvalidTypeList.S_201
 				)
 
 				# add in detail
 				self.addErrorDetail(
-					StringSchema.keyErrorDetail[
-						StringSchema.keyMinLength
-					]
+					StringSchema.keyMinLength
 				)
 
 				# found
@@ -119,14 +115,12 @@ class StringRule(BaseRule):
 			elif self.validateWrongRange() is False:
 				# add more error
 				self.addErrorNumber(
-					StringSchema.keyWrongRange
+					InvalidTypeList.S_207
 				)
 
 				# add in detail
 				self.addErrorDetail(
-					StringSchema.keyErrorDetail[
-						StringSchema.keyWrongRange
-					]
+					StringSchema.keyWrongRange
 				)
 
 				# found
@@ -140,14 +134,12 @@ class StringRule(BaseRule):
 			elif self.validateRegEx() is False:
 				# add more error
 				self.addErrorNumber(
-					StringSchema.keyRegEx
+					InvalidTypeList.S_205
 				)
 
 				# add in detail
 				self.addErrorDetail(
-					StringSchema.keyErrorDetail[
-						StringSchema.keyRegEx
-					]
+					StringSchema.keyRegEx
 				)
 
 				# found
@@ -161,14 +153,12 @@ class StringRule(BaseRule):
 			elif self.validateUnicode() is False:
 				# add more error
 				self.addErrorNumber(
-					StringSchema.keyUnicode
+					InvalidTypeList.S_202
 				)
 
 				# add in detail
 				self.addErrorDetail(
-					StringSchema.keyErrorDetail[
-						StringSchema.keyUnicode
-					]
+					StringSchema.keyUnicode
 				)
 
 	def validateMaxLength(self) -> bool:
@@ -197,7 +187,7 @@ class StringRule(BaseRule):
 		"""
 		try:
 			#
-			if self.element[StringRule.keyRule][StringSchema.keyMinLength]:
+			if self.element[StringRule.keyRule][StringSchema.keyMinLength] and self.getValue():
 				return len(self.getValue()) >= self.__minLengthValue
 			#
 			return False

@@ -20,8 +20,8 @@ class ComparisonSchema(BaseSchema):
 	keyMatch		= 'match'
 	keyNotMatch		= 'not_match'
 
-	# translate error
-	keyErrorDetail	= {
-		keyMatch		: ErrorList.C_400
-		, keyNotMatch	: ErrorList.C_401
-	}
+	# # translate error
+	# keyErrorDetail	= {
+	# 	keyMatch		: ErrorList.C_400
+	# 	, keyNotMatch	: ErrorList.C_401
+	# }

@@ -48,7 +48,9 @@ class RuleSchema:
 		"""
 		return True if value else False
 
-	def getDate(self, require: bool= None, year4: bool= None, year2: bool= None, month: bool= None, day: bool= None) -> dict:
+	# the default args are month and day
+	# def getDate(self, require: bool= None, year4: bool= None, year2: bool= None, month: bool= None, day: bool= None) -> dict:
+	def getDate(self, require: bool= None, year4: bool= None, year2: bool= None, month: bool= True, day: bool= True) -> dict:
 		"""
 
 		:param require:
@@ -141,25 +143,25 @@ class RuleSchema:
 			})
 
 		#
-		if maxValue:
+		if maxValue and maxValue is not None and str(maxValue).isnumeric():
 			temp.update({
 				FloatSchema.keyMaxValue: maxValue
 			})
 
 		#
-		if minValue:
+		if minValue and minValue is not None and str(minValue).isnumeric():
 			temp.update({
 				FloatSchema.keyMinValue: minValue
 			})
 
 		#
-		if negative:
+		if negative and negative is True:
 			temp.update({
 				FloatSchema.keyNegative: negative
 			})
 
-		#
-		if precision:
+		# max length of precision is 15
+		if precision and precision is not None and str(precision).isnumeric() and (0 < precision <= 15) :
 			temp.update({
 				FloatSchema.keyPrecision: precision
 			})
@@ -185,25 +187,25 @@ class RuleSchema:
 		})
 
 		#
-		if require:
+		if require and require is True:
 			temp.update({
 				IntegerSchema.keyRequire: require
 			})
 
 		#
-		if maxValue:
+		if maxValue and maxValue is not None and str(maxValue).isnumeric():
 			temp.update({
 				IntegerSchema.keyMaxValue: maxValue
 			})
 
 		#
-		if minValue:
+		if minValue and minValue is not None and str(minValue).isnumeric():
 			temp.update({
 				IntegerSchema.keyMinValue: minValue
 			})
 
 		#
-		if negative:
+		if negative and negative is True:
 			temp.update({
 				IntegerSchema.keyNegative: negative
 			})
@@ -230,19 +232,19 @@ class RuleSchema:
 		})
 
 		#
-		if require:
+		if require and require is True:
 			temp.update({
 				StringSchema.keyRequire: require
 			})
 
-		#
-		if maxLength:
+		# must be positive
+		if maxLength and maxLength is not None and str(maxLength).isnumeric() and maxLength > 0:
 			temp.update({
 				StringSchema.keyMaxLength: maxLength
 			})
 
-		#
-		if minLength:
+		# must be positive
+		if minLength and minLength is not None and str(minLength).isnumeric() and minLength > 0:
 			temp.update({
 				StringSchema.keyMinLength: minLength
 			})
@@ -253,8 +255,8 @@ class RuleSchema:
 				StringSchema.keyUnicode: isUnicode
 			})
 
-		#
-		if regexValue and regexValue is True:
+		# regex value must be bigger than 2
+		if regexValue and regexValue is not None and len(regexValue) > 2:
 			temp.update({
 				StringSchema.keyRegEx: regexValue
 			})
@@ -262,7 +264,9 @@ class RuleSchema:
 		#
 		return temp
 
-	def getTime(self, require: bool= False, hour24: bool= None, hour12: bool= None, minute: bool= None, second: bool= None, millisecond: bool= None) -> dict:
+	# the default args are minute and second
+	# def getTime(self, require: bool= False, hour24: bool= None, hour12: bool= None, minute: bool= None, second: bool= None, millisecond: bool= None) -> dict:
+	def getTime(self, require: bool= False, hour24: bool= None, hour12: bool= None, minute: bool= True, second: bool= True, millisecond: bool= None) -> dict:
 		"""
 
 		:param require:

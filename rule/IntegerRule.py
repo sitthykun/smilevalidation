@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 Note:
 """
 # built-in
@@ -34,9 +34,6 @@ class IntegerRule(NumericRule):
 			, negative
 		)
 
-		# private
-		self.__isValid  = True
-
 		# run validation
 		self.run()
 
@@ -45,26 +42,27 @@ class IntegerRule(NumericRule):
 
 		:return:
 		"""
-		if self.validateType():
-			super().run()
+		#
+		super().run()
 
-		else:
-			# if found an error, it will stop checking other error
-			self.__isValid	= False
+		# type
+		if self.validateType() is False:
+			# add more error
+			self.addErrorNumber(
+				InvalidTypeList.I_302
+			)
 
-	def isValid(self) -> bool:
-		"""
-
-		:return:
-		"""
-		return super().isValid() and self.__isValid
+			# add in detail
+			self.addErrorDetail(
+				IntegerSchema.keyDataType
+			)
 
 	def validateType(self) -> bool:
 		"""
 
 		:return:
 		"""
-		Console.output(f'rule.IntegerRule.validateType  {self.getValue()=}')
+		# Console.output(f'rule.IntegerRule.validateType  {self.getValue()=}')
 		if self.getValue():
 			return isinstance(self.getValue(), int)
 		#
