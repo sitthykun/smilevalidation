@@ -3,7 +3,9 @@ Author: masakokh
 Version: 1.0.0
 Note:
 """
+# built-in
 from typing import Any
+# internal
 
 
 class BaseSchema:
@@ -11,8 +13,10 @@ class BaseSchema:
 
 	"""
 	# base key
-	# keyEmpty		= 'empty'
-	# keyName			= 'name'
+	# be able to empty value #
+	# element name
+	keyName			= 'name'
+	# require value
 	keyRequire		= 'require'
 	# rule
 	keyRule			= 'rule'
@@ -20,5 +24,3 @@ class BaseSchema:
 	keyType			= 'type'
 	# element value
 	keyValue		= 'value'
-
-

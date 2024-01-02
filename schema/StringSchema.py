@@ -1,16 +1,21 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.schema.BaseSchema import BaseSchema
+# internal
+from InvalidTypeList import InvalidTypeList as ErrorList
+from schema.BaseSchema import BaseSchema
 
 
 class StringSchema(BaseSchema):
 	"""
 
 	"""
+	# blank string equal to empty
+	keyEmpty		= 'empty'
 	keyMaxLength	= 'max_length'
 	keyMinLength	= 'min_length'
 	# min > max or another reason
@@ -21,13 +26,13 @@ class StringSchema(BaseSchema):
 	keyDataType		= 'str'
 
 	# translate error
-	keyErrorDetail	= {
-		keyMaxLength: 'Contained over maximum of string length'
-		, keyMinLength: 'Contained less than minimum of string length'
-		, keyUnicode: 'Contained unicode character'
-		, keyDataType: 'Not a string type'
-		, keyWrongRange: 'Not in provided range'
-		, keyRegEx: 'Not matched the regular expression'
-		, BaseSchema.keyType: 'Type is not matched'
-	}
+	# keyErrorDetail	= {
+	# 	keyMaxLength		: ErrorList.S_200	# 'Contained over maximum of string length'
+	# 	, keyMinLength		: ErrorList.S_201	# 'Contained less than minimum of string length'
+	# 	, keyUnicode		: ErrorList.S_202	# 'Contained unicode character'
+	# 	, keyDataType		: ErrorList.S_203	# 'Not a string type'
+	# 	, keyWrongRange		: ErrorList.S_204	# 'Not in provided range'
+	# 	, keyRegEx			: ErrorList.S_205	# 'Not matched the regular expression'
+	# 	, BaseSchema.keyType: ErrorList.S_206	# 'Type is not matched'
+	# }
 

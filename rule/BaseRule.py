@@ -1,11 +1,14 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.schema.BaseSchema import BaseSchema
-from smilevalidation.schema.NumericSchema import NumericSchema
+# internal
+from Console import Console
+from InvalidTypeList import InvalidTypeList
+from schema.BaseSchema import BaseSchema
 
 
 class BaseRule(BaseSchema):
@@ -24,65 +27,44 @@ class BaseRule(BaseSchema):
 	def __init__(self, element: dict, require: bool= None):
 		"""
 
+		:param element:
+		:param require:
 		"""
-
-		self.__requireValue = require
-		# self.__requireValue	= True
+		# keep error in detail
+		self.__errorDetail	= ''
+		self.__errorNumber  = 0
 
 		# match or not match value
 		self.__matchValue	= None
-
+		#
+		self.__requireValue = require
 		# fix key for each element
-		self.__valueValue	= None
+		self.__value        = None
 
+		# public
 		# element
 		self.element		= element
-		# error as dict type
-		# self.__error		= {}
-		self.__error		= ''
-		# keep error in detail
-		self.__errorDetail	= ''
 
-		# run validation
-		self.__run()
-
-	def __run(self) -> None:
+	def run(self) -> None:
 		"""
 
 		:return:
 		"""
-		if self.validateRequire() is False:
-			self._addError(
-				next(
-					iter(
-						self.element.keys()
-					)
-				)
-				#, super().keyRequire
+		# False
+		if self.__requireValue is True and not self.validateRequire():
+			self.addErrorNumber(
+				InvalidTypeList.G_900
 			)
 
-	# def _addError(self, elementName: str, errorType: str) -> None:
-	# 	"""
-	#
-	# 	:param elementName:
-	# 	:param errorType:
-	# 	:return:
-	# 	"""
-	# 	# accept only the first error for an element
-	# 	if self.__error.get(elementName):
-	# 		# add error to collect
-	# 		self.__error.update({
-	# 			elementName: errorType
-	# 		})
-	def _addError(self, errorName: str) -> None:
+	def addErrorNumber(self, errorNumber: int) -> None:
 		"""
 
-		:param errorName:
+		:param errorNumber:
 		:return:
 		"""
-		self.__error		= errorName
+		self.__errorNumber	= errorNumber
 
-	def _addErrorDetail(self, errorName: str) -> None:
+	def addErrorDetail(self, errorName: str) -> None:
 		"""
 
 		:param errorName:
@@ -90,26 +72,19 @@ class BaseRule(BaseSchema):
 		"""
 		self.__errorDetail	= errorName
 
-	def _getElementName(self) -> str:
+	def getElementName(self) -> str:
 		"""
 
 		:return:
 		"""
-		return self.element.get('name')
+		return self.element.get(self.keyName)
 
-	# def getError(self) -> dict:
-	# 	"""
-	#
-	# 	:return:
-	# 	"""
-	# 	return self.__error
-
-	def getError(self) -> str:
+	def getErrorNumber(self) -> int:
 		"""
 
 		:return:
 		"""
-		return self.__error
+		return self.__errorNumber
 
 	def getErrorDetail(self) -> str:
 		"""
@@ -127,25 +102,51 @@ class BaseRule(BaseSchema):
 			return self.element[self.keyValue]
 
 		except KeyError as e:
+			Console.output(f'rule.BaseRule.getValue KeyError: {str(e)}')
 			return None
 
 		except Exception as e:
+			Console.output(f'rule.BaseRule.getValue Exception: {str(e)}')
 			return None
+
+	def getSplitValue(self) -> list | None:
+		"""
+
+		:return:
+		"""
+		try:
+			return self.element[self.keyValue]
+
+		except KeyError as e:
+			Console.output(f'rule.BaseRule.getSplitValue KeyError: {str(e)}')
+			return None
+
+		except Exception as e:
+			Console.output(f'rule.BaseRule.getSplitValue Exception: {str(e)}')
+			return None
+
+	def isValid(self) -> bool:
+		"""
+
+		:return:
+		"""
+		return not bool(self.__errorNumber)
 
 	def validateRequire(self) -> bool:
 		"""
+
 		{'require':True}
 		:return:
 		"""
 		try:
-			if self.element[self.keyRule][self.keyRequire]:
-				return True
-
-			else:
-				return False
+			# true and value is not null
+			# return self.element[self.keyRule][self.keyRequire] is True and self.element[self.keyRule][self.keyValue]
+			return self.element[self.keyRule][self.keyRequire] is True and bool(self.getValue())
 
 		except KeyError as e:
+			Console.output(f'rule.BaseRule.validateRequire KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'rule.BaseRule.validateRequire Exception: {str(e)}')
 			return False

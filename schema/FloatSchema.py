@@ -1,10 +1,13 @@
 """
 Author: masakokh
-Version: 1.1.0
+Version: 1.1.1
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.schema.NumericSchema import NumericSchema
+# internal
+from InvalidTypeList import InvalidTypeList as ErrorList
+from schema.NumericSchema import NumericSchema
 
 
 class FloatSchema(NumericSchema):
@@ -16,7 +19,7 @@ class FloatSchema(NumericSchema):
 	keyDataType			= 'float'
 
 	# translate error
-	NumericSchema.keyErrorDetail.update({
-		keyPrecision: 'No precision'
-		, keyDataType: 'Not a float type'
-	})
+	# NumericSchema.keyErrorDetail.update({
+	# 	keyPrecision	: ErrorList.F_300	# 'No precision'
+	# 	, keyDataType	: ErrorList.F_301	# 'Not a float type'
+	# })

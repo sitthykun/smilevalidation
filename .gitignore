@@ -29,6 +29,10 @@ venv/*
 .vscode/*
 
 # test
+test_rule
 test
 test/
 test/*
+
+# readme old version
+README1.md

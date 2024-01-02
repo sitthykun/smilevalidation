@@ -1,11 +1,15 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.rule.NumericRule import NumericRule
-from smilevalidation.schema.IntegerSchema import IntegerSchema
+# internal
+from InvalidTypeList import InvalidTypeList
+from rule.NumericRule import NumericRule
+from schema.IntegerSchema import IntegerSchema
+from Console import Console
 
 
 class IntegerRule(NumericRule):
@@ -31,43 +35,35 @@ class IntegerRule(NumericRule):
 		)
 
 		# run validation
-		self.__run()
+		self.run()
 
-	def __run(self) -> None:
+	def run(self) -> None:
 		"""
 
 		:return:
 		"""
-		# if found an error, it will stop checking other error
-		# foundError	= False
+		#
+		super().run()
 
 		# type
 		if self.validateType() is False:
 			# add more error
-			self._addError(
-				IntegerSchema.keyType
+			self.addErrorNumber(
+				InvalidTypeList.I_302
 			)
 
 			# add in detail
-			self._addErrorDetail(
-				IntegerSchema.keyErrorDetail[
-					IntegerSchema.keyType
-				] + + self._suffixErrorMessage(type(self.getValue()), 'integer', 'type')
+			self.addErrorDetail(
+				IntegerSchema.keyDataType
 			)
-
-			# # found
-			# foundError = True
 
 	def validateType(self) -> bool:
 		"""
 
 		:return:
 		"""
+		# Console.output(f'rule.IntegerRule.validateType  {self.getValue()=}')
 		if self.getValue():
-			if isinstance(self.getValue(), int):
-				return True
-
-			else:
-				return False
-		else:
-			return False
+			return isinstance(self.getValue(), int)
+		#
+		return False

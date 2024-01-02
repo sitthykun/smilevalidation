@@ -1,11 +1,14 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.rule.NumericRule import NumericRule
-from smilevalidation.schema.FloatSchema import FloatSchema
+# internal
+from InvalidTypeList import InvalidTypeList
+from rule.NumericRule import NumericRule
+from schema.FloatSchema import FloatSchema
 
 
 class FloatRule(NumericRule):
@@ -34,28 +37,28 @@ class FloatRule(NumericRule):
 		self.__precisionValue	= precision
 
 		# run validation
-		self.__run()
+		self.run()
 
-	def __run(self) -> None:
+	def run(self) -> None:
 		"""
 
 		:return:
 		"""
+		#
+		super().run()
 		# if found an error, it will stop checking other error
 		foundError	= False
 
 		# type
 		if self.validateType() is False:
 			# add more error
-			self._addError(
-				FloatSchema.keyType
+			self.addErrorNumber(
+				InvalidTypeList.F_301
 			)
 
 			# add in detail
-			self._addErrorDetail(
-				FloatSchema.keyErrorDetail[
-					FloatSchema.keyType
-				] + self._suffixErrorMessage(type(self.getValue()), 'float', 'type')
+			self.addErrorDetail(
+				FloatSchema.keyType
 			)
 
 			# found
@@ -67,27 +70,31 @@ class FloatRule(NumericRule):
 
 		elif self.validatePrecision() is False:
 			# add more error
-			self._addError(
-				FloatSchema.keyPrecision
+			self.addErrorNumber(
+				InvalidTypeList.F_300
 			)
 
 			# add in detail
-			self._addErrorDetail(
-				FloatSchema.keyErrorDetail[
-					FloatSchema.keyPrecision
-				] + self._suffixErrorMessage(self.getValue(), self.__precisionValue, 'negative')
+			self.addErrorDetail(
+				FloatSchema.keyPrecision
 			)
+
+			# # found
+			# foundError = True
 
 	def validatePrecision(self) -> bool:
 		"""
 		pending algorithm
 		:return:
 		"""
-		if self.getValue():
-			return self.__precisionValue
+		try:
+			# case numeric to string
+			# split of string to 2 values
+			# check the tail if length equals the given precision
+			return len(str(self.getValue()).split('.')[1]) == self.__precisionValue
 
-		else:
-			return self.__precisionValue
+		except Exception as e:
+			return False
 
 	def validateType(self) -> bool:
 		"""
@@ -95,11 +102,6 @@ class FloatRule(NumericRule):
 		:return:
 		"""
 		if self.getValue():
-			if isinstance(self.getValue(), int) or isinstance(self.getValue(), float):
-				return True
-
-			else:
-				return False
-
-		else:
-			return False
+			return isinstance(self.getValue(), float) or isinstance(self.getValue(), int)
+		#
+		return False

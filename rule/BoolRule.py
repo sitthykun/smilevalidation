@@ -1,11 +1,14 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.rule.BaseRule import BaseRule
-from smilevalidation.schema.BaseSchema import BaseSchema
+# internal
+from InvalidTypeList import InvalidTypeList
+from rule.BaseRule import BaseRule
+from schema.BoolSchema import BoolSchema
 
 
 class BoolRule(BaseRule):
@@ -29,31 +32,31 @@ class BoolRule(BaseRule):
 		self.__value	= value
 
 		# run validation
-		self.__run()
+		self.run()
 
-	def __run(self) -> None:
+	def run(self) -> None:
 		"""
 
 		:return:
 		"""
+		#
+		super().run()
 		# if found an error, it will stop checking other error
 		# foundError	= False
 
 		# type
 		if self.validateType() is False:
 			# add more error
-			self._addError(
-				BaseSchema.keyValue
+			self.addErrorNumber(
+				InvalidTypeList.B_600
 			)
 
 			# add in detail
-			self._addErrorDetail(
-				BaseSchema.keyErrorDetail[
-					BaseSchema.keyValue
-				]
+			self.addErrorDetail(
+				BoolSchema.keyValue
 			)
 
-			# found
+			# # found
 			# foundError = True
 
 	def validateType(self) -> bool:
@@ -62,11 +65,6 @@ class BoolRule(BaseRule):
 		:return:
 		"""
 		if self.getValue():
-			if isinstance(self.getValue(), bool):
-				return True
-
-			else:
-				return False
-
-		else:
-			return False
+			return isinstance(self.getValue(), bool)
+		#
+		return False

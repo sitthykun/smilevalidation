@@ -3,9 +3,12 @@ Author: masakokh
 Version: 1.0.1
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.rule.ComparisonRule import ComparisonRule
-from smilevalidation.schema.ComparisonSchema import ComparisonSchema
+# internal
+from InvalidTypeList import InvalidTypeList
+from rule.ComparisonRule import ComparisonRule
+from schema.ComparisonSchema import ComparisonSchema
 
 
 class MatchRule(ComparisonRule):
@@ -27,7 +30,12 @@ class MatchRule(ComparisonRule):
 		self.__isMatched	= True
 
 		# compare now
-		self.__compare(name1, value1, name2, value2)
+		self.__compare(
+			name1	= name1
+			, value1= value1
+			, name2	= name2
+			, value2= value2
+		)
 
 	def __compare(self, name1: str, value1: Any, name2: str, value2: Any) -> None:
 		"""
@@ -40,13 +48,11 @@ class MatchRule(ComparisonRule):
 		"""
 		if not((value1 is value2) is self.__isMatched):
 			# add error
-			self._addError(
-				ComparisonSchema.keyMatch
+			self.addErrorNumber(
+				InvalidTypeList.M_700
 			)
 
 			# add in detail
-			self._addErrorDetail(
-				ComparisonSchema.keyErrorDetail[
-					ComparisonSchema.keyMatch
-				] + self._suffixErrorMessage(name1, value1, name2, value2, 'Not matched')
+			self.addErrorDetail(
+				ComparisonSchema.keyMatch
 			)

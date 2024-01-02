@@ -1,27 +1,25 @@
 """
 Author: masakokh
-Version: 1.1.0
+Version: 1.1.1
 Note:
 """
 # built-in
 from typing import Any
-import re
 # internal
 from InvalidTypeList import InvalidTypeList as ErrorList
-# schema
+# schema super
 from schema.BaseSchema import BaseSchema
 
 
-class ComparisonSchema(BaseSchema):
+class BoolSchema(BaseSchema):
 	"""
 
 	"""
-	# match
-	keyMatch		= 'match'
-	keyNotMatch		= 'not_match'
+	# data type
+	# d datetime.now(), and type(d)
+	keyDataType		= 'bool'
 
 	# # translate error
 	# keyErrorDetail	= {
-	# 	keyMatch		: ErrorList.C_400
-	# 	, keyNotMatch	: ErrorList.C_401
+	# 	keyDataType	: ErrorList.B_600	# Not a boolean type
 	# }

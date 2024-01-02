@@ -1,11 +1,16 @@
 """
 Author: masakokh
-Version: 1.0.0
+Version: 1.0.1
 Note:
 """
+# built-in
 from typing import Any
-from smilevalidation.rule.BaseRule import BaseRule
-from smilevalidation.schema.NumericSchema import NumericSchema
+
+from Console import Console
+from InvalidTypeList import InvalidTypeList
+# internal
+from rule.BaseRule import BaseRule
+from schema.NumericSchema import NumericSchema
 
 
 class NumericRule(BaseRule):
@@ -26,19 +31,18 @@ class NumericRule(BaseRule):
 			element
 			, require
 		)
-
+		# private
 		self.__maxValueValue	= maxValue
 		self.__minValueValue	= minValue
 		self.__negative			= negative
 
-		# run validation
-		self.__run()
-
-	def __run(self) -> None:
+	def run(self) -> None:
 		"""
 
 		:return:
 		"""
+		#
+		super().run()
 		# if found an error, it will stop checking other error
 		foundError	= False
 
@@ -48,15 +52,13 @@ class NumericRule(BaseRule):
 
 		elif self.validateMaxValue() is False:
 			# add more error
-			self._addError(
-				NumericSchema.keyMaxValue
+			self.addErrorNumber(
+				InvalidTypeList.N_303
 			)
 
 			# add in detail
-			self._addErrorDetail(
-				NumericSchema.keyErrorDetail[
-					NumericSchema.keyMaxValue
-				] + self._suffixErrorMessage(self.getValue(), self.__maxValueValue, 'max')
+			self.addErrorDetail(
+				NumericSchema.keyMaxValue
 			)
 
 			# found
@@ -69,15 +71,13 @@ class NumericRule(BaseRule):
 
 			elif self.validateMinValue() is False:
 				# add more error
-				self._addError(
-					NumericSchema.keyMinValue
+				self.addErrorNumber(
+					InvalidTypeList.N_304
 				)
 
 				# add in detail
-				self._addErrorDetail(
-					NumericSchema.keyErrorDetail[
-						NumericSchema.keyMinValue
-					] + self._suffixErrorMessage(self.getValue(), self.__minValueValue, 'min')
+				self.addErrorDetail(
+					NumericSchema.keyMinValue
 				)
 
 				# found
@@ -86,30 +86,39 @@ class NumericRule(BaseRule):
 		# negative
 		if foundError is False:
 			if not self.__negative:
-				return True
+				pass
 
 			elif self.validateNegative() is False:
 				# add more error
-				self._addError(
-					NumericSchema.keyNegative
+				self.addErrorNumber(
+					InvalidTypeList.N_305
 				)
 
 				# add in detail
-				self._addErrorDetail(
-					NumericSchema.keyErrorDetail[
-						NumericSchema.keyNegative
-					] + self._suffixErrorMessage(self.getValue(), 'true', 'negative')
+				self.addErrorDetail(
+					NumericSchema.keyNegative
 				)
+		# must be checked if possible
+		self.validateMaxMinValue()
 
-	def _suffixErrorMessage(self, givenValue: str,  ruleValue: str, flag: str) -> str:
+	def validateMaxMinValue(self) -> None:
 		"""
 
-		:param givenValue:
-		:param ruleValue:
-		:param flag:
 		:return:
 		"""
-		return f'( given: {givenValue}, rule {flag}: {ruleValue})'
+		# both are have value
+		if self.element.get(NumericSchema.keyRule).get(NumericSchema.keyMaxValue) and self.element.get(NumericSchema.keyRule).get(NumericSchema.keyMinValue):
+			# min > max
+			if self.element.get(NumericSchema.keyRule).get(NumericSchema.keyMaxValue) < self.element.get(NumericSchema.keyRule).get(NumericSchema.keyMinValue):
+				# add more error
+				self.addErrorNumber(
+					InvalidTypeList.N_307
+				)
+
+				# add in detail
+				self.addErrorDetail(
+					'min bigger than max'
+				)
 
 	def validateMaxValue(self) -> bool:
 		"""
@@ -117,20 +126,18 @@ class NumericRule(BaseRule):
 		:return:
 		"""
 		try:
+			# Console.output(f'rule.NumericRule.validateMaxValue: {self.element[NumericSchema.keyRule][NumericSchema.keyMaxValue]=}, {self.getValue()=}, {self.getValue() <= self.__maxValueValue}')
 			if self.element[NumericSchema.keyRule][NumericSchema.keyMaxValue] and self.getValue():
-				if self.getValue() <= self.__maxValueValue:
-					return True
-
-				else:
-					return False
-
-			else:
-				return False
+				return self.getValue() <= self.__maxValueValue
+			#
+			return False
 
 		except KeyError as e:
+			Console.output(f'rule.NumericRule.validateMaxValue KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'rule.NumericRule.validateMaxValue Exception: {str(e)}')
 			return False
 
 	def validateMinValue(self) -> bool:
@@ -139,19 +146,18 @@ class NumericRule(BaseRule):
 		:return:
 		"""
 		try:
+			# Console.output(f'rule.NumericRule.validateMinValue: {self.element[NumericSchema.keyRule][NumericSchema.keyMinValue]=}, {self.getValue()}')
 			if self.element[NumericSchema.keyRule][NumericSchema.keyMinValue] and self.getValue():
-				if self.getValue() >= self.__minValueValue:
-					return True
-
-				else:
-					return False
-			else:
-				return False
+				return self.getValue() >= self.__minValueValue
+			#
+			return False
 
 		except KeyError as e:
+			Console.output(f'rule.NumericRule.validateMinValue KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'rule.NumericRule.validateMinValue Exception: {str(e)}')
 			return False
 
 	def validateNegative(self) -> bool:
@@ -160,14 +166,13 @@ class NumericRule(BaseRule):
 		:return:
 		"""
 		try:
-			if self.getValue() and self.element[NumericSchema.keyValue] >= 0:
-				return True
-
-			else:
-				return False
+			# Console.output(f'rule.NumericRule.validateNegative: {self.element[NumericSchema.keyValue]=}, {self.getValue()}')
+			return self.getValue() and self.element[NumericSchema.keyValue] >= 0
 
 		except KeyError as e:
+			Console.output(f'rule.NumericRule.validateNegative KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'rule.NumericRule.validateNegative Exception: {str(e)}')
 			return False
