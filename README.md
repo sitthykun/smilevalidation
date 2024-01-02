@@ -43,9 +43,7 @@ else:
 ```
 
 ## Comparison
-For reality form validation, it does not just need validation with the value, they need also the comparison such as confirm password form.
-So does it?
-It should build for this purpose via addMatchedElement method and addNotMatchedElement. Both will validation matched value and not matched value.
+For reality form validation, it does not just need validation with the value, they need also the comparison such as confirm password form. So does it? It should build for this purpose via addMatchedElement method and addNotMatchedElement. Both will validate the matched value and not matched value.
 ```
 v.addMatchedElement(
     elementName1= 'm1'
@@ -61,7 +59,7 @@ v.addNotMatchedElement(
     , elementValue2='hello2'
 )
 ```
-Then the isValid() method will execute these too.
+Then the IsValid() method will execute these too.
 
 Full example:
 
@@ -124,7 +122,7 @@ class Rule2(RuleSchema):
  # override the new rule
  val.setRule(rule= Rule2())
 ``` 
-getQualityOne method will present the new rule functino
+getQualityOne method will present the new rule function
 
 ```
 # Two elements with Rule2 class
@@ -213,7 +211,7 @@ else:
 ```
 
 It is available on **PyPi** store via https://pypi.org/project/SmileValidation/ \
-To Support my work, please donate me via <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/sitthykun"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a Pizza"><span style="margin-left:5px;font-size:28px !important;">Buy me a Coffee</span></a>
+In order to support my work, please donate to me through <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/sitthykun"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a Pizza"><span style="margin-left:5px;font-size:28px !important;">Buy me a Coffee</span></a>
 
 ##### My unique slogan is:
 a little developer in the big world \o/
