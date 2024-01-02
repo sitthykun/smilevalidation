@@ -151,11 +151,11 @@ class TimeRule(BaseRule):
 			return False
 
 		except KeyError as e:
-			Console.output(f'TimeRule.validateHour24 KeyError: {str(e)}')
+			# Console.output(f'TimeRule.validateHour24 KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
-			Console.output(f'TimeRule.validateHour24 Exception: {str(e)}')
+			# Console.output(f'TimeRule.validateHour24 Exception: {str(e)}')
 			return False
 
 	def validateHour12(self) -> bool:
@@ -170,11 +170,11 @@ class TimeRule(BaseRule):
 			return False
 
 		except KeyError as e:
-			Console.output(f'TimeRule.validateHour12 KeyError: {str(e)}')
+			# Console.output(f'TimeRule.validateHour12 KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
-			Console.output(f'TimeRule.validateHour12 Exception: {str(e)}')
+			# Console.output(f'TimeRule.validateHour12 Exception: {str(e)}')
 			return False
 
 	def validateMinute(self) -> bool:
@@ -189,11 +189,11 @@ class TimeRule(BaseRule):
 			return False
 
 		except KeyError as e:
-			Console.output(f'TimeRule.validateMinute KeyError: {str(e)}')
+			# Console.output(f'TimeRule.validateMinute KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
-			Console.output(f'TimeRule.validateMinute Exception: {str(e)}')
+			# Console.output(f'TimeRule.validateMinute Exception: {str(e)}')
 			return False
 
 	def validateSecond(self) -> bool:
@@ -228,11 +228,11 @@ class TimeRule(BaseRule):
 			return False
 
 		except KeyError as e:
-			Console.output(f'TimeRule.validateMillisecond KeyError: {str(e)}')
+			# Console.output(f'TimeRule.validateMillisecond KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
-			Console.output(f'TimeRule.validateMillisecond Exception: {str(e)}')
+			# Console.output(f'TimeRule.validateMillisecond Exception: {str(e)}')
 			return False
 
 	def validateType(self) -> bool:

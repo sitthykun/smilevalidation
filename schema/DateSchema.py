@@ -14,14 +14,14 @@ class DateSchema(BaseSchema):
 	"""
 
 	"""
-	keyYear4       = 'year_4'
-	keyYear2       = 'year_2'
-	keyMonth       = 'month'
-	keyDay         = 'day'
+	keyYear2        = 'year_2'
+	keyYear4        = 'year_4'
+	keyMonth        = 'month'
+	keyDay          = 'day'
 
 	# data type
 	# d datetime.now(), and type(d)
-	keyDataType		= 'date'
+	keyDataType     = 'date'
 
 	# # translate error
 	# keyErrorDetail	= {

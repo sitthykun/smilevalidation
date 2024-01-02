@@ -8,6 +8,7 @@ import datetime
 import re
 from typing import Any
 # internal
+from Console import Console
 from InvalidTypeList import InvalidTypeList
 from rule.BaseRule import BaseRule
 from schema.DateSchema import DateSchema
@@ -118,9 +119,11 @@ class DateRule(BaseRule):
 			return False
 
 		except KeyError as e:
+			Console.output(f'DateRule.validateYear4 KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'DateRule.validateYear4 Exception: {str(e)}')
 			return False
 
 	def validateYear2(self) -> bool:
@@ -138,9 +141,11 @@ class DateRule(BaseRule):
 			return False
 
 		except KeyError as e:
+			Console.output(f'DateRule.validateYear2 KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'DateRule.validateYear2 Exception: {str(e)}')
 			return False
 
 	def validateMonth(self) -> bool:
@@ -158,9 +163,11 @@ class DateRule(BaseRule):
 			return False
 
 		except KeyError as e:
+			Console.output(f'DateRule.validateMonth KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			Console.output(f'DateRule.validateMonth Exception: {str(e)}')
 			return False
 
 	def validateDay(self) -> bool:
@@ -178,9 +185,11 @@ class DateRule(BaseRule):
 			return False
 
 		except KeyError as e:
+			# Console.output(f'DateRule.validateDay KeyError: {str(e)}')
 			return False
 
 		except Exception as e:
+			# Console.output(f'DateRule.validateDay Exception: {str(e)}')
 			return False
 
 	def validateType(self) -> bool:
