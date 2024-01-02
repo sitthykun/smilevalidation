@@ -6,22 +6,22 @@ Version: 1.0.0
 import re
 from typing import Any
 #
-from rule.BoolRule import BoolRule
-from rule.ComparisonRule import ComparisonRule
-from rule.DateRule import DateRule
-from rule.DateTimeRule import DateTimeRule
-from rule.FloatRule import FloatRule
-from rule.IntegerRule import IntegerRule
-from rule.ListRule import ListRule
-from rule.MatchRule import MatchRule
-from rule.NotMatchRule import NotMatchRule
-from rule.StringRule import StringRule
+# from rule.BoolRule import BoolRule
+# from rule.ComparisonRule import ComparisonRule
+# from rule.DateRule import DateRule
+# from rule.DateTimeRule import DateTimeRule
+# from rule.FloatRule import FloatRule
+# from rule.IntegerRule import IntegerRule
+# from rule.ListRule import ListRule
+# from rule.MatchRule import MatchRule
+# from rule.NotMatchRule import NotMatchRule
+# from rule.StringRule import StringRule
 from rule.TimeRule import TimeRule
 
 #
-from schema.BoolSchema import BoolSchema
-from schema.ComparisonSchema import ComparisonSchema
-from schema.DateTimeSchema import DateTimeSchema
+# from schema.BoolSchema import BoolSchema
+# from schema.ComparisonSchema import ComparisonSchema
+# from schema.DateTimeSchema import DateTimeSchema
 from schema.DateSchema import DateSchema
 from schema.FloatSchema import FloatSchema
 from schema.IntegerSchema import IntegerSchema
@@ -39,14 +39,6 @@ class RuleSchema:
 		:return:
 		"""
 		pass
-
-	def __require(self, value: Any) -> bool:
-		"""
-
-		:param value:
-		:return:
-		"""
-		return True if value else False
 
 	# the default args are month and day
 	# def getDate(self, require: bool= None, year4: bool= None, year2: bool= None, month: bool= None, day: bool= None) -> dict:

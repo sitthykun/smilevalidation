@@ -1,33 +1,34 @@
-# SmileValidation v1.2.0
+# SmileValidation v1.1.0
 ![smilevalidator](https://user-images.githubusercontent.com/227092/83977155-7da56a00-a928-11ea-9f9b-66df0791a9c6.png)
 
-Python3 validation with a different approach.
+Python3 Validation in another way
 
-Validating those form elements is enough to make me feel hurt. Time to bring a new technique type.
+I hurt enough for validating those form's elements. Time to bring a new technique type.
+It's going to solve like this way:
 
-What's new v2.0.0:
-- Adding RuleSchema into Validation class
-- Improving rule of validation method
-- Fix bugs
-## Validation class
-After adding elements to the collection, the core class includes a validation element that validates each element by calling IsValid().
+What's new v1.1.0:
+- h
+- c
+## Validator class
+That's core class of the tool.
+It contains the validation element after added element into collect and it will valid the element by called isValid()
 
 ```
-from smilevalidation.Validation import Validation
+from smilevalidation.Validator import Validator
 
 
 # validition instance
-v	= Validation()
+v	= Validator()
 
 ## integer validation
 # add element with  
 v.addElement(
     elementName= 'computer-quantity'
     , elementValue= 2
-    , rule= v.rule.getInteger(
+    , rule= TypeSchema().getInteger(
 			require= True
-			, maxValue= 5
-			, minValue= 1
+			, max= 5
+			, min= 1
 			, negative= False
 		)
 )
@@ -70,9 +71,8 @@ Full example:
 from smilevalidation.Validator import Validator
 from smilevalidation.Rule import Rule
 
-
 # validition instance
-v	= Validation()
+v	= Validator()
 
 # match element value
 v.addMatchedElement(
@@ -99,54 +99,47 @@ else:
 ```
 
 ## Rule Reusable
-Extending or overriding the existing RuleSchema port
+If you wanna use a rule to another addition, we can create a rule class as the collection of what we wanna validate to those element objects.
 
 Example:
 ```
-from Validation import Validation, RuleSchema
-
-
-class Rule2(RuleSchema):
+# sample
+class Rule:
 
     def getQuantityOne(self) -> dict:
         """
     
         :return:
         """
-        return self.getInteger(
+        return TypeSchema().getInteger(
                 require= True
-                , maxValue= 5
-                , minValue= 1
+                , max= 5
+                , min= 1
                 , negative= False
         )
- # init
- val = Validation()
- # override the new rule
- val.setRule(rule= Rule2())
 ``` 
-getQualityOne method will present the new rule functino
+getQualityOne will replace previous one.
 
 ```
-# Two elements with Rule2 class
-from smilevalidation.Validation import Validation
-
+# sample with two elements
+from smilevalidation.Validator import Validator
+from smilevalidation.Rule import Rule
 
 # validition instance
-v	= Validation()
-v.setRule(rule= Rule2())
+v	= Validator()
 
 ## integer validation
 # add element with  
 v.addElement(
     elementName= 'computer-quantity'
     , elementValue= 2
-    , rule= self.rule.getQuantityOne()
+    , rule= Rule().getQuantityOne()
 )
 
 v.addElement(
     elementName= 'tv-quantity'
     , elementValue= 4
-    , rule= self.rule.getQuantityOne()
+    , rule= Rule().getQuantityOne()
 )
 
 ## start validating
@@ -161,17 +154,17 @@ else:
 Full example
 ```
 # validition instance
-v	= Validation()
+v	= Validator()
 
 ## integer validation
 # add element with  
 v.addElement(
     elementName= 'computer-quantity'
     , elementValue= 2
-    , rule= self.rule.getInteger(
+    , rule= TypeSchema().getInteger(
 			require= True
-			, maxValue= 5
-			, minValue= 1
+			, max= 5
+			, min= 1
 			, negative= False
 		)
 )
@@ -179,10 +172,10 @@ v.addElement(
 v.addElement(
     elementName= 'tv-quantity'
     , elementValue= 4
-    , rule= self.rule.getInteger(
+    , rule= TypeSchema().getInteger(
 			require= True
-			, maxValue= 5
-			, minValue= 1
+			, max= 5
+			, min= 1
 			, negative= False
 		)
 )

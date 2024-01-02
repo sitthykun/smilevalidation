@@ -1,6 +1,6 @@
 """
 Author: masakokh
-Version: 1.1.0
+Version: 1.2.0
 """
 # built-in
 from typing import Any
@@ -16,6 +16,7 @@ from rule.MatchRule import MatchRule
 from rule.NotMatchRule import NotMatchRule
 from rule.StringRule import StringRule
 from rule.TimeRule import TimeRule
+from RuleSchema import RuleSchema
 from schema.BaseSchema import BaseSchema
 from schema.ComparisonSchema import ComparisonSchema
 from schema.DateSchema import DateSchema
@@ -48,6 +49,8 @@ class Validation:
 		# self.__keyErrorType	= 'error_type'
 		# self.__keyName		= 'name'
 		self.__keyErrorDetail	= 'detail'
+		# public
+		self.rule               = RuleSchema()
 
 	# def __addError(self, elementName: str, elementValue: str, errorType: str, errorMessage: str) -> None:
 	# 	"""
@@ -430,3 +433,11 @@ class Validation:
 					)
 		# if it has error, it will return true
 		return self.__foundValid
+
+	def setRule(self, rule: Any) -> None:
+		"""
+
+		:param rule:
+		:return:
+		"""
+		self.rule   = rule
