@@ -1,11 +1,11 @@
-# SmileValidation v1.2.0
+# SmileValidation v1.2.1
 ![smilevalidator](https://user-images.githubusercontent.com/227092/83977155-7da56a00-a928-11ea-9f9b-66df0791a9c6.png)
 
 Python3 validation with a different approach.
 
 Validating those form elements is enough to make me feel hurt. Time to bring a new technique type.
 
-What's new v1.2.0:
+What's new v1.2.x:
 - Adding RuleSchema into Validation class
 - Improving rule of validation method
 - Fix bugs
