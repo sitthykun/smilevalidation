@@ -35,4 +35,5 @@ test/
 test/*
 
 # readme old version
+/README1.md
 README1.md

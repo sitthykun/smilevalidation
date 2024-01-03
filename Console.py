@@ -16,5 +16,5 @@ class Console:
 		:param enable:
 		:return:
 		"""
-		if not enable:
+		if enable:
 			print(message)
