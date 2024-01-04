@@ -6,7 +6,6 @@ Note:
 # built-in
 from typing import Any
 # internal
-from rule import *
 from schema import BaseSchema, ComparisonSchema, DateTimeSchema, FloatSchema, IntegerSchema, StringSchema
 
 
