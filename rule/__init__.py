@@ -2,6 +2,7 @@ __all__ = [
 	'BaseRule'
 	, 'BoolRule'
 	, 'ComparisonRule'
+	, 'DateRule'
 	, 'DateTimeRule'
 	, 'FloatRule'
 	, 'IntegerRule'
@@ -10,4 +11,5 @@ __all__ = [
 	, 'NotMatchRule'
 	, 'NumericRule'
 	, 'StringRule'
+	, 'TimeRule'
 ]

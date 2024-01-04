@@ -6,11 +6,11 @@ Note:
 # built-in
 from typing import Any
 # internal
-from InvalidTypeList import InvalidTypeList
-from rule.BaseRule import BaseRule
-from rule.DateRule import DateRule
-from rule.TimeRule import TimeRule
-from schema.DateTimeSchema import DateTimeSchema
+from smilevalidation.InvalidTypeList import InvalidTypeList
+from smilevalidation.rule.BaseRule import BaseRule
+from smilevalidation.rule.DateRule import DateRule
+from smilevalidation.rule.TimeRule import TimeRule
+from smilevalidation.schema.DateTimeSchema import DateTimeSchema
 
 
 class DateTimeRule(BaseRule):

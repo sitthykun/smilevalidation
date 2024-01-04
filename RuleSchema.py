@@ -6,27 +6,27 @@ Version: 1.0.0
 import re
 from typing import Any
 #
-# from rule.BoolRule import BoolRule
-# from rule.ComparisonRule import ComparisonRule
-# from rule.DateRule import DateRule
-# from rule.DateTimeRule import DateTimeRule
-# from rule.FloatRule import FloatRule
-# from rule.IntegerRule import IntegerRule
-# from rule.ListRule import ListRule
-# from rule.MatchRule import MatchRule
-# from rule.NotMatchRule import NotMatchRule
-# from rule.StringRule import StringRule
-from rule.TimeRule import TimeRule
+# from smilevalidation.rule.BoolRule import BoolRule
+# from smilevalidation.rule.ComparisonRule import ComparisonRule
+# from smilevalidation.rule.DateRule import DateRule
+# from smilevalidation.rule.DateTimeRule import DateTimeRule
+# from smilevalidation.rule.FloatRule import FloatRule
+# from smilevalidation.rule.IntegerRule import IntegerRule
+# from smilevalidation.rule.ListRule import ListRule
+# from smilevalidation.rule.MatchRule import MatchRule
+# from smilevalidation.rule.NotMatchRule import NotMatchRule
+# from smilevalidation.rule.StringRule import StringRule
+from smilevalidation.rule.TimeRule import TimeRule
 
 #
-# from schema.BoolSchema import BoolSchema
-# from schema.ComparisonSchema import ComparisonSchema
-# from schema.DateTimeSchema import DateTimeSchema
-from schema.DateSchema import DateSchema
-from schema.FloatSchema import FloatSchema
-from schema.IntegerSchema import IntegerSchema
-from schema.StringSchema import StringSchema
-from schema.TimeSchema import TimeSchema
+# from smilevalidation.schema.BoolSchema import BoolSchema
+# from smilevalidation.schema.ComparisonSchema import ComparisonSchema
+# from smilevalidation.schema.DateTimeSchema import DateTimeSchema
+from smilevalidation.schema.DateSchema import DateSchema
+from smilevalidation.schema.FloatSchema import FloatSchema
+from smilevalidation.schema.IntegerSchema import IntegerSchema
+from smilevalidation.schema.StringSchema import StringSchema
+from smilevalidation.schema.TimeSchema import TimeSchema
 
 
 class RuleSchema:

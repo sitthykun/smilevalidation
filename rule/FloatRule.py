@@ -6,9 +6,9 @@ Note:
 # built-in
 from typing import Any
 # internal
-from InvalidTypeList import InvalidTypeList
-from rule.NumericRule import NumericRule
-from schema.FloatSchema import FloatSchema
+from smilevalidation.InvalidTypeList import InvalidTypeList
+from smilevalidation.rule.NumericRule import NumericRule
+from smilevalidation.schema.FloatSchema import FloatSchema
 
 
 class FloatRule(NumericRule):

@@ -7,9 +7,9 @@ Note:
 from typing import Any
 import re
 # internal
-from InvalidTypeList import InvalidTypeList as ErrorList
+from smilevalidation.InvalidTypeList import InvalidTypeList as ErrorList
 # schema
-from schema.BaseSchema import BaseSchema
+from smilevalidation.schema.BaseSchema import BaseSchema
 
 
 class ComparisonSchema(BaseSchema):

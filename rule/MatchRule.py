@@ -6,9 +6,9 @@ Note:
 # built-in
 from typing import Any
 # internal
-from InvalidTypeList import InvalidTypeList
-from rule.ComparisonRule import ComparisonRule
-from schema.ComparisonSchema import ComparisonSchema
+from smilevalidation.InvalidTypeList import InvalidTypeList
+from smilevalidation.rule.ComparisonRule import ComparisonRule
+from smilevalidation.schema.ComparisonSchema import ComparisonSchema
 
 
 class MatchRule(ComparisonRule):

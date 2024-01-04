@@ -6,11 +6,11 @@ Note:
 # built-in
 from typing import Any
 
-from Console import Console
-from InvalidTypeList import InvalidTypeList
+from smilevalidation.Console import Console
+from smilevalidation.InvalidTypeList import InvalidTypeList
 # internal
-from rule.BaseRule import BaseRule
-from schema.NumericSchema import NumericSchema
+from smilevalidation.rule.BaseRule import BaseRule
+from smilevalidation.schema.NumericSchema import NumericSchema
 
 
 class NumericRule(BaseRule):

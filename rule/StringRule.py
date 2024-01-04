@@ -7,10 +7,10 @@ Note:
 from typing import Any
 import re
 # internal
-from Console import Console
-from InvalidTypeList import InvalidTypeList
-from rule.BaseRule import BaseRule
-from schema.StringSchema import StringSchema
+from smilevalidation.Console import Console
+from smilevalidation.InvalidTypeList import InvalidTypeList
+from smilevalidation.rule.BaseRule import BaseRule
+from smilevalidation.schema.StringSchema import StringSchema
 
 
 class StringRule(BaseRule):

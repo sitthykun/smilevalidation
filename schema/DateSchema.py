@@ -6,8 +6,8 @@ Note:
 # built-in
 from typing import Any
 # internal
-from InvalidTypeList import InvalidTypeList as ErrorList
-from schema.BaseSchema import BaseSchema
+from smilevalidation.InvalidTypeList import InvalidTypeList as ErrorList
+from smilevalidation.schema.BaseSchema import BaseSchema
 
 
 class DateSchema(BaseSchema):

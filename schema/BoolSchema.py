@@ -6,9 +6,9 @@ Note:
 # built-in
 from typing import Any
 # internal
-from InvalidTypeList import InvalidTypeList as ErrorList
+from smilevalidation.InvalidTypeList import InvalidTypeList as ErrorList
 # schema super
-from schema.BaseSchema import BaseSchema
+from smilevalidation.schema.BaseSchema import BaseSchema
 
 
 class BoolSchema(BaseSchema):

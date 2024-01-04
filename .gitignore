@@ -3,10 +3,6 @@ __pycache__
 __pycache__/
 __pycache__/*
 
-# IPython
-profile_default/
-ipython_config.py
-
 # pyenv
 .python-version
 
@@ -37,3 +33,6 @@ test/*
 # readme old version
 /README1.md
 README1.md
+
+# platform
+.DS_Store

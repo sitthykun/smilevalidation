@@ -6,8 +6,8 @@ Note:
 # built-in
 from typing import Any
 # internal
-from InvalidTypeList import InvalidTypeList as ErrorList
-from schema.NumericSchema import NumericSchema
+from smilevalidation.InvalidTypeList import InvalidTypeList as ErrorList
+from smilevalidation.schema.NumericSchema import NumericSchema
 
 
 class IntegerSchema(NumericSchema):

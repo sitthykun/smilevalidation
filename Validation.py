@@ -5,27 +5,26 @@ Version: 1.2.0
 # built-in
 from typing import Any
 # internal
-from Console import Console
-from rule.BoolRule import BoolRule
-from rule.ComparisonRule import ComparisonRule
-from rule.DateRule import DateRule
-from rule.DateTimeRule import DateTimeRule
-from rule.FloatRule import FloatRule
-from rule.IntegerRule import IntegerRule
-from rule.MatchRule import MatchRule
-from rule.NotMatchRule import NotMatchRule
-from rule.StringRule import StringRule
-from rule.TimeRule import TimeRule
-from RuleSchema import RuleSchema
-from schema.BaseSchema import BaseSchema
-from schema.ComparisonSchema import ComparisonSchema
-from schema.DateSchema import DateSchema
-from schema.DateTimeSchema import DateTimeSchema
-from schema.FloatSchema import FloatSchema
-from schema.IntegerSchema import IntegerSchema
-from schema.StringSchema import StringSchema
-from schema.TimeSchema import TimeSchema
-
+from smilevalidation.rule.BoolRule import BoolRule
+from smilevalidation.rule.ComparisonRule import ComparisonRule
+from smilevalidation.rule.DateRule import DateRule
+from smilevalidation.rule.DateTimeRule import DateTimeRule
+from smilevalidation.rule.FloatRule import FloatRule
+from smilevalidation.rule.IntegerRule import IntegerRule
+from smilevalidation.rule.MatchRule import MatchRule
+from smilevalidation.rule.NotMatchRule import NotMatchRule
+from smilevalidation.rule.StringRule import StringRule
+from smilevalidation.rule.TimeRule import TimeRule
+from smilevalidation.RuleSchema import RuleSchema
+from smilevalidation.schema.BaseSchema import BaseSchema
+from smilevalidation.schema.ComparisonSchema import ComparisonSchema
+from smilevalidation.schema.DateSchema import DateSchema
+from smilevalidation.schema.DateTimeSchema import DateTimeSchema
+from smilevalidation.schema.FloatSchema import FloatSchema
+from smilevalidation.schema.IntegerSchema import IntegerSchema
+from smilevalidation.schema.StringSchema import StringSchema
+from smilevalidation.schema.TimeSchema import TimeSchema
+from smilevalidation.Console import Console
 
 class Validation:
 	"""

@@ -1,4 +1,4 @@
-# SmileValidation v1.2.1
+# SmileValidation v1.2.10
 ![smilevalidator](https://user-images.githubusercontent.com/227092/83977155-7da56a00-a928-11ea-9f9b-66df0791a9c6.png)
 
 Python3 validation with a different approach.
@@ -65,8 +65,7 @@ Full example:
 
 ```
 # sample with two elements
-from smilevalidation.Validator import Validator
-from smilevalidation.Rule import Rule
+from smilevalidation.Validation import Validation
 
 
 # validition instance
@@ -105,7 +104,8 @@ from Validation import Validation, RuleSchema
 
 
 class Rule2(RuleSchema):
-
+	"""
+	"""
     def getQuantityOne(self) -> dict:
         """
     

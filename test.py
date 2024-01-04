@@ -1,6 +1,6 @@
 from Validation import Validation, RuleSchema
-from RuleSchema import RuleSchema
-from Console import Console
+from smilevalidation.RuleSchema import RuleSchema
+from smilevalidation.Console import Console
 
 
 val	= Validation()

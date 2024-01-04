@@ -6,9 +6,9 @@ Note:
 # built-in
 from typing import Any
 # internal
-from Console import Console
-from InvalidTypeList import InvalidTypeList
-from schema.BaseSchema import BaseSchema
+from smilevalidation.Console import Console
+from smilevalidation.InvalidTypeList import InvalidTypeList
+from smilevalidation.schema.BaseSchema import BaseSchema
 
 
 class BaseRule(BaseSchema):

@@ -6,7 +6,7 @@ Note:
 # built-in
 from typing import Any
 # internal
-from schema.ComparisonSchema import ComparisonSchema
+from smilevalidation.schema.ComparisonSchema import ComparisonSchema
 
 
 class ComparisonRule:

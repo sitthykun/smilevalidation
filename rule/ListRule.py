@@ -6,7 +6,7 @@ Note:
 # built-in
 from typing import Any
 # internal
-from rule.BaseRule import BaseRule
+from smilevalidation.rule.BaseRule import BaseRule
 
 
 class ListRule(BaseRule):
