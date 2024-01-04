@@ -5,7 +5,7 @@ Python3 validation with a different approach.
 
 Validating those form elements is enough to make me feel hurt. Time to bring a new technique type.
 
-What's new v1.2.10:
+What's new v1.2.x:
 - Adding RuleSchema into Validation class
 - Improving rule of validation method
 - Fix bugs
